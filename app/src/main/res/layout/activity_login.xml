@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.steven.patataschat.LoginActivity"
+    style="@style/vertical_layout_style">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/go_to_register_button"
+        android:text="register"
+        android:onClick="show_registration"/>
+
+            <ImageView
+                android:id="@+id/group_logo"
+                style="@style/logo_style" />
+
+            <TextView
+                android:id="@+id/email_text"
+                style="@style/label_style"
+                android:text="@string/email_Text" />
+
+            <EditText
+                android:id="@+id/email_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mail_Hint"
+                android:inputType="textEmailAddress" />
+
+            <TextView
+                android:id="@+id/password_text"
+                style="@style/label_style"
+                android:text="@string/password_Text" />
+
+            <EditText
+                android:id="@+id/password_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/signin_button"
+                style="@style/button_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signin_Text" />
+
+
+</LinearLayout>

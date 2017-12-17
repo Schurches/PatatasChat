@@ -1,0 +1,24 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="padding_lateral_TextField">20dp</dimen>
+    <dimen name="padding_vertical_TextField">15dp</dimen>
+    <dimen name="padding_vertical_Logo">30dp</dimen>
+    <dimen name="padding_Boton">20dp</dimen>
+    <dimen name="group_logo">150dp</dimen>
+    <dimen name="profile_picture">50dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+
+    <dimen name="chatList_layout_margins">5dp</dimen>
+    <dimen name="chatList_icon_margin_R">10dp</dimen>
+    <dimen name="chatList_icon_margin_L">2dp</dimen>
+    <dimen name="chatList_icon_margin_V">2dp</dimen>
+    <dimen name="chatList_name_margin_H">5dp</dimen>
+    <dimen name="chatList_message_count_margin">2dp</dimen>
+    <dimen name="chatList_title_size">15dp</dimen>
+    <dimen name="chatList_count_size">15dp</dimen>
+
+</resources>

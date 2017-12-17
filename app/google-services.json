@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "116131355101",
+    "firebase_url": "https://patataschat.firebaseio.com",
+    "project_id": "patataschat",
+    "storage_bucket": "patataschat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116131355101:android:b5d076b87a2b9af5",
+        "android_client_info": {
+          "package_name": "com.example.steven.patataschat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116131355101-oduql0p2229r5eqfhua00ig7qu0m6llp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.steven.patataschat",
+            "certificate_hash": "6df533a8a207d228617288257adce87a0c740825"
+          }
+        },
+        {
+          "client_id": "116131355101-ne79iq0cdqfm50hh0p5i47r55qauiv77.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIeJQTNq9DJRoywFmAJL0LFc5PN-Hr5c0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116131355101-ne79iq0cdqfm50hh0p5i47r55qauiv77.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

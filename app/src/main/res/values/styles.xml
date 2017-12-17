@@ -1,0 +1,83 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="vertical_layout_style">
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/padding_lateral_TextField</item>
+        <item name="android:paddingRight">@dimen/padding_lateral_TextField</item>
+    </style>
+
+    <style name="margin_button">
+        <item name="android:layout_margin">@dimen/padding_Boton</item>
+    </style>
+
+    <style name="padding_button" parent="margin_button">
+        <item name="android:padding">@dimen/padding_Boton</item>
+    </style>
+
+    <style name="elements_padding">
+        <item name="android:layout_marginRight">@dimen/padding_lateral_TextField</item>
+        <item name="android:layout_marginLeft">@dimen/padding_lateral_TextField</item>
+        <item name="android:layout_marginTop">@dimen/padding_vertical_TextField</item>
+        <item name="android:layout_marginBottom">@dimen/padding_vertical_TextField</item>
+    </style>
+
+    <style name="logo_style">
+        <item name="android:layout_width">@dimen/group_logo</item>
+        <item name="android:layout_height">@dimen/group_logo</item>
+        <item name="android:layout_marginTop">@dimen/padding_vertical_Logo</item>
+        <item name="android:layout_marginBottom">@dimen/padding_vertical_Logo</item>
+    </style>
+
+    <style name="PP_style">
+        <item name="android:layout_width">@dimen/profile_picture</item>
+        <item name="android:layout_height">@dimen/profile_picture</item>
+        <item name="android:layout_marginRight">@dimen/padding_lateral_TextField</item>
+        <item name="android:layout_marginLeft">@dimen/padding_lateral_TextField</item>
+    </style>
+
+    <style name="button_style" parent="padding_button">
+        <item name="android:colorBackground">@color/colorAccent</item>
+    </style>
+
+    <style name="textfield_style">
+        <item name="android:layout_marginRight">@dimen/padding_lateral_TextField</item>
+        <item name="android:layout_marginLeft">@dimen/padding_lateral_TextField</item>
+    </style>
+
+    <style name="layout_gravity_for_labels_1">
+        <item name="android:layout_gravity">start</item>
+    </style>
+
+
+    <style name="label_style_2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/padding_Boton</item>
+    </style>
+
+    <style name="label_style" parent="layout_gravity_for_labels_1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/padding_Boton</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+</resources>

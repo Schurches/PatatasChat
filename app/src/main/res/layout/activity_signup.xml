@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/vertical_layout_style"
+    tools:context="com.example.steven.patataschat.SignupActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_Boton"
+        >
+
+        <ImageView
+            android:id="@+id/profile_pic"
+            style="@style/PP_style" />
+
+        <TextView
+            style="@style/label_style_2"
+            android:text="Upload image"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/user_text"
+        style="@style/label_style"
+        android:text="@string/username_Text" />
+
+    <EditText
+        android:id="@+id/user_textField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ing_Capacho" />
+
+    <TextView
+        android:id="@+id/mail_text"
+        style="@style/label_style"
+        android:text="@string/email_Text" />
+
+    <EditText
+        android:id="@+id/mail_textField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/password_text"
+        style="@style/label_style"
+        android:text="@string/password_Text" />
+
+    <EditText
+        android:id="@+id/password_textField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/signup_button"
+        style="@style/button_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signup_Text" />
+
+
+
+</LinearLayout>
