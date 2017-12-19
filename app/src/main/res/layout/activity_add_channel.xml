@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="@dimen/addChannel_layout_padding"
+    tools:context="com.example.steven.patataschat.AddChannelActivity">
+
+    <TextView
+        android:text="@string/chatChannel_label_name"
+        android:textSize="@dimen/addChannel_label_size"
+        android:layout_margin="@dimen/addChannel_margin_labels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <EditText
+        android:id="@+id/channel_title"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/addChannel_margin_others"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:hint = "@string/chatChannel_name"
+        style = "@style/textfield_style"/>
+
+    <TextView
+        android:text="@string/chatChannel_label_icon"
+        android:textSize="@dimen/addChannel_label_size"
+        android:layout_margin="@dimen/addChannel_margin_labels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/icon_selector_list"
+        android:layout_margin="@dimen/addChannel_margin_others"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Spinner>
+
+    <Button
+        android:id="@+id/create_channel_button"
+        android:layout_marginVertical="@dimen/addChannel_margin_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chatChannel_button_create"
+        style = "@style/button_style"
+        android:onClick="sendNewChannelDetails"/>
+
+</LinearLayout>

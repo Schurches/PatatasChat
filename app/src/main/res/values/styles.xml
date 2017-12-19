@@ -70,6 +70,11 @@
         <item name="android:layout_marginTop">@dimen/padding_Boton</item>
     </style>
 
+    <style name="label_style3">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/chatList_title_size</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

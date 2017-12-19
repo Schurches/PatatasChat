@@ -18,7 +18,15 @@
     <dimen name="chatList_icon_margin_V">2dp</dimen>
     <dimen name="chatList_name_margin_H">5dp</dimen>
     <dimen name="chatList_message_count_margin">2dp</dimen>
-    <dimen name="chatList_title_size">15dp</dimen>
+    <dimen name="chatList_title_size">10dp</dimen>
     <dimen name="chatList_count_size">15dp</dimen>
 
+    <dimen name="addChannel_layout_padding">50dp</dimen>
+    <dimen name="addChannel_label_size">15dp</dimen>
+    <dimen name="addChannel_margin_labels">5dp</dimen>
+    <dimen name="addChannel_margin_others">10dp</dimen>
+    <dimen name="addChannel_margin_button">20dp</dimen>
+
+
+    <integer name="ADD_NEW_CHANNEL_ID">1001</integer>
 </resources>

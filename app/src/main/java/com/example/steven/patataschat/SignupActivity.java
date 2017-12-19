@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.steven.patataschat.Entities.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -68,12 +69,16 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }else{
                     FirebaseUser current_user = authentication_service.getCurrentUser();
-                    DatabaseReference rj_user = database_service.child(user);
-                    rj_user.child("userID").setValue(current_user.getUid());
-                    rj_user.child("email").setValue(email);
-                    rj_user.child("password").setValue(password);
-                    rj_user.child("Rank").setValue("User");
+                    DatabaseReference rj_user = database_service.child(current_user.getUid());
+                    Users newUser = new Users(current_user.getUid(),user, password,email,"user","nothing for now");
+                    rj_user.setValue(newUser);
+                    /*
+                    rj_user.child("email").setValue(current_user.getUid());
+                    rj_user.child("password").setValue(email);
+                    rj_user.child("userID").setValue(password);
+                    rj_user.child("rank").setValue("User");
                     rj_user.child("profile_picture").setValue("Nothing for now...");
+                    */
                     Toast.makeText(SignupActivity.this,R.string.signup_success,
                             Toast.LENGTH_SHORT).show();
                     proceed_to_chat_interface();

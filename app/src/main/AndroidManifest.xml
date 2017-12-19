@@ -25,8 +25,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignupActivity" />
-        <activity android:name=".ChatInterfaceActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".ChatInterfaceActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".AddChannelActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert"></activity>
     </application>
 
 </manifest>

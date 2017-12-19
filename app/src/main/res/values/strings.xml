@@ -16,8 +16,15 @@
     <string name="tab_1">Chat Channels</string>
     <string name="tab_2">Profile</string>
     <string name="tab_3">Customize</string>
-    <string name="title_activity_tabbed">TabbedActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="first_channel">There\'s no chat channels, add one!</string>
+    <string name="add_chat">Add a new channel</string>
+
+    <string name="chatChannel_label_name">Channel name</string>
+    <string name="chatChannel_name">Name goes here</string>
+    <string name="chatChannel_label_icon">Select an icon</string>
+    <string name="chatChannel_button_create">Create!</string>
+    <string name="chatChannel_new_added">Successfully created a new channel!</string>
 
 </resources>
