@@ -6,13 +6,16 @@
     <string name="email_Text">Email</string>
     <string name="password_Text">Password</string>
     <string name="signin_Text">Log In</string>
+    <string name="success_login">Successfully logged in!</string>
+    <string name="fail_login">Something failed while logging in!</string>
     <!--Register-->
     <string name="username_Text">Username</string>
     <string name="repeat_password_Text">Repeat password</string>
     <string name="signup_Text">Sign Up</string>
     <string name="signup_error">Error while sign up</string>
     <string name="signup_success">Successfully created an account</string>
-
+    <string name="success_picture">Profile picture successfully uploaded!</string>
+    <!--Chat Channels-->
     <string name="tab_1">Chat Channels</string>
     <string name="tab_2">Profile</string>
     <string name="tab_3">Customize</string>
@@ -20,7 +23,8 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="first_channel">There\'s no chat channels, add one!</string>
     <string name="add_chat">Add a new channel</string>
-
+    <string name="no_chats">No channels available</string>
+    <!--Add a channel-->
     <string name="chatChannel_label_name">Channel name</string>
     <string name="chatChannel_name">Name goes here</string>
     <string name="chatChannel_label_icon">Select an icon</string>

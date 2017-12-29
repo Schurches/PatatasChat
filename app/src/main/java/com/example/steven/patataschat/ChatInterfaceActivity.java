@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,21 +15,99 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
+import com.example.steven.patataschat.Entities.Chats;
+import com.example.steven.patataschat.Entities.Users;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChatInterfaceActivity extends AppCompatActivity {
 
+    private final ArrayList<Users> all_users = new ArrayList<>();
     private ViewPager fragments_visualizer;
     private SectionPagerAdapter fragments_adapter;
     private BottomNavigationView nav_view;
-    //private Toolbar options_menu;
+    private DatabaseReference usersReference;
+    private DatabaseReference channelsReference;
+    private boolean isUserAdminOrRoot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_interface);
+        usersReference = FirebaseDatabase.getInstance().getReference("users");
+        channelsReference= FirebaseDatabase.getInstance().getReference("chats");
+        isUserAdminOrRoot = false;
+        iniUsersListener();
+    }
 
-        fragments_adapter = new SectionPagerAdapter(getSupportFragmentManager());
-        iniViewPager();
-        iniNavigationView();
+    private void iniUsersListener(){
+        usersReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //When all users has finally been loaded
+                iniViewPager();
+                iniNavigationView();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        usersReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Users userAdded = dataSnapshot.getValue(Users.class);
+                if(userAdded.getUser_id().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                    if(userAdded.getRank() >= 4){
+                        isUserAdminOrRoot = true;
+                    }else{
+                        isUserAdminOrRoot = false;
+                    }
+                }
+                all_users.add(userAdded);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                int size = all_users.size();
+                for(int i=0; i<size ; i++){
+                    if(all_users.get(i).getUser_id().equals(dataSnapshot.getKey())){
+                        Users changedUser = dataSnapshot.getValue(Users.class);
+                        all_users.set(i,changedUser);
+                        if(changedUser.getRank() >= 4){
+                            isUserAdminOrRoot = true;
+                        }else{
+                            isUserAdminOrRoot = false;
+                        }
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void iniViewPager(){
@@ -46,7 +125,7 @@ public class ChatInterfaceActivity extends AppCompatActivity {
                     case 0: //Chat channel
                         nav_view.setSelectedItemId(R.id.chats);
                         break;
-                    case 1:
+                    case 1: //Profile
                         nav_view.setSelectedItemId(R.id.profile);
                         break;
                 }
@@ -83,10 +162,14 @@ public class ChatInterfaceActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager visor_fragments){
-        SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ChatChannelsFragment(), "ChatChannel");
-        adapter.addFragment(new ProfileFragment(), "Profile");
-        visor_fragments.setAdapter(adapter);
+        fragments_adapter = new SectionPagerAdapter(getSupportFragmentManager());
+        Bundle info = new Bundle();
+        info.putBoolean("isAdmin",isUserAdminOrRoot);
+        ChatChannelsFragment chats = new ChatChannelsFragment();
+        chats.setArguments(info);
+        fragments_adapter.addFragment(chats, "ChatChannel");
+        fragments_adapter.addFragment(new ProfileFragment(), "Profile");
+        visor_fragments.setAdapter(fragments_adapter);
     }
 
 

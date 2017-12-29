@@ -3,4 +3,10 @@
     <color name="colorPrimary">#162e62</color>
     <color name="colorPrimaryDark">#224796</color>
     <color name="colorAccent">#525659</color>
+    <color name="colorMessageSentOTHER">#a4aaa4</color>
+    <color name="colorMessageSentME">#6facf2</color>
+    <color name="color_rank_USER">#434547</color>
+    <color name="color_rank_MOD">#2e992a</color>
+    <color name="color_rank_ADMIN">#f41818</color>
+    <color name="color_rank_ROOT">#092cba</color>
 </resources>

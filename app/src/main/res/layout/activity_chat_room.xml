@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.steven.patataschat.ChatRoomActivity">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <ImageButton
+            android:id="@+id/more_opt_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:background="@drawable/ic_add_circle_black_24dp"/>
+
+        <EditText
+            android:id="@+id/message_textfield"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxHeight="250dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:hint="Write something" />
+
+        <ImageButton
+            android:id="@+id/send_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/ic_send_black_24dp"
+            android:onClick="send_message"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -28,8 +28,10 @@
         <activity
             android:name=".ChatInterfaceActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".AddChannelActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert"></activity>
+        <activity
+            android:name=".AddChannelActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" />
+        <activity android:name=".ChatRoomActivity"></activity>
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@
     <dimen name="appbar_padding_top">8dp</dimen>
 
 
+    <dimen name="chatList_SCROLL_vertical_margin">10dp</dimen>
     <dimen name="chatList_layout_margins">5dp</dimen>
     <dimen name="chatList_icon_margin_R">10dp</dimen>
     <dimen name="chatList_icon_margin_L">2dp</dimen>
@@ -26,6 +27,10 @@
     <dimen name="addChannel_margin_labels">5dp</dimen>
     <dimen name="addChannel_margin_others">10dp</dimen>
     <dimen name="addChannel_margin_button">20dp</dimen>
+
+    <dimen name="chatRoom_message_left_Margin">5dp</dimen>
+
+    <dimen name="chat_bubble_radius">10dp</dimen>
 
 
     <integer name="ADD_NEW_CHANNEL_ID">1001</integer>

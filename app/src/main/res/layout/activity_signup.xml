@@ -19,7 +19,9 @@
 
         <ImageView
             android:id="@+id/profile_pic"
-            style="@style/PP_style" />
+            style="@style/PP_style"
+            android:src="@drawable/ic_add_circle_black_24dp"
+            android:onClick="select_image"/>
 
         <TextView
             style="@style/label_style_2"

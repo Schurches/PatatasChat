@@ -13,45 +13,24 @@ public class Users {
     private String username;
     private String password;
     private String email;
-    private String rank;
-    private String PP;
+    private int rank;
+    private boolean PP;
+    private String nickname;
     //Map<String,Object> values;
 
     public Users(){
 
     }
 
-    public Users(String userID, String username, String password,String email, String rank, String PP){
-        /*
-        this.values = new HashMap<>();
-        this.values.put("username",username);
-        this.values.put("email",email);
-        this.values.put("password",password);
-        this.values.put("userID",userID);
-        this.values.put("rank",rank);
-        this.values.put("PP",PP);
-        */
+    public Users(String userID, String username, String password,String email, int rank, boolean PP){
         this.user_id = userID;
         this.username = username;
         this.password = password;
         this.email = email;
         this.rank = rank;
         this.PP = PP;
+        this.nickname = username;
     }
-
-    /*
-    public Users(Map<String,Object> hash){
-        this.values = hash;
-    }
-
-    public Map<String, Object> getUserInformation() {
-        return values;
-    }
-
-    public Object getValueFromKey(String key){
-        return this.values.get(key);
-    }
-    */
 
     public String getEmail() {
         return email;
@@ -61,11 +40,11 @@ public class Users {
         return password;
     }
 
-    public String getPP() {
+    public boolean getPP() {
         return PP;
     }
 
-    public String getRank() {
+    public int getRank() {
         return rank;
     }
 
@@ -85,7 +64,7 @@ public class Users {
         this.password = password;
     }
 
-    public void setRank(String rank) {
+    public void setRank(int rank) {
         this.rank = rank;
     }
 
@@ -93,8 +72,16 @@ public class Users {
         this.email = email;
     }
 
-    public void setPP(String PP) {
+    public void setPP(boolean PP) {
         this.PP = PP;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public void setUser_id(String user_id) {
