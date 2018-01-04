@@ -1,21 +1,14 @@
 package com.example.steven.patataschat;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
-import android.view.Gravity;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.steven.patataschat.Entities.Chats;
 import com.google.firebase.database.ChildEventListener;
@@ -32,31 +25,125 @@ import java.util.List;
  * Created by steven on 16/12/2017.
  */
 
-public class ChatChannelsFragment extends Fragment {
+public class ChatChannelsFragment extends Fragment{
 
+    //private final List<Integer> chatChannelsID = new ArrayList<>();
+    //private final int ADD_CHANNEL_ID = 1001;
+    //private LinearLayout chatList;
+    //private final int ADD_CHANNEL_CODE = 1;
+    //private final int ADD_CHANNEL_ICON = 2;
+    //private final int OPEN_CHAT_CODE = 3;
     public static final String TITLE = "ChatChannel";
-    private final List<Integer> chatChannelsID = new ArrayList<>();
-    private final List<Chats> chatChannels = new ArrayList<>();
-    private final int ADD_CHANNEL_ID = 1001;
-    private LinearLayout chatList;
+    private final ArrayList<Chats> chatChannels = new ArrayList<>();
+    private final int ADD_CHANNEL_CODE = 1001;
+    private final int NO_CHANNEL_CODE = 2000;
     private DatabaseReference database;
-    private final int ADD_CHANNEL_CODE = 1;
-    private final int ADD_CHANNEL_ICON = 2;
     private boolean isADMINOrROOT;
+    private boolean initialLoadFinished;
+    private RecyclerView channelRecyclerView;
+    private ChannelsAdapter channelList;
+    private String lastMessageKEY = null;
+    private boolean wasLastMessageFOUND;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View currentView = inflater.inflate(R.layout.chat_channels_fragment,container,false);
+        View rootView = inflater.inflate(R.layout.chat_channels_fragment,container,false);
         this.isADMINOrROOT = getArguments().getBoolean("isAdmin");
-        return currentView;
+        this.channelRecyclerView = rootView.findViewById(R.id.chatsHolder);
+        this.channelRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        channelList = new ChannelsAdapter(chatChannels,rootView.getContext());
+        channelRecyclerView.setAdapter(channelList);
+        initialLoadFinished = false;
+        return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        chatList = getActivity().findViewById(R.id.chats_container);
+        //chatList = getActivity().findViewById(R.id.chats_container);
         database = FirebaseDatabase.getInstance().getReference("chats");
-        chatList.removeAllViews();
+        database.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if(initialLoadFinished){
+                    int length = chatChannels.size();
+                    if(length==1){
+                        int icon = chatChannels.get(0).getChat_icon();
+                        if(icon==NO_CHANNEL_CODE || icon == ADD_CHANNEL_CODE){
+                            chatChannels.remove(0);
+                        }
+                    }else{
+                        if(chatChannels.get(length-1).getChat_icon() == ADD_CHANNEL_CODE){
+                            chatChannels.remove(length-1);
+                        }
+                    }
+                }
+                Chats chat = dataSnapshot.getValue(Chats.class);
+                chatChannels.add(chat);
+                channelList.notifyDataSetChanged();
+                if(initialLoadFinished){
+                    addExtraChannelInformation(isADMINOrROOT);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                int size = chatChannels.size();
+                boolean found = false;
+                int i = 0;
+                while(i<size && !found){
+                    if(chatChannels.get(i).getChat_name().equals(dataSnapshot.getKey())){
+                        Chats modifiedChat = dataSnapshot.getValue(Chats.class);
+                        chatChannels.set(i,modifiedChat);
+                        found = true;
+                    }else{
+                        i++;
+                    }
+                }
+                channelList.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int size = chatChannels.size();
+                boolean found = false;
+                int i = 0;
+                while(i<size && !found){
+                    if(chatChannels.get(i).getChat_name().equals(dataSnapshot.getKey())){
+                        chatChannels.remove(i);
+                        found = true;
+                    }else{
+                        i++;
+                    }
+                }
+                channelList.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                initialLoadFinished = true;
+                addExtraChannelInformation(isADMINOrROOT);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //chatList.removeAllViews();
+        /*
         loadChatChannels(chatList);
         database.addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,43 +157,53 @@ public class ChatChannelsFragment extends Fragment {
                 int i = 3;
             }
         });
-        database.addChildEventListener(new ChildEventListener() {
-            @Override
-             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                 Chats chat = dataSnapshot.getValue(Chats.class);
-                 chatChannels.add(chat);
-                 chatChannelsID.add(View.generateViewId());
-            }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                int size = chatChannels.size();
-                for (int i=0; i<size;i++){
-                    if(chatChannels.get(i).getChat_name().equals(dataSnapshot.getKey())){
-                        chatChannels.remove(i);
-                        chatChannelsID.remove(i);
-                    }
-                }
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        */
         super.onActivityCreated(savedInstanceState);
     }
 
+
+    public void OnRankChanged(boolean isAdmin) {
+        /*
+        *------ NOTE -----
+        * If length equals 1, one of the following cases apply:
+        * 1) the "chat channel" is the "add a channel" message
+        * 2) the "chat channel" is the "no channels available" message
+        * 3) the "chat channel" is actually a chat channel BUT the user is not admin
+        *------/NOTE -----
+        * */
+        int length = chatChannels.size();
+        if(isADMINOrROOT && !isAdmin){  //if WAS admin and NOW ISN'T
+            if(length == 1){ //if there's only 1 channel
+                //The "add new channel" message is replaced with "no channels available"
+                chatChannels.set(1,new Chats("noChat",NO_CHANNEL_CODE));
+            }else{ //if there are more
+                //The "add new channel" message is removed
+                chatChannels.remove(length-1);
+            }
+        }else if(!isADMINOrROOT && isAdmin){ //if WASN'T admin but NOW IS
+            if(length == 1){ //if there's only one channel
+                //the "no chats available" message is replaced with "add a channel"
+                chatChannels.set(1,new Chats("addChat",ADD_CHANNEL_CODE));
+            }else{ //if there's more than
+                addExtraChannelInformation(isAdmin);
+            }
+        }
+        channelList.notifyDataSetChanged();
+        isADMINOrROOT = isAdmin;
+    }
+
+    public void addExtraChannelInformation(boolean isCurrentlyAdmin){
+        if(isCurrentlyAdmin){
+            chatChannels.add(new Chats("addChat",ADD_CHANNEL_CODE));
+        }else{
+            if(chatChannels.size()==0){
+                chatChannels.add(new Chats("noChat",NO_CHANNEL_CODE));
+            }
+        }
+    }
+
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode==ADD_CHANNEL_CODE){
@@ -119,9 +216,49 @@ public class ChatChannelsFragment extends Fragment {
                 newChannel.child(channel_title).setValue(chat);
                 Toast.makeText(getContext(),R.string.chatChannel_new_added,Toast.LENGTH_SHORT).show();
             }
-        }
-    }
+        }else if(requestCode==OPEN_CHAT_CODE){
+            Bundle datos = data.getExtras();
+            lastMessageKEY= datos.getString("LAST_MESSAGE_KEY");
+            String chatLeftNAME = datos.getString("CHAT_LEFT");
+            wasLastMessageFOUND = false;
+            DatabaseReference incomingMessages = FirebaseDatabase.getInstance().getReference(chatLeftNAME);
+            incomingMessages.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    if(dataSnapshot.getKey().equals(lastMessageKEY)){
+                        wasLastMessageFOUND = true;
+                    }
+                    if(wasLastMessageFOUND){
 
+                    }
+
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+    }
+    */
+/*
     public LinearLayout createChannelLayout(){
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         LinearLayout layout = new LinearLayout(getContext());
@@ -131,6 +268,8 @@ public class ChatChannelsFragment extends Fragment {
         layout.setOrientation(LinearLayout.HORIZONTAL);
         return layout;
     }
+*/
+    /*
 
     public void loadChatChannels(LinearLayout chatsLayout){
         int chatAmmount = chatChannels.size();
@@ -160,6 +299,10 @@ public class ChatChannelsFragment extends Fragment {
         }
 
     }
+    */
+
+
+    /*
 
     public LinearLayout addNewChannelView(String addMessage, int icon, boolean isAdmin, int channelID){
         LinearLayout layout = createChannelLayout();
@@ -184,7 +327,7 @@ public class ChatChannelsFragment extends Fragment {
                     Chats room = chatChannels.get(selectedChatRoomID);
                     openChatRoom_Intent.putExtra("chat_name",room.getChat_name());
                     openChatRoom_Intent.putExtra("chat_icon",room.getChat_icon());
-                    startActivity(openChatRoom_Intent);
+                    startActivityForResult(openChatRoom_Intent,OPEN_CHAT_CODE);
                 }
             });
 
@@ -196,7 +339,9 @@ public class ChatChannelsFragment extends Fragment {
         }
         return layout;
     }
+    */
 
+    /*
     public int findChatByID(int chatID){
         int nChats = chatChannelsID.size();
         for (int i = 0; i < nChats;i++){
@@ -206,6 +351,7 @@ public class ChatChannelsFragment extends Fragment {
         }
         return -1;
     }
+    */
 
     public int obtainChatIcon(int iconID){
         switch(iconID){
@@ -218,7 +364,7 @@ public class ChatChannelsFragment extends Fragment {
         }
     }
 
-
+    /*
     public ImageView setChatIconAttributes(int iconID){
         ImageView imagen1 = new ImageView(getContext());
         imagen1.setImageResource(obtainChatIcon(iconID));
@@ -252,6 +398,7 @@ public class ChatChannelsFragment extends Fragment {
         counter.setLayoutParams(params);
         return counter;
     }
+    */
 
 
 

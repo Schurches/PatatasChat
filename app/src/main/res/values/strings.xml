@@ -7,7 +7,7 @@
     <string name="password_Text">Password</string>
     <string name="signin_Text">Log In</string>
     <string name="success_login">Successfully logged in!</string>
-    <string name="fail_login">Something failed while logging in!</string>
+    <string name="fail_login">Username and/or password are/is incorrect!</string>
     <!--Register-->
     <string name="username_Text">Username</string>
     <string name="repeat_password_Text">Repeat password</string>

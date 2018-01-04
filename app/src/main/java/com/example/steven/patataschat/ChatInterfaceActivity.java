@@ -30,6 +30,10 @@ import java.util.List;
 
 public class ChatInterfaceActivity extends AppCompatActivity {
 
+
+
+    //CHECK: https://stackoverflow.com/questions/24188050/how-to-access-fragments-child-views-inside-fragments-parent-activity
+
     private final ArrayList<Users> all_users = new ArrayList<>();
     private ViewPager fragments_visualizer;
     private SectionPagerAdapter fragments_adapter;
@@ -67,7 +71,7 @@ public class ChatInterfaceActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Users userAdded = dataSnapshot.getValue(Users.class);
                 if(userAdded.getUser_id().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
-                    if(userAdded.getRank() >= 4){
+                    if(userAdded.getRank() > 3){
                         isUserAdminOrRoot = true;
                     }else{
                         isUserAdminOrRoot = false;
@@ -84,9 +88,9 @@ public class ChatInterfaceActivity extends AppCompatActivity {
                         Users changedUser = dataSnapshot.getValue(Users.class);
                         all_users.set(i,changedUser);
                         if(changedUser.getRank() >= 4){
-                            isUserAdminOrRoot = true;
+                            changeCurrentUserRank(true);
                         }else{
-                            isUserAdminOrRoot = false;
+                            changeCurrentUserRank(false);
                         }
                         return;
                     }
@@ -108,6 +112,17 @@ public class ChatInterfaceActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void changeCurrentUserRank(boolean isStillAdmin){
+        isUserAdminOrRoot = isStillAdmin;
+        ChatChannelsFragment fragment = (ChatChannelsFragment) fragments_adapter.getItem(0);
+        fragment.OnRankChanged(isStillAdmin);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     private void iniViewPager(){
@@ -167,10 +182,9 @@ public class ChatInterfaceActivity extends AppCompatActivity {
         info.putBoolean("isAdmin",isUserAdminOrRoot);
         ChatChannelsFragment chats = new ChatChannelsFragment();
         chats.setArguments(info);
-        fragments_adapter.addFragment(chats, "ChatChannel");
+        fragments_adapter.addFragment(chats,"ChatChannel");
         fragments_adapter.addFragment(new ProfileFragment(), "Profile");
         visor_fragments.setAdapter(fragments_adapter);
     }
-
 
 }

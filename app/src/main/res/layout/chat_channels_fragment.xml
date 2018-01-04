@@ -4,25 +4,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/chats_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/chatList_SCROLL_vertical_margin"
-            android:layout_marginBottom="@dimen/chatList_SCROLL_vertical_margin">
-
-
-        </LinearLayout>
-
-
-    </ScrollView>
-
-
-
+        android:layout_height="match_parent"
+        android:id="@+id/chatsHolder"/>
 
 </LinearLayout>
