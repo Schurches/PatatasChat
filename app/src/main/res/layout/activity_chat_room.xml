@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.steven.patataschat.ChatRoomActivity">
+    tools:context="com.example.steven.patataschat.Activities.ChatRoomActivity">
 
 
     <android.support.v7.widget.RecyclerView
@@ -27,7 +27,8 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:background="@drawable/ic_add_circle_black_24dp"/>
+            android:background="@drawable/ic_add_circle_black_24dp"
+            android:onClick="uploadImage"/>
 
         <EditText
             android:id="@+id/message_textfield"

@@ -16,22 +16,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignupActivity" />
+        <activity android:name=".Activities.SignupActivity" />
         <activity
-            android:name=".ChatInterfaceActivity"
+            android:name=".Activities.ChatInterfaceActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".AddChannelActivity"
+            android:name=".Activities.AddChannelActivity"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" />
-        <activity android:name=".ChatRoomActivity"></activity>
+        <activity android:name=".Activities.ChatRoomActivity"></activity>
     </application>
 
 </manifest>

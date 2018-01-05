@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.steven.patataschat.LoginActivity"
+    tools:context="com.example.steven.patataschat.Activities.LoginActivity"
     style="@style/vertical_layout_style">
 
     <Button

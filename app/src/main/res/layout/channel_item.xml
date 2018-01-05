@@ -17,9 +17,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_marginStart="@dimen/chatList_name_margin_H"
         android:layout_marginEnd="@dimen/chatList_name_margin_H"
-        android:gravity="center"
         android:layout_gravity="center"
         android:textSize="@dimen/chatList_title_size"
         android:id="@+id/channel_title"/>
@@ -27,10 +27,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorMessageSentME"
         android:layout_gravity="center"
         android:textSize="@dimen/chatList_count_size"
-        android:gravity="end"
         android:layout_marginStart="@dimen/chatList_name_margin_H"
         android:layout_marginEnd="@dimen/chatList_message_count_margin"
         android:id="@+id/channel_count"/>

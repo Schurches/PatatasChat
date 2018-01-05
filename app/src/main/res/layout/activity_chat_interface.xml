@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.steven.patataschat.ChatInterfaceActivity">
+    tools:context="com.example.steven.patataschat.Activities.ChatInterfaceActivity">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation_view"

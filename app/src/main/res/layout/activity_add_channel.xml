@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="@dimen/addChannel_layout_padding"
-    tools:context="com.example.steven.patataschat.AddChannelActivity">
+    tools:context="com.example.steven.patataschat.Activities.AddChannelActivity">
 
     <TextView
         android:text="@string/chatChannel_label_name"

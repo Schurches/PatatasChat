@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ChatInterfaceActivity">
+    tools:context=".Activities.ChatInterfaceActivity">
 
     <item android:id="@+id/chats"
         android:icon="@drawable/ic_chat_black_24dp"

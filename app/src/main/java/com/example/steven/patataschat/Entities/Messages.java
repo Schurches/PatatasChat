@@ -20,7 +20,7 @@ public class Messages {
      * @param username user that sent the message
      * @param message the message
      * @param date date that the message was sent
-     * @param type type (1 for announce | 0 for user)
+     * @param type message type (2 for image | 1 for announce | 0 for user)
      */
     public Messages(String username, String message, String date, int type){
         this.username = username;
@@ -59,5 +59,10 @@ public class Messages {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return getUsername()+","+getMessage()+","+getDate()+","+getType();
     }
 }
