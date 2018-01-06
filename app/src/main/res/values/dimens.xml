@@ -21,6 +21,7 @@
     <dimen name="chatList_message_count_margin">2dp</dimen>
     <dimen name="chatList_title_size">20dp</dimen>
     <dimen name="chatList_count_size">15dp</dimen>
+    <dimen name="chatList_count_up_size">20dp</dimen>
     <dimen name="chatList_icon_size">72dp</dimen>
 
     <dimen name="addChannel_layout_padding">50dp</dimen>

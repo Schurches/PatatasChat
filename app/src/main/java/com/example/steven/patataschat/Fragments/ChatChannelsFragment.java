@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.steven.patataschat.Adapters.ChannelsAdapter;
 import com.example.steven.patataschat.Entities.Chats;
 import com.example.steven.patataschat.Entities.Messages;
+import com.example.steven.patataschat.Entities.UnreadMessagesDetector;
 import com.example.steven.patataschat.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +38,7 @@ public class ChatChannelsFragment extends Fragment{
     private final String EMPTY_MESSAGE_TEMPLATE = "none,none,none,0";
     private final int ADD_CHANNEL_CODE = 1001;
     private final int NO_CHANNEL_CODE = 2000;
+    private UnreadMessagesDetector incomingMessagesDetector;
     private boolean isADMINOrROOT;
     private boolean initialLoadFinished;
     private DatabaseReference database;
@@ -80,6 +82,7 @@ public class ChatChannelsFragment extends Fragment{
                 channelList.notifyDataSetChanged();
                 addEmptyMessage();
                 if(initialLoadFinished){
+                    resetDetector();
                     addExtraChannelInformation(isADMINOrROOT);
                 }
             }
@@ -202,6 +205,7 @@ public class ChatChannelsFragment extends Fragment{
                 LAST_MESSAGE_ON_EACH_CHANNEL.add(M);
             }
         }
+        resetDetector();
     }
 
     public void OnRankChanged(boolean isAdmin) {
@@ -242,6 +246,16 @@ public class ChatChannelsFragment extends Fragment{
                 chatChannels.add(new Chats("noChat",NO_CHANNEL_CODE));
             }
         }
+    }
+
+    public void resetDetector(){
+        incomingMessagesDetector = new UnreadMessagesDetector(this,LAST_MESSAGE_ON_EACH_CHANNEL,chatChannels);
+    }
+
+    public void updateMessageCount(int position, int amount){
+        ChannelsAdapter.ChannelHolder channel = (ChannelsAdapter.ChannelHolder)
+                channelRecyclerView.findViewHolderForAdapterPosition(position);
+        channel.setMessagesCounter(amount);
     }
 
     /*

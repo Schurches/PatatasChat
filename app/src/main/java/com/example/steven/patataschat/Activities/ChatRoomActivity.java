@@ -75,7 +75,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         current_user = authentication_service.getCurrentUser();
         Bundle datos = getIntent().getExtras();
         CURRENT_CHAT_NAME = datos.getString("chat_name");
-        CHATROOM = FirebaseDatabase.getInstance().getReference(CURRENT_CHAT_NAME).child("Messages");
+        CHATROOM = FirebaseDatabase.getInstance().getReference(CURRENT_CHAT_NAME);
         usersReference = FirebaseDatabase.getInstance().getReference("users");
         iniUsersListener();
         load_Messages(50);
@@ -226,11 +226,13 @@ public class ChatRoomActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        SharedPreferences appInternalData = getSharedPreferences("last_messages",Context.MODE_PRIVATE);
-        SharedPreferences.Editor dataEditor = appInternalData.edit();
         int size = last50Messages.size();
-        String message = last50Messages.get(size-1).toString();
-        dataEditor.putString(CURRENT_CHAT_NAME,message);
-        dataEditor.apply();
+        if(size != 0){
+            SharedPreferences appInternalData = getSharedPreferences("last_messages",Context.MODE_PRIVATE);
+            SharedPreferences.Editor dataEditor = appInternalData.edit();
+            String message = last50Messages.get(size-1).toString();
+            dataEditor.putString(CURRENT_CHAT_NAME,message);
+            dataEditor.apply();
+        }
     }
 }

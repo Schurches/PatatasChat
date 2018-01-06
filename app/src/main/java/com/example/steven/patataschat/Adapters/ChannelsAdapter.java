@@ -53,6 +53,7 @@ public class ChannelsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return channelLayout;
     }
 
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         String title = "";
@@ -125,6 +126,18 @@ public class ChannelsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.channelTitle.setText(title);
             this.channelMessageCount.setText(count);
             this.channelImage.setImageResource(obtainChatIcon());
+        }
+
+        public void setMessagesCounter(int unread) {
+            String amount = unread+"";
+            this.channelMessageCount.setText(amount);
+            if(unread == 0){
+                this.channelMessageCount.setTextColor(context.getResources().getColor(R.color.colorMessageSentME));
+                this.channelMessageCount.setTextSize(context.getResources().getDimension(R.dimen.chatList_count_size));
+            }else{
+                this.channelMessageCount.setTextColor(context.getResources().getColor(R.color.color_rank_ADMIN));
+                this.channelMessageCount.setTextSize(context.getResources().getDimension(R.dimen.chatList_count_up_size));
+            }
         }
 
         public int obtainChatIcon(){
