@@ -1,9 +1,11 @@
 package com.example.steven.patataschat.Adapters;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,15 +53,15 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch(viewType){
             case TYPE_MESSAGE:
-                View messageBox = inflater.inflate(R.layout.message_item,null,false);
+                View messageBox = inflater.inflate(R.layout.message_item,parent,false);
                 message_body = new MessagesHolder(messageBox,TYPE_MESSAGE);
                 break;
             case TYPE_ANNOUNCE:
-                View announceBox = inflater.inflate(R.layout.announce_item,null,false);
+                View announceBox = inflater.inflate(R.layout.announce_item,parent,false);
                 message_body = new AnnouncesHolder(announceBox);
                 break;
             case TYPE_IMAGE:
-                View imageBox = inflater.inflate(R.layout.message_item,null,false);
+                View imageBox = inflater.inflate(R.layout.message_item,parent,false);
                 message_body = new MessagesHolder(imageBox,TYPE_IMAGE);
                 break;
             default:
@@ -166,6 +168,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 this.SentImage.setVisibility(View.GONE);
             }else{
                 this.SentMessage.setVisibility(View.GONE);
+                this.LayoutMessage.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             }
             this.TYPE = Message_TYPE;
         }

@@ -3,6 +3,7 @@ package com.example.steven.patataschat.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.example.steven.patataschat.Adapters.MessagesAdapter;
 import com.example.steven.patataschat.Entities.Messages;
@@ -26,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -55,12 +58,11 @@ public class ChatRoomActivity extends AppCompatActivity {
     private EditText textfield;
     private FirebaseUser current_user;
     private FirebaseAuth authentication_service;
-    private int current_message_displayed;
-    private ChatChannelsFragment channelsFragment;
-
-    public void ChatRoomActivity(){
-
-    }
+    private MediaPlayer bubble_sound;
+    private ChildEventListener childListener;
+    private ChildEventListener usersChildListener;
+    private ValueEventListener initialMessageLoadListener;
+    private boolean wereAllMessagesLoaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +83,69 @@ public class ChatRoomActivity extends AppCompatActivity {
         load_Messages(50);
         adapter = new MessagesAdapter(last50Messages,getApplicationContext());
         messages_view.setAdapter(adapter);
-        current_message_displayed = 0;
+        bubble_sound = MediaPlayer.create(this,R.raw.message_bubble_sound);
+        wereAllMessagesLoaded = false;
     }
 
-    private void iniUsersListener(){
-        usersReference.addChildEventListener(new ChildEventListener() {
+    private void iniValueListener(){
+        this.initialMessageLoadListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                wereAllMessagesLoaded = true;
+                if(last50Messages.size() > 0){
+                    scroll(-1,last50Messages.size()-1,true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+    }
+
+    private void iniChildListener(){
+        this.childListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Messages message = dataSnapshot.getValue(Messages.class);
+                int last_visible_position = ((LinearLayoutManager)messages_view.getLayoutManager()).findLastVisibleItemPosition();
+                int last_message_position = adapter.getItemCount()-1;
+                boolean isCurrentUserTheSender = message.getUsername().equals(obtainUser(current_user.getUid()).getUsername());
+                last50Messages.add(message);
+                adapter.notifyDataSetChanged();
+                if(wereAllMessagesLoaded){
+                    if(!isCurrentUserTheSender){
+                        playMessageSFX();
+                    }
+                    scroll(last_visible_position,last_message_position,isCurrentUserTheSender);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+    }
+
+    private void iniUsersChildListener(){
+        this.usersChildListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Users userAdded = dataSnapshot.getValue(Users.class);
@@ -118,41 +178,30 @@ public class ChatRoomActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+    }
+
+    private void iniUsersListener(){
+        iniUsersChildListener();
+        usersReference.addChildEventListener(this.usersChildListener);
     }
 
     public ArrayList<Messages> load_Messages(int count){
-        CHATROOM.limitToLast(count).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Messages message = dataSnapshot.getValue(Messages.class);
-                Log.d("Message added: ", message.toString());
-                last50Messages.add(message);
-                adapter.notifyDataSetChanged();
-                messages_view.smoothScrollToPosition(last50Messages.size()-1);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        iniChildListener();
+        iniValueListener();
+        CHATROOM.limitToLast(count).addChildEventListener(this.childListener);
+        CHATROOM.limitToLast(count).addListenerForSingleValueEvent(this.initialMessageLoadListener);
         return last50Messages;
+    }
+
+    public void scroll(int last_visible_position, int last_message_position, boolean isCurrentUserTheSender){
+        if((last_visible_position != -1 && last_visible_position == last_message_position) || isCurrentUserTheSender){
+            messages_view.smoothScrollToPosition(last50Messages.size()-1);
+        }
+    }
+
+    public void playMessageSFX(){
+        bubble_sound.start();
     }
 
     public Users obtainUser(String ID){
@@ -171,6 +220,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         Date date = new Date();
         addMessageInformation(text,userInformation,date,USER_MESSAGE_CODE);
         textfield.setText("");
+
     }
 
     public void addMessageInformation(String text, Users user, Date date, int CODE){
@@ -234,5 +284,8 @@ public class ChatRoomActivity extends AppCompatActivity {
             dataEditor.putString(CURRENT_CHAT_NAME,message);
             dataEditor.apply();
         }
+        CHATROOM.removeEventListener(this.childListener);
+        CHATROOM.removeEventListener(this.initialMessageLoadListener);
+        usersReference.removeEventListener(this.usersChildListener);
     }
 }

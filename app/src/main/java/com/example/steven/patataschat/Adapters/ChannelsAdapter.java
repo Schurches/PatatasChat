@@ -40,11 +40,11 @@ public class ChannelsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch(viewType){
             case NORMAL_CHANNEL_CODE:
-                View channelDesign = inflater.inflate(R.layout.channel_item,null,false);
+                View channelDesign = inflater.inflate(R.layout.channel_item,parent,false);
                 channelLayout = new ChannelHolder(channelDesign);
                 break;
             case ADD_CHANNEL_CODE:
-                View channelDesign2 = inflater.inflate(R.layout.channel_add_item,null,false);
+                View channelDesign2 = inflater.inflate(R.layout.channel_add_item,parent,false);
                 channelLayout = new AddChannelHolder(channelDesign2);
                 break;
             default:
@@ -62,7 +62,7 @@ public class ChannelsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case NORMAL_CHANNEL_CODE:
                 title = chats.get(position).getChat_name();
                 id = chats.get(position).getChat_icon();
-                ((ChannelHolder) holder).loadChannelInfo(title,"10",id);
+                ((ChannelHolder) holder).loadChannelInfo(title,"...",id);
                 break;
             case ADD_CHANNEL_CODE:
                 title = context.getResources().getString(R.string.add_chat);

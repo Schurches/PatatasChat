@@ -11,10 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.steven.patataschat.Activities.ChatRoomActivity;
 import com.example.steven.patataschat.Adapters.ChannelsAdapter;
 import com.example.steven.patataschat.Entities.Chats;
 import com.example.steven.patataschat.Entities.Messages;
-import com.example.steven.patataschat.Entities.UnreadMessagesDetector;
+import com.example.steven.patataschat.Utility.UnreadMessagesDetector;
 import com.example.steven.patataschat.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -235,6 +236,7 @@ public class ChatChannelsFragment extends Fragment{
             }
         }
         channelList.notifyDataSetChanged();
+        resetDetector();
         isADMINOrROOT = isAdmin;
     }
 
@@ -249,7 +251,15 @@ public class ChatChannelsFragment extends Fragment{
     }
 
     public void resetDetector(){
+        if(incomingMessagesDetector != null){
+            destroyDetector();
+        }
         incomingMessagesDetector = new UnreadMessagesDetector(this,LAST_MESSAGE_ON_EACH_CHANNEL,chatChannels);
+    }
+
+    public void destroyDetector(){
+        incomingMessagesDetector.removeListeners();
+        incomingMessagesDetector = null;
     }
 
     public void updateMessageCount(int position, int amount){

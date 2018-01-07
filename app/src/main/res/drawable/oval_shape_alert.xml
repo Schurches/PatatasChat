@@ -4,7 +4,7 @@
     <item android:state_enabled="true">
         <shape android:shape="oval">
             <solid
-                android:color="#005577">
+                android:color="@color/color_rank_MOD">
             </solid>
         </shape>
     </item>

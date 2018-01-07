@@ -30,4 +30,12 @@
     <string name="chatChannel_label_icon">Select an icon</string>
     <string name="chatChannel_button_create">Create!</string>
     <string name="chatChannel_new_added">Successfully created a new channel!</string>
+    <!--Chat room template-->
+    <string name="chatRoom_username">Bielostotzky</string>
+    <string name="chatRoom_nickname">Hacienda pavas</string>
+    <string name="chatRoom_date">20:55</string>
+    <string name="chatRoom_message">Yes!</string>
+    <string name="contentDescription1">add picture</string>
+    <string name="contentDescription2">send message</string>
+    <string name="editText_hint">Write something</string>
 </resources>

@@ -20,8 +20,8 @@
     <dimen name="chatList_name_margin_H">5dp</dimen>
     <dimen name="chatList_message_count_margin">2dp</dimen>
     <dimen name="chatList_title_size">20dp</dimen>
-    <dimen name="chatList_count_size">15dp</dimen>
-    <dimen name="chatList_count_up_size">20dp</dimen>
+    <dimen name="chatList_count_size">12dp</dimen>
+    <dimen name="chatList_count_up_size">15dp</dimen>
     <dimen name="chatList_icon_size">72dp</dimen>
 
     <dimen name="addChannel_layout_padding">50dp</dimen>
@@ -31,6 +31,10 @@
     <dimen name="addChannel_margin_button">20dp</dimen>
 
     <dimen name="chatRoom_message_left_Margin">5dp</dimen>
+    <dimen name="chatRoom_username_size">68dp</dimen>
+    <dimen name="chatRoom_profile_pic_size">48dp</dimen>
+    <dimen name="chatRoom_parent_layout_padding">10dp</dimen>
+    <dimen name="chatRoom_image_size">150dp</dimen>
 
     <dimen name="chat_bubble_radius">10dp</dimen>
 

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="10dp"
+    android:padding="@dimen/chatRoom_parent_layout_padding"
     >
 
     <LinearLayout
@@ -17,10 +17,10 @@
             android:id="@+id/message_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxHeight="48dp"
-            android:minHeight="48dp"
-            android:minWidth="48dp"
-            android:maxWidth="48dp"
+            android:maxHeight="@dimen/chatRoom_profile_pic_size"
+            android:minHeight="@dimen/chatRoom_profile_pic_size"
+            android:minWidth="@dimen/chatRoom_profile_pic_size"
+            android:maxWidth="@dimen/chatRoom_profile_pic_size"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:src="@drawable/ic_account_circle_black_24dp" />
@@ -29,9 +29,9 @@
             android:id="@+id/message_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="68dp"
-            android:maxWidth="68dp"
-            android:text="Bielostotzky"
+            android:minWidth="@dimen/chatRoom_username_size"
+            android:maxWidth="@dimen/chatRoom_username_size"
+            android:text="@string/chatRoom_username"
             android:textSize="12sp"
             android:textAlignment="center"
             />
@@ -44,11 +44,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        android:minWidth="150dp"
+        android:minWidth="@dimen/chatRoom_image_size"
         android:background="@drawable/chat_bubble"
         android:layout_marginStart="@dimen/chatRoom_message_left_Margin">
 
@@ -61,7 +61,7 @@
             <TextView
                 android:id="@+id/message_nickname"
                 android:textSize="12sp"
-                android:text="Hacienda pavas"
+                android:text="@string/chatRoom_nickname"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -70,7 +70,7 @@
                 android:id="@+id/message_time"
                 android:textSize="12sp"
                 android:gravity="end"
-                android:text="20:55"
+                android:text="@string/chatRoom_date"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -79,7 +79,7 @@
 
         <TextView
             android:id="@+id/message_sent"
-            android:text="Yes"
+            android:text="@string/chatRoom_message"
             android:layout_gravity="start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,9 +89,9 @@
             android:id="@+id/message_image_sent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="5dp"
             android:layout_gravity="start"
-            android:maxWidth="250dp"
-            android:maxHeight="250dp"
             />
 
     </LinearLayout>

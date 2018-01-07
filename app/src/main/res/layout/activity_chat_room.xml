@@ -18,14 +18,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@drawable/writing_zone"
         android:orientation="horizontal"
         >
 
         <ImageButton
             android:id="@+id/more_opt_button"
+            android:contentDescription="@string/contentDescription1"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:background="@drawable/ic_add_circle_black_24dp"
             android:onClick="uploadImage"/>
@@ -37,13 +43,17 @@
             android:maxHeight="250dp"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:hint="Write something" />
+            android:background="@drawable/textbox_shape"
+            android:hint="@string/editText_hint" />
 
         <ImageButton
             android:id="@+id/send_button"
+            android:contentDescription="@string/contentDescription2"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:backgroundTint="@color/colorPrimary"
             android:background="@drawable/ic_send_black_24dp"
             android:onClick="send_message"/>
