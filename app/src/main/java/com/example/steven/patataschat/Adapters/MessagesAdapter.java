@@ -188,16 +188,16 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.UserMessage.setText(message.getUsername());
             switch(user.getRank()){
                 case 0:
-                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_rank_USER));
+                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_text_rank_USER));
                     break;
                 case 3:
-                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_rank_MOD));
+                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_text_rank_MOD));
                     break;
                 case 4:
-                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_rank_ADMIN));
+                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_text_rank_ADMIN));
                     break;
                 case 5:
-                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_rank_ROOT));
+                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_text_rank_ROOT));
                         break;
             }
             this.NickMessage.setText(user.getNickname());

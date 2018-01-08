@@ -38,4 +38,5 @@
     <string name="contentDescription1">add picture</string>
     <string name="contentDescription2">send message</string>
     <string name="editText_hint">Write something</string>
+    <string name="chatRoom_subtitle_template">Welcome back, <b>%1$s</b></string>
 </resources>

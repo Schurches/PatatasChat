@@ -5,8 +5,14 @@
     <color name="colorAccent">#525659</color>
     <color name="colorMessageSentOTHER">#a4aaa4</color>
     <color name="colorMessageSentME">#6facf2</color>
-    <color name="color_rank_USER">#434547</color>
-    <color name="color_rank_MOD">#2e992a</color>
-    <color name="color_rank_ADMIN">#f41818</color>
-    <color name="color_rank_ROOT">#092cba</color>
+    <!--Rank colors-->
+    <color name="color_rank_USER">#757575</color>
+    <color name="color_rank_MOD">#4CAF50</color>
+    <color name="color_rank_ADMIN">#D32F2F</color>
+    <color name="color_rank_ROOT">#303F9F</color>
+    <!--Rank colors for TEXT-->
+    <color name="color_text_rank_USER">#434547</color>
+    <color name="color_text_rank_MOD">#2e992a</color>
+    <color name="color_text_rank_ADMIN">#f41818</color>
+    <color name="color_text_rank_ROOT">#092cba</color>
 </resources>

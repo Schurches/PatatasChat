@@ -1,8 +1,25 @@
 package com.example.steven.patataschat.Utility;
 
+import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
+import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
+
+import com.example.steven.patataschat.Activities.ChatInterfaceActivity;
+import com.example.steven.patataschat.Activities.ChatRoomActivity;
+import com.example.steven.patataschat.Activities.LoginActivity;
 import com.example.steven.patataschat.Entities.Chats;
 import com.example.steven.patataschat.Entities.Messages;
 import com.example.steven.patataschat.Fragments.ChatChannelsFragment;
+import com.example.steven.patataschat.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,8 +44,16 @@ public class UnreadMessagesDetector {
     private ArrayList<Boolean> firstTimeRead;
     private ValueEventListener valueListener;
     private ChildEventListener childListener;
+    private Context context;
+    private int all_read;
+    private  final int NOTIFICATION_ID = 1100;
+    private NotificationCompat.Builder builder;
+    private NotificationManager manager;
 
     public UnreadMessagesDetector(ChatChannelsFragment chatsFragment, ArrayList<Messages> messages, ArrayList<Chats> chatsName) {
+        this.all_read = 0;
+        this.context = chatsFragment.getContext();
+        createBuilder();
         HashMap<String, Messages> messagesHashMap = new HashMap<>();
         HashMap<String, Integer> positionHashMap = new HashMap<>();
         this.chatsDatabaseReference = new ArrayList<>();
@@ -98,6 +123,41 @@ public class UnreadMessagesDetector {
         };
     }
 
+    public void createBuilder(){
+        String channel_ID = "notification_1";
+        builder = new NotificationCompat.Builder(context,channel_ID);
+        builder.setSmallIcon(R.drawable.ic_chat_black_24dp);
+        Intent iniActivity = new Intent(context, LoginActivity.class);
+        TaskStackBuilder stack = TaskStackBuilder.create(context);
+        stack.addParentStack(LoginActivity.class);
+        stack.addNextIntent(iniActivity);
+        PendingIntent pending = stack.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pending);
+        CharSequence name = "Patatas chat";
+        builder.setContentTitle(name);
+        builder.setAutoCancel(true);
+    }
+
+    public void outputMessagesCount(){
+        if(manager == null){
+            manager = (NotificationManager) chatsListFragment.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+        int total = 0;
+        for (int count:unreadCount) {
+            total+=count;
+        }
+        String description = "You got "+total+" new messages!";
+        builder.setContentText(description);
+        manager.notify(NOTIFICATION_ID,builder.build());
+    }
+
+    public void finishNotificationSystem(){
+        if(manager==null){
+            manager = (NotificationManager) chatsListFragment.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+        manager.cancel(NOTIFICATION_ID);
+    }
+
     public void iniChildListener(){
         this.childListener = new ChildEventListener() {
             @Override
@@ -116,7 +176,22 @@ public class UnreadMessagesDetector {
                 }
                 if(firstTimeRead.get(position)){ //if initial set has been loaded
                     //Update the unread amount on the specific channel
-                    chatsListFragment.updateMessageCount(position,getMessageCount(chatName));
+                    if(chatsListFragment.isResumed()){
+                        chatsListFragment.updateMessageCount(position,getMessageCount(chatName));
+                    }else{
+                        if(ChatRoomActivity.CURRENT_CHAT_NAME != null){
+                            if(ChatRoomActivity.CURRENT_CHAT_NAME.equals(chatName)){
+                                resetCounter(position);
+                                //chatsListFragment.updateMessageCount(position,0);
+                            }else{
+                                builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+                                outputMessagesCount();
+                            }
+                        }else{
+                            builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+                            outputMessagesCount();
+                        }
+                    }
                 }else{ //if the initial set hasn't been loaded
                     //don't update yet because there's still more messages stored.
                 }

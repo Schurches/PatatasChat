@@ -30,42 +30,83 @@ public class ChatInterfaceActivity extends AppCompatActivity {
     private SectionPagerAdapter fragments_adapter;
     private BottomNavigationView nav_view;
     private DatabaseReference usersReference;
-    private DatabaseReference channelsReference;
     private boolean isUserAdminOrRoot;
+    private ValueEventListener usersValueListener;
+    private ChildEventListener usersChildListener;
+    private boolean firstResume = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_interface);
         usersReference = FirebaseDatabase.getInstance().getReference("users");
-        channelsReference= FirebaseDatabase.getInstance().getReference("chats");
         isUserAdminOrRoot = false;
         iniUsersListener();
     }
 
-    private void iniUsersListener(){
-        usersReference.addListenerForSingleValueEvent(new ValueEventListener() {
+    @Override
+    protected void onPause() {
+        super.onPause();
+        usersReference.removeEventListener(this.usersValueListener);
+        usersReference.removeEventListener(this.usersChildListener);
+        firstResume = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!firstResume){
+            iniValueListener();
+            iniChildListener();
+            usersReference.addListenerForSingleValueEvent(this.usersValueListener);
+            usersReference.addChildEventListener(this.usersChildListener);
+            changeCurrentUserRank(isUserAdminOrRoot);
+            ((ChatChannelsFragment)fragments_adapter.getItem(0)).getDetector().finishNotificationSystem();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ((ChatChannelsFragment)fragments_adapter.getItem(0)).getDetector().finishNotificationSystem();
+    }
+
+    private void iniValueListener(){
+        this.usersValueListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //When all users has finally been loaded
-                iniViewPager();
-                iniNavigationView();
+                if(firstResume){
+                    iniViewPager();
+                    iniNavigationView();
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
-        usersReference.addChildEventListener(new ChildEventListener() {
+        };
+    }
+
+    private void iniChildListener(){
+        this.usersChildListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Users userAdded = dataSnapshot.getValue(Users.class);
                 if(userAdded.getUser_id().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
-                    if(userAdded.getRank() > 3){
-                        isUserAdminOrRoot = true;
+                    if(firstResume){
+                        if(userAdded.getRank() > 3){
+                            isUserAdminOrRoot = true;
+                        }else{
+                            isUserAdminOrRoot = false;
+                        }
                     }else{
-                        isUserAdminOrRoot = false;
+                        if(isUserAdminOrRoot && userAdded.getRank() < 4){
+                            changeCurrentUserRank(false);
+                        }else if(!isUserAdminOrRoot && userAdded.getRank() > 3){
+                            changeCurrentUserRank(true);
+                        }
                     }
                 }
                 all_users.add(userAdded);
@@ -102,7 +143,16 @@ public class ChatInterfaceActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+    }
+
+    private void iniUsersListener(){
+        this.usersValueListener = null;
+        this.usersChildListener = null;
+        iniValueListener();
+        iniChildListener();
+        usersReference.addListenerForSingleValueEvent(this.usersValueListener);
+        usersReference.addChildEventListener(this.usersChildListener);
     }
 
     public void changeCurrentUserRank(boolean isStillAdmin){

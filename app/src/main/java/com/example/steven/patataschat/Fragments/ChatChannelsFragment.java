@@ -180,6 +180,7 @@ public class ChatChannelsFragment extends Fragment{
             }
         }
         dataEditor.apply();
+        incomingMessagesDetector.outputMessagesCount();
     }
 
     public void loadLastMessageStoredForEachChat(){
@@ -262,23 +263,16 @@ public class ChatChannelsFragment extends Fragment{
         incomingMessagesDetector = null;
     }
 
+    public UnreadMessagesDetector getDetector(){
+        return incomingMessagesDetector;
+    }
+
     public void updateMessageCount(int position, int amount){
         ChannelsAdapter.ChannelHolder channel = (ChannelsAdapter.ChannelHolder)
                 channelRecyclerView.findViewHolderForAdapterPosition(position);
-        channel.setMessagesCounter(amount);
-    }
-
-    /*
-    public int obtainChatIcon(int iconID){
-        switch(iconID){
-            case 1:
-                return R.drawable.ic_chat_black_24dp;
-            case 2:
-                return R.drawable.ic_account_circle_black_24dp;
-            default:
-                return R.drawable.ic_settings_applications_black_24dp;
+        if(channel != null){
+            channel.setMessagesCounter(amount);
         }
     }
-    */
 
 }

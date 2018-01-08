@@ -8,6 +8,9 @@
     android:orientation="vertical"
     tools:context="com.example.steven.patataschat.Activities.ChatRoomActivity">
 
+    <include
+        android:id="@+id/chat_toolbar"
+        layout="@layout/chatroom_toolbar"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerV"
