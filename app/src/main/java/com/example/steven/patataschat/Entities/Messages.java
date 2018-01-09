@@ -63,6 +63,6 @@ public class Messages {
 
     @Override
     public String toString() {
-        return getUsername()+","+getMessage()+","+getDate()+","+getType();
+        return getUsername()+"°°!!%%&&"+getMessage()+"°°!!%%&&"+getDate()+"°°!!%%&&"+getType();
     }
 }

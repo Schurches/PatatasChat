@@ -6,23 +6,20 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.renderscript.Sampler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-
 import com.example.steven.patataschat.Adapters.MessagesAdapter;
 import com.example.steven.patataschat.Entities.Messages;
 import com.example.steven.patataschat.Entities.Users;
-import com.example.steven.patataschat.Fragments.ChatChannelsFragment;
 import com.example.steven.patataschat.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +33,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -93,12 +89,42 @@ public class ChatRoomActivity extends AppCompatActivity {
         iniUsersListener();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.chatroom_options,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        Users u = obtainUser(current_user.getUid());
+        if(u!=null){
+            if(u.getRank() <= 3){
+                menu.findItem(R.id.action_users).setVisible(false);
+            }
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch(id){
+            case R.id.action_poll:
+                break;
+            case R.id.action_users:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void iniToolbar(){
         toolbar.setTitle(CURRENT_CHAT_NAME);
         Users u = obtainUser(current_user.getUid());
         String text = String.format(getResources().getString(R.string.chatRoom_subtitle_template),u.getUsername());
         toolbar.setSubtitle(text);
         toolbar.setLogo(obtainChatIcon(current_chat_icon));
+        toolbar.getLogo().setTintList(getColorForElements(R.color.colorChatRoom_icons));
         switch(u.getRank()){
             case 3:
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_MOD));
@@ -204,6 +230,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //When initial load finished
                 iniToolbar();
+                invalidateOptionsMenu();
                 load_Messages(50);
                 adapter = new MessagesAdapter(last50Messages,getApplicationContext());
                 messages_view.setAdapter(adapter);
@@ -234,6 +261,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         Users changedUser = dataSnapshot.getValue(Users.class);
                         ALL_USERS.set(i,changedUser);
                         iniToolbar();
+                        invalidateOptionsMenu();
                         return;
                     }
                 }

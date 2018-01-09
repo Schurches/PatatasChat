@@ -36,7 +36,8 @@ public class ChatChannelsFragment extends Fragment{
     private final ArrayList<Messages> LAST_MESSAGE_ON_EACH_CHANNEL = new ArrayList<>();
     private final ArrayList<Chats> chatChannels = new ArrayList<>();
     private final String sharedPreferenceFileName = "last_messages";
-    private final String EMPTY_MESSAGE_TEMPLATE = "none,none,none,0";
+    private final String REGEX_TEMPLATE = "°°!!%%&&";
+    private final String EMPTY_MESSAGE_TEMPLATE = "none"+REGEX_TEMPLATE+"none"+REGEX_TEMPLATE+"none"+REGEX_TEMPLATE+"0";
     private final int ADD_CHANNEL_CODE = 1001;
     private final int NO_CHANNEL_CODE = 2000;
     private UnreadMessagesDetector incomingMessagesDetector;
@@ -198,7 +199,7 @@ public class ChatChannelsFragment extends Fragment{
             if(lastMessageAsString.equals(EMPTY_MESSAGE_TEMPLATE)){
                 addEmptyMessage();
             }else{
-                String[] message = lastMessageAsString.split(",");
+                String[] message = lastMessageAsString.split(REGEX_TEMPLATE);
                 String username = message[0];
                 String messageSent = message[1];
                 String date = message[2];

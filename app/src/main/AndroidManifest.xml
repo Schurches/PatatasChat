@@ -20,6 +20,7 @@
         <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,8 +31,10 @@
         <activity
             android:name=".Activities.AddChannelActivity"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" />
-        <activity android:name=".Activities.ChatRoomActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".Activities.ChatRoomActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Activities.ManageUserActivity"></activity>
     </application>
 
 </manifest>

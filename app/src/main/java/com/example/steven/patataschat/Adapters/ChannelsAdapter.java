@@ -57,7 +57,7 @@ public class ChannelsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         String title = "";
-        int id = 0;
+        int id;
         switch(holder.getItemViewType()){
             case NORMAL_CHANNEL_CODE:
                 title = chats.get(position).getChat_name();

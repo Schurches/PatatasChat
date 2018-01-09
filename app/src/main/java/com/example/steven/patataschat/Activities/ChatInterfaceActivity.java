@@ -66,9 +66,9 @@ public class ChatInterfaceActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public boolean isFinishing() {
         ((ChatChannelsFragment)fragments_adapter.getItem(0)).getDetector().finishNotificationSystem();
+        return super.isFinishing();
     }
 
     private void iniValueListener(){
@@ -194,6 +194,24 @@ public class ChatInterfaceActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    public void setAll_users(ArrayList<Users> all_users) {
+        R.drawable.ic_add_circle_black_24dp;
+        R.drawable.ic_broken_image_black_24dp;
+        R.drawable.ic_chat_black_24dp;
+        R.drawable.ic_info_black_24dp;
+        R.drawable.ic_poll_black_48dp;
+        R.drawable.ic_send_black_24dp;
+        R.drawable.ic_settings_applications_black_24dp;
+        R.drawable.ic_image_black_24dp;
+        R.drawable.ic_password_24dp;
+        R.drawable.ic_nickname_24dp;
+        R.drawable.ic_email_black_24dp;
+        R.drawable.ic_channel_message;
+        R.drawable.ic_chat_alert;
+        R.drawable.ic_chat_members;
+    }
+*/
     private void iniNavigationView(){
         nav_view = findViewById(R.id.navigation_view);
         nav_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
