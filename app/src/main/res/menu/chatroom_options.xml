@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_poll"
+        android:orderInCategory="100"
+        android:title="@string/chatRoom_action_poll"
+        android:icon="@drawable/ic_poll_black_48dp"
+        app:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/action_users"
+        android:orderInCategory="200"
+        android:title="@string/chatRoom_action_users"
+        android:icon="@drawable/ic_members_black_24dp"
+        app:showAsAction="ifRoom">
+    </item>
+
+</menu>
