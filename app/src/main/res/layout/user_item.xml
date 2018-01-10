@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_margin="@dimen/chatList_layout_margins"
+    android:background="@drawable/chat_bubble"
     android:gravity="start">
 
     <ImageView

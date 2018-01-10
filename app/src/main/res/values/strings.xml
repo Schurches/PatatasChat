@@ -32,7 +32,7 @@
     <string name="chatChannel_new_added">Successfully created a new channel!</string>
     <!--Chat room template-->
     <string name="chatRoom_username">Bielostotzky</string>
-    <string name="chatRoom_nickname">Hacienda pavas</string>
+    <string name="chatRoom_nickname">retrograda troglodita llorica pendulo venezolano</string>
     <string name="chatRoom_date">20:55</string>
     <string name="chatRoom_message">Yes!</string>
     <string name="contentDescription1">add picture</string>
@@ -42,6 +42,32 @@
     <string name="chatRoom_action_poll">poll</string>
     <string name="chatRoom_action_users">users</string>
     <!--Manage users-->
+    <string name="manage_spinner_item_user">User</string>
+    <string name="manage_spinner_item_trusted">Trusted</string>
+    <string name="manage_spinner_item_mod">Mod</string>
+    <string name="manage_spinner_item_admin">Admin</string>
+    <string name="manage_spinner_item_root">Root</string>
+    <string name="manage_change_rank_invalid">You can only set ranks below yours</string>
+    <string name="manage_notify_rank">%1$s was %2$s to %3$s by %4$s!</string>
+    <string name="manage_promote">promoted</string>
+    <string name="manage_demote">demoted</string>
+    <string name="manage_nickname_alert_empty">The nickname can NOT be empty</string>
+    <string name="manage_nickname_alert_size">The nickname\'s length must not surpass %1$i. Your\'s is: %2$i</string>
+    <string name="manage_nickname_alert_invalid_char">Characters different from ( ) : . _ , are not allowed</string>
     <string name="manage_username_template">Username: %1$s</string>
-    <string name="manage_set_nickname"></string>
+    <string name="manage_username_name_empty">Select a user</string>
+    <string name="manage_set_time">Time in minutes</string>
+    <string name="manage_time_hint">60</string>
+    <string name="manage_select_rank">Select a rank</string>
+    <string name="manage_button_nick">Nick</string>
+    <string name="manage_button_rank">Rank</string>
+    <string name="manage_button_mute">Mute</string>
+    <string name="manage_button_ban">Ban</string>
+    <string name="manage_button_change">Change</string>
+    <string name="manage_button_confirm">YES</string>
+    <string name="manage_confirm_ban">Are you sure you want to ban <b>%1$s</b>?</string>
+    <string name="manage_nickname_changed_announce">%1$s set %2$s\'s nickname to %3$s</string>
+    <string name="manage_nickname_success">Successfully changed nickname!</string>
+    <string name="manage_rank_success">Successfully changed rank!</string>
+    <string name="manage_rank_failure">Setting the same rank? really?</string>
 </resources>

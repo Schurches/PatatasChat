@@ -113,6 +113,11 @@ public class ChatRoomActivity extends AppCompatActivity {
             case R.id.action_poll:
                 break;
             case R.id.action_users:
+                Users current = obtainUser(current_user.getUid());
+                Intent iniUserManage = new Intent(getApplicationContext(),ManageUserActivity.class);
+                iniUserManage.putExtra("chat_name",CURRENT_CHAT_NAME);
+                iniUserManage.putExtra("user_name",current.getUsername());
+                startActivity(iniUserManage);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -325,7 +330,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         Date date = new Date();
         addMessageInformation(text,userInformation,date,USER_MESSAGE_CODE);
         textfield.setText("");
-
     }
 
     public void addMessageInformation(String text, Users user, Date date, int CODE){
