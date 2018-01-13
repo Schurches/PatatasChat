@@ -12,12 +12,19 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.steven.patataschat.Adapters.MessagesAdapter;
+import com.example.steven.patataschat.Entities.IEmotionButton;
 import com.example.steven.patataschat.Entities.Messages;
 import com.example.steven.patataschat.Entities.Users;
 import com.example.steven.patataschat.R;
@@ -53,8 +60,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     private RecyclerView messages_view;
     final ArrayList<Messages> last50Messages = new ArrayList<Messages>();
     private MessagesAdapter adapter;
-    private ImageButton moreButton;
+    private ImageButton imageButton;
     private ImageButton sendButton;
+    private ImageButton iEmotionsButton;
     private EditText textfield;
     private FirebaseUser current_user;
     private FirebaseAuth authentication_service;
@@ -72,13 +80,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_room);
         toolbar = findViewById(R.id.chat_toolbar);
         setSupportActionBar(toolbar);
-        moreButton = findViewById(R.id.more_opt_button);
-        sendButton = findViewById(R.id.send_button);
         messages_view = findViewById(R.id.recyclerV);
         messages_view.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        moreButton = findViewById(R.id.more_opt_button);
+        imageButton = findViewById(R.id.more_opt_button);
         sendButton = findViewById(R.id.send_button);
+        iEmotionsButton = findViewById(R.id.reactions_button);
         textfield = findViewById(R.id.message_textfield);
+        textfieldTextChange();
         authentication_service = FirebaseAuth.getInstance();
         current_user = authentication_service.getCurrentUser();
         Bundle datos = getIntent().getExtras();
@@ -99,7 +107,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         Users u = obtainUser(current_user.getUid());
         if(u!=null){
-            if(u.getRank() <= 3){
+            if(u.getRank() == 1){
                 menu.findItem(R.id.action_users).setVisible(false);
             }
         }
@@ -123,6 +131,37 @@ public class ChatRoomActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void textfieldTextChange(){
+        this.textfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence string, int start, int count, int length) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length() > 20){
+                    iEmotionsButton.setVisibility(View.GONE);
+                }else{
+                    iEmotionsButton.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    public void iniIEmotions(View view){
+        Users current = obtainUser(current_user.getUid());
+        Intent iniIEmotionsActivity = new Intent(getApplicationContext(),IEmotionsActivity.class);
+        iniIEmotionsActivity.putExtra("chat_name",CURRENT_CHAT_NAME);
+        iniIEmotionsActivity.putExtra("user_name",current.getUsername());
+        startActivity(iniIEmotionsActivity);
+    }
+
     public void iniToolbar(){
         toolbar.setTitle(CURRENT_CHAT_NAME);
         Users u = obtainUser(current_user.getUid());
@@ -131,24 +170,29 @@ public class ChatRoomActivity extends AppCompatActivity {
         toolbar.setLogo(obtainChatIcon(current_chat_icon));
         toolbar.getLogo().setTintList(getColorForElements(R.color.colorChatRoom_icons));
         switch(u.getRank()){
+            case 2:
+                toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_TRUSTED));
+                imageButton.setBackgroundTintList(getColorForElements(R.color.color_rank_TRUSTED));
+                sendButton.setBackgroundTintList(getColorForElements(R.color.color_rank_TRUSTED));
+                break;
             case 3:
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_MOD));
-                moreButton.setBackgroundTintList(getColorForElements(R.color.color_rank_MOD));
+                imageButton.setBackgroundTintList(getColorForElements(R.color.color_rank_MOD));
                 sendButton.setBackgroundTintList(getColorForElements(R.color.color_rank_MOD));
                 break;
             case 4:
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_ADMIN));
-                moreButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ADMIN));
+                imageButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ADMIN));
                 sendButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ADMIN));
                 break;
             case 5:
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_ROOT));
-                moreButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ROOT));
+                imageButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ROOT));
                 sendButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ROOT));
                 break;
             default:
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_USER));
-                moreButton.setBackgroundTintList(getColorForElements(R.color.color_rank_USER));
+                imageButton.setBackgroundTintList(getColorForElements(R.color.color_rank_USER));
                 sendButton.setBackgroundTintList(getColorForElements(R.color.color_rank_USER));
                 break;
         }
@@ -164,6 +208,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 return R.drawable.ic_chat_black_24dp;
             case 2:
                 return R.drawable.ic_account_circle_black_24dp;
+            case 3:
+                return R.drawable.ic_iemotions_alert;
+            case 4:
+                return R.drawable.ic_iemotions_24dp;
+            case 5:
+                return R.drawable.ic_member_black_2_24dp;
             default:
                 return R.drawable.ic_settings_applications_black_24dp;
         }
@@ -237,6 +287,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 iniToolbar();
                 invalidateOptionsMenu();
                 load_Messages(50);
+                establishWritingAbilities(obtainUser(current_user.getUid()));
                 adapter = new MessagesAdapter(last50Messages,getApplicationContext());
                 messages_view.setAdapter(adapter);
                 bubble_sound = MediaPlayer.create(getApplicationContext(),R.raw.message_bubble_sound);
@@ -250,6 +301,22 @@ public class ChatRoomActivity extends AppCompatActivity {
         };
     }
 
+    public void establishWritingAbilities(Users muted_user){
+        boolean enable = muted_user.isMuted();
+        this.textfield.setEnabled(!enable);
+        if(enable){
+            this.textfield.setHint(R.string.editText_hint_mute);
+            this.iEmotionsButton.setVisibility(View.GONE);
+            this.sendButton.setVisibility(View.GONE);
+            this.imageButton.setVisibility(View.GONE);
+        }else{
+            this.textfield.setHint(R.string.editText_hint_normal);
+            this.iEmotionsButton.setVisibility(View.VISIBLE);
+            this.sendButton.setVisibility(View.VISIBLE);
+            this.imageButton.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void iniUsersChildListener(){
         this.usersChildListener = new ChildEventListener() {
             @Override
@@ -260,14 +327,25 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                int size = ALL_USERS.size();
-                for(int i=0; i<size ; i++){
-                    if(ALL_USERS.get(i).getUser_id().equals(dataSnapshot.getKey())){
-                        Users changedUser = dataSnapshot.getValue(Users.class);
-                        ALL_USERS.set(i,changedUser);
-                        iniToolbar();
-                        invalidateOptionsMenu();
-                        return;
+                if(current_user != null){ //if current user hasn't been banned
+                    int size = ALL_USERS.size();
+                    for(int i=0; i<size ; i++){
+                        if(ALL_USERS.get(i).getUser_id().equals(dataSnapshot.getKey())){
+                            Users changedUser = dataSnapshot.getValue(Users.class);
+                            if(changedUser.getUser_id().equals(current_user.getUid())){
+                                if(changedUser.isBanned()){
+                                    authentication_service.signOut();
+                                    Toast.makeText(getApplicationContext(),R.string.user_banned_message,Toast.LENGTH_SHORT).show();
+                                    finishAffinity();
+                                }else{
+                                    establishWritingAbilities(changedUser);
+                                }
+                            }
+                            ALL_USERS.set(i,changedUser);
+                            iniToolbar();
+                            invalidateOptionsMenu();
+                            return;
+                        }
                     }
                 }
             }
@@ -290,10 +368,10 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
 
     private void iniUsersListener(){
-        iniUsersValueListener();
         iniUsersChildListener();
-        usersReference.addListenerForSingleValueEvent(this.usersValueListener);
+        iniUsersValueListener();
         usersReference.addChildEventListener(this.usersChildListener);
+        usersReference.addListenerForSingleValueEvent(this.usersValueListener);
     }
 
     public ArrayList<Messages> load_Messages(int count){
@@ -382,9 +460,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    public void saveLastMessageOnDevice(){
         int size = last50Messages.size();
         if(size != 0){
             SharedPreferences appInternalData = getSharedPreferences("last_messages",Context.MODE_PRIVATE);
@@ -393,6 +469,18 @@ public class ChatRoomActivity extends AppCompatActivity {
             dataEditor.putString(CURRENT_CHAT_NAME,message);
             dataEditor.apply();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveLastMessageOnDevice();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        saveLastMessageOnDevice();
         // The <> null validations are in case of the user leaves before they've been instantiated
         // This case is possible if the users enters to a channel and leaves immediately
         // (due to a miss click)

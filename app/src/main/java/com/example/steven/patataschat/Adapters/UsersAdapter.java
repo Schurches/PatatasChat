@@ -1,13 +1,16 @@
 package com.example.steven.patataschat.Adapters;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.steven.patataschat.Entities.Users;
 import com.example.steven.patataschat.R;
@@ -17,6 +20,7 @@ import com.google.firebase.storage.StorageReference;
 
 
 import java.util.ArrayList;
+
 
 /**
  * Created by steven on 8/01/2018.
@@ -54,18 +58,66 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public class UsersHolder extends RecyclerView.ViewHolder{
 
+        private LinearLayout background;
         private ImageView profile_pic;
         private TextView username;
         private TextView nickname;
+        private final int ACCESS_MUTE = 1;
 
         public UsersHolder(View itemView){
             super(itemView);
             this.profile_pic = itemView.findViewById(R.id.profile_pic_image);
             this.username = itemView.findViewById(R.id.username_text);
             this.nickname = itemView.findViewById(R.id.nickname_text);
+            this.background = itemView.findViewById(R.id.background_lay);
+        }
+
+        public void setBubbleColor(boolean isBanned, boolean isSelected){
+            if(isSelected){
+                if(isBanned){
+                    this.background.setBackgroundTintList(
+                            ColorStateList.valueOf(ContextCompat.getColor(itemView.getContext(),R.color.color_text_rank_ADMIN))
+                    );
+                }else{
+                    this.background.setBackgroundTintList(
+                            ColorStateList.valueOf(ContextCompat.getColor(itemView.getContext(),R.color.colorMessageSentME))
+                    );
+                }
+            }else{
+                if(isBanned){
+                    this.background.setBackgroundTintList(
+                            ColorStateList.valueOf(ContextCompat.getColor(itemView.getContext(),R.color.color_rank_ADMIN))
+                    );
+                }else{
+                    this.background.setBackgroundTintList(
+                            ColorStateList.valueOf(ContextCompat.getColor(itemView.getContext(),R.color.colorMessageSentOTHER))
+                    );
+                }
+            }
+        }
+
+        public void setColorOnStatus(int resID,int access_mode){
+            ColorStateList color = ColorStateList.valueOf(ContextCompat.getColor(itemView.getContext(),resID));
+            if(access_mode== ACCESS_MUTE){
+                this.username.setTextColor(color);
+                this.nickname.setTextColor(color);
+            }else{
+                this.username.setTextColor(color);
+                this.nickname.setTextColor(color);
+            }
         }
 
         public void loadInformation(Users user){
+            if(user.isMuted()){
+                setColorOnStatus(R.color.color_text_rank_MOD,ACCESS_MUTE);
+            }else{
+                setColorOnStatus(R.color.colorChatRoom_icons,0);
+            }
+            if(user.isBanned()){
+                setBubbleColor(true,false);
+            }else{
+                setBubbleColor(false,false);
+            }
             this.username.setText(user.getUsername());
             this.nickname.setText(user.getNickname());
             if(user.getPP()){

@@ -24,6 +24,7 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:background="@drawable/writing_zone"
+        android:animateLayoutChanges="true"
         android:orientation="horizontal"
         >
 
@@ -36,8 +37,21 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:background="@drawable/ic_add_circle_black_24dp"
+            android:background="@drawable/ic_image_black_24dp"
+            android:visibility="gone"
             android:onClick="uploadImage"/>
+
+        <ImageButton
+            android:id="@+id/reactions_button"
+            android:contentDescription="@string/contentDescription1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:background="@drawable/ic_iemotions_24dp"
+            android:visibility="gone"
+            android:onClick="iniIEmotions"/>
 
         <EditText
             android:id="@+id/message_textfield"
@@ -47,11 +61,13 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:background="@drawable/textbox_shape"
-            android:hint="@string/editText_hint" />
+            android:enabled="false"
+            android:hint="@string/editText_hint_normal" />
 
         <ImageButton
             android:id="@+id/send_button"
             android:contentDescription="@string/contentDescription2"
+            android:visibility="gone"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"

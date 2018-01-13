@@ -13,16 +13,20 @@ public class Users {
     private String username;
     private String password;
     private String email;
+    private String deviceID;
     private int rank;
     private boolean PP;
     private String nickname;
+    private boolean isMuted;
+    private boolean isBanned;
+    private boolean isActive;
     //Map<String,Object> values;
 
     public Users(){
 
     }
 
-    public Users(String userID, String username, String password,String email, int rank, boolean PP){
+    public Users(String userID, String username, String password,String email, int rank, boolean PP, boolean isMuted, boolean isBanned, String deviceID, boolean isActive){
         this.user_id = userID;
         this.username = username;
         this.password = password;
@@ -30,6 +34,26 @@ public class Users {
         this.rank = rank;
         this.PP = PP;
         this.nickname = username;
+        this.isMuted = isMuted;
+        this.isBanned = isBanned;
+        this.deviceID = deviceID;
+        this.isActive = isActive;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public String getDeviceID() {
+        return deviceID;
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
     }
 
     public String getEmail() {
@@ -82,6 +106,22 @@ public class Users {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public void setBanned(boolean banned) {
+        this.isBanned = banned;
+    }
+
+    public void setMuted(boolean muted) {
+        this.isMuted = muted;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public boolean isMuted() {
+        return isMuted;
     }
 
     public void setUser_id(String user_id) {

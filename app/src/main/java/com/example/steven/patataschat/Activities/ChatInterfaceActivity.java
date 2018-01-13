@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.steven.patataschat.Adapters.SectionPagerAdapter;
 import com.example.steven.patataschat.Fragments.ChatChannelsFragment;
@@ -114,17 +115,25 @@ public class ChatInterfaceActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                int size = all_users.size();
-                for(int i=0; i<size ; i++){
-                    if(all_users.get(i).getUser_id().equals(dataSnapshot.getKey())){
-                        Users changedUser = dataSnapshot.getValue(Users.class);
-                        all_users.set(i,changedUser);
-                        if(changedUser.getRank() >= 4){
-                            changeCurrentUserRank(true);
-                        }else{
-                            changeCurrentUserRank(false);
+                if(FirebaseAuth.getInstance() != null){
+                    int size = all_users.size();
+                    for(int i=0; i<size ; i++){
+                        if(all_users.get(i).getUser_id().equals(dataSnapshot.getKey())){
+                            Users changedUser = dataSnapshot.getValue(Users.class);
+                            if(changedUser.isBanned()){
+                                FirebaseAuth.getInstance().signOut();
+                                Toast.makeText(getApplicationContext(),R.string.user_banned_message,Toast.LENGTH_SHORT).show();
+                                finishAffinity();
+                            }else{
+                                all_users.set(i,changedUser);
+                                if(changedUser.getRank() >= 4){
+                                    changeCurrentUserRank(true);
+                                }else{
+                                    changeCurrentUserRank(false);
+                                }
+                                return;
+                            }
                         }
-                        return;
                     }
                 }
             }

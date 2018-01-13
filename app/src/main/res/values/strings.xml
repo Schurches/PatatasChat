@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">PatatasChat</string>
-    <string name="firebaseConectionLink">https://patataschat.firebaseio.com/</string>
     <string name="mail_Hint">yes@yes.yes</string>
     <!--Login-->
     <string name="email_Text">Email</string>
@@ -15,6 +14,7 @@
     <string name="signup_error">Error while sign up</string>
     <string name="signup_success">Successfully created an account</string>
     <string name="success_picture">Profile picture successfully uploaded!</string>
+    <string name="login_banned">You can\'t create accounts on banned devices</string>
     <!--Chat Channels-->
     <string name="tab_1">Chat Channels</string>
     <string name="tab_2">Profile</string>
@@ -30,6 +30,12 @@
     <string name="chatChannel_label_icon">Select an icon</string>
     <string name="chatChannel_button_create">Create!</string>
     <string name="chatChannel_new_added">Successfully created a new channel!</string>
+    <string name="chatChannel_failed_empty">You must set a name for the channel</string>
+    <string name="icon_1">message</string>
+    <string name="icon_2">profile badge</string>
+    <string name="icon_3">warning</string>
+    <string name="icon_4">happy face</string>
+    <string name="icon_5">people</string>
     <!--Chat room template-->
     <string name="chatRoom_username">Bielostotzky</string>
     <string name="chatRoom_nickname">retrograda troglodita llorica pendulo venezolano</string>
@@ -37,7 +43,8 @@
     <string name="chatRoom_message">Yes!</string>
     <string name="contentDescription1">add picture</string>
     <string name="contentDescription2">send message</string>
-    <string name="editText_hint">Write something</string>
+    <string name="editText_hint_normal">Write something</string>
+    <string name="editText_hint_mute">You are globally muted</string>
     <string name="chatRoom_subtitle_template">Welcome back, <b>%1$s</b> </string>
     <string name="chatRoom_action_poll">poll</string>
     <string name="chatRoom_action_users">users</string>
@@ -56,18 +63,69 @@
     <string name="manage_nickname_alert_invalid_char">Characters different from ( ) : . _ , are not allowed</string>
     <string name="manage_username_template">Username: %1$s</string>
     <string name="manage_username_name_empty">Select a user</string>
+    <string name="manage_ban_reason_empty">Leave a reason</string>
     <string name="manage_set_time">Time in minutes</string>
     <string name="manage_time_hint">60</string>
     <string name="manage_select_rank">Select a rank</string>
     <string name="manage_button_nick">Nick</string>
     <string name="manage_button_rank">Rank</string>
     <string name="manage_button_mute">Mute</string>
+    <string name="manage_button_un_mute">Unmute</string>
     <string name="manage_button_ban">Ban</string>
+    <string name="manage_button_un_ban">Unban</string>
     <string name="manage_button_change">Change</string>
     <string name="manage_button_confirm">YES</string>
+    <string name="manage_notify_mute">%1$s muted %2$s</string>
+    <string name="manage_notify_un_mute">%1$s was unmuted</string>
+    <string name="manage_mute_success">User successfully muted!</string>
+    <string name="manage_un_mute_success">User successfully unmuted!</string>
     <string name="manage_confirm_ban">Are you sure you want to ban <b>%1$s</b>?</string>
+    <string name="manage_confirm_unban">Un-ban <b>%1$s</b>?</string>
     <string name="manage_nickname_changed_announce">%1$s set %2$s\'s nickname to %3$s</string>
+    <string name="manage_ban_invalid">You can NOT ban somebody above your rank</string>
+    <string name="manage_ban_success">Successfully banned %1$s</string>
+    <string name="manage_notify_ban">%1$s banned %2$s</string>
+    <string name="manage_notify_unban">%1$s was unbanned</string>
+    <string name="manage_unban_success">User successfully unbanned!</string>
+    <string name="manage_unmute_failed">You can not un-mute yourself</string>
+    <string name="user_banned_message">You have been banned</string>
     <string name="manage_nickname_success">Successfully changed nickname!</string>
     <string name="manage_rank_success">Successfully changed rank!</string>
     <string name="manage_rank_failure">Setting the same rank? really?</string>
+    <string name="manage_error">Something went wrong, try again</string>
+    <!--IEmotions Activity-->
+    <string name="IEmotions_color">Pick color</string>
+    <string name="IEmotions_color_user">USER</string>
+    <string name="IEmotions_color_trusted">TRUSTED</string>
+    <string name="IEmotions_color_mod">MOD</string>
+    <string name="IEmotions_color_admin">ADMIN</string>
+    <string name="IEmotions_color_root">ROOT</string>
+    <string name="IEmotions_color_sentME">MESSAGE 1</string>
+    <string name="IEmotions_color_sentOTHER">MESSAGE 2</string>
+    <string name="IEmotions_color_teal">TEAL</string>
+    <string name="IEmotions_color_brown">BROWN</string>
+    <string name="IEmotions_color_white">WHITE</string>
+    <string name="IEmotions_color_black">BLACK</string>
+    <string name="IEmotions_pick">Pick icon</string>
+    <string name="IEmotions_icon_happy">HAPPY</string>
+    <string name="IEmotions_icon_awesome">AWESOME</string>
+    <string name="IEmotions_icon_death">DEATH</string>
+    <string name="IEmotions_icon_disappointment">DISAPPOINTMENT</string>
+    <string name="IEmotions_icon_run">RUN</string>
+    <string name="IEmotions_icon_sad">SAD</string>
+    <string name="IEmotions_icon_child">BABY</string>
+    <string name="IEmotions_icon_email">MAIL</string>
+    <string name="IEmotions_icon_warn">ALERT</string>
+    <string name="IEmotions_icon_message">MESSAGE</string>
+    <string name="IEmotions_muted">You have been muted. Therefore you can\t use emotions</string>
+    <string name="IEmotions_empty">Title for the button is missing</string>
+    <string name="IEmotions_success">New IEmotion button added!</string>
+    <string name="IEmotions_created">New button created: %1$s</string>
+    <string name="IEmotions_add">Add button</string>
+    <string name="IEmotions_preview">Preview</string>
+    <string name="IEmotions_hint">Button title</string>
+
+
+
+
 </resources>

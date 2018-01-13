@@ -168,6 +168,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 this.SentImage.setVisibility(View.GONE);
             }else{
                 this.SentMessage.setVisibility(View.GONE);
+                this.SentImage.setVisibility(View.VISIBLE);
                 this.LayoutMessage.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             }
             this.TYPE = Message_TYPE;
@@ -187,8 +188,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             this.UserMessage.setText(message.getUsername());
             switch(user.getRank()){
-                case 0:
-                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_text_rank_USER));
+                case 2:
+                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_text_rank_TRUSTED));
                     break;
                 case 3:
                     this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_text_rank_MOD));
@@ -198,7 +199,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     break;
                 case 5:
                     this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_text_rank_ROOT));
-                        break;
+                    break;
+                default:
+                    this.UserMessage.setTextColor(ContextCompat.getColor(context,R.color.color_text_rank_USER));
+                    break;
             }
             this.NickMessage.setText(user.getNickname());
             String date = message.getDate();

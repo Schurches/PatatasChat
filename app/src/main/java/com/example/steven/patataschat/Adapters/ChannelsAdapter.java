@@ -48,6 +48,8 @@ public class ChannelsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 channelLayout = new AddChannelHolder(channelDesign2);
                 break;
             default:
+                View channelDesign3 = inflater.inflate(R.layout.channel_add_item,parent,false);
+                channelLayout = new AddChannelHolder(channelDesign3);
                 break;
         }
         return channelLayout;
@@ -146,6 +148,12 @@ public class ChannelsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     return R.drawable.ic_chat_black_24dp;
                 case 2:
                     return R.drawable.ic_account_circle_black_24dp;
+                case 3:
+                    return R.drawable.ic_iemotions_alert;
+                case 4:
+                    return R.drawable.ic_iemotions_24dp;
+                case 5:
+                    return R.drawable.ic_member_black_2_24dp;
                 default:
                     return R.drawable.ic_settings_applications_black_24dp;
             }
@@ -156,7 +164,6 @@ public class ChannelsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private LinearLayout addLayout;
         private ImageView addImage;
         private TextView addText;
-        private Context context;
 
         public AddChannelHolder(View itemView){
             super(itemView);

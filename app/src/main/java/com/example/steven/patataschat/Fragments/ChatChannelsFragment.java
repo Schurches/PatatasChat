@@ -137,7 +137,10 @@ public class ChatChannelsFragment extends Fragment{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 initialLoadFinished = true;
                 addExtraChannelInformation(isADMINOrROOT);
-                loadLastMessageStoredForEachChat();
+                String chat_name = chatChannels.get(0).getChat_name();
+                if(chatChannels.size()>=1 && !(chat_name.equals("noChat") || chat_name.equals("addChat")) ){
+                    loadLastMessageStoredForEachChat();
+                }
             }
 
             @Override
@@ -224,7 +227,7 @@ public class ChatChannelsFragment extends Fragment{
         if(isADMINOrROOT && !isAdmin){  //if WAS admin and NOW ISN'T
             if(length == 1){ //if there's only 1 channel
                 //The "add new channel" message is replaced with "no channels available"
-                chatChannels.set(1,new Chats("noChat",NO_CHANNEL_CODE));
+                chatChannels.set(1,new Chats("noChat",NO_CHANNEL_CODE,1));
             }else{ //if there are more
                 //The "add new channel" message is removed
                 chatChannels.remove(length-1);
@@ -232,7 +235,7 @@ public class ChatChannelsFragment extends Fragment{
         }else if(!isADMINOrROOT && isAdmin){ //if WASN'T admin but NOW IS
             if(length == 1){ //if there's only one channel
                 //the "no chats available" message is replaced with "add a channel"
-                chatChannels.set(1,new Chats("addChat",ADD_CHANNEL_CODE));
+                chatChannels.set(1,new Chats("addChat",ADD_CHANNEL_CODE,4));
             }else{ //if there's more than
                 addExtraChannelInformation(isAdmin);
             }
@@ -244,12 +247,13 @@ public class ChatChannelsFragment extends Fragment{
 
     public void addExtraChannelInformation(boolean isCurrentlyAdmin){
         if(isCurrentlyAdmin){
-            chatChannels.add(new Chats("addChat",ADD_CHANNEL_CODE));
+            chatChannels.add(new Chats("addChat",ADD_CHANNEL_CODE,4));
         }else{
             if(chatChannels.size()==0){
-                chatChannels.add(new Chats("noChat",NO_CHANNEL_CODE));
+                chatChannels.add(new Chats("noChat",NO_CHANNEL_CODE,1));
             }
         }
+        channelList.notifyDataSetChanged();
     }
 
     public void resetDetector(){

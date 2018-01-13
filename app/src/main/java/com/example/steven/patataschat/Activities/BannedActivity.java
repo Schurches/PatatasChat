@@ -4,15 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.steven.patataschat.R;
-import com.firebase.client.Firebase;
 
-public class MainActivity extends AppCompatActivity {
-
-    private Firebase fbRef;
+public class BannedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_banned);
     }
 }

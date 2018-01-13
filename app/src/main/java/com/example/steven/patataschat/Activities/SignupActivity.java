@@ -2,6 +2,7 @@ package com.example.steven.patataschat.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.steven.patataschat.Entities.Banlist;
 import com.example.steven.patataschat.Entities.Users;
 import com.example.steven.patataschat.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,11 +21,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -37,8 +44,10 @@ public class SignupActivity extends AppCompatActivity {
     private EditText password_field;
     private Button signup_button;
     private final int GALLERY_PICK_CODE = 2;
-    private final int RANK_USER = 0;
+    private final int RANK_USER = 1;
     private Uri selected_profile_pic = null;
+    private DatabaseReference ban_reference;
+    private ArrayList<Banlist> ban_list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,8 @@ public class SignupActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference().child("profilePictures");
         database_service = FirebaseDatabase.getInstance().getReference().child("users");
+        ban_reference = FirebaseDatabase.getInstance().getReference("banned_list");
+        iniUsersReference();
         signup_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,36 +101,94 @@ public class SignupActivity extends AppCompatActivity {
     ////////////////////////////////////Account functions///////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void create_new_user(){
-        final String user = user_field.getText().toString();
-        final String email = mail_field.getText().toString();
-        final String password = password_field.getText().toString();
-        String username = user+"@gmail.com";
-        authentication_service.createUserWithEmailAndPassword(username,password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        final String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        if(detectBannedID(android_id)){
+            Toast.makeText(this,R.string.login_banned,Toast.LENGTH_LONG).show();
+        }else{
+            final String user = user_field.getText().toString();
+            final String email = mail_field.getText().toString();
+            final String password = password_field.getText().toString();
+            String username = user+"@gmail.com";
+            authentication_service.createUserWithEmailAndPassword(username,password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(SignupActivity.this, task.getException().getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                            }else{
+                                FirebaseUser current_user = authentication_service.getCurrentUser();
+                                DatabaseReference rj_user = database_service.child(current_user.getUid());
+                                boolean hasProfilePic;
+                                if(selected_profile_pic != null){
+                                    hasProfilePic = true;
+                                    upload_image(current_user.getUid());
+                                }else{
+                                    hasProfilePic = false;
+                                }
+                                Users newUser = new Users(current_user.getUid(),user, password,email,RANK_USER,hasProfilePic,false,false,android_id,true);
+                                rj_user.setValue(newUser);
+                                Toast.makeText(SignupActivity.this,R.string.signup_success,
+                                        Toast.LENGTH_SHORT).show();
+                                proceed_to_chat_interface();
+                            }
+                        }
+                    });
+        }
+    }
+
+    public boolean detectBannedID(String thisID){
+        int size = ban_list.size();
+        for (int i = 0; i < size; i++){
+            if(ban_list.get(i).getDeviceID().equals(thisID)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void iniUsersReference(){
+        ban_reference.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()) {
-                    Toast.makeText(SignupActivity.this, task.getException().getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                }else{
-                    FirebaseUser current_user = authentication_service.getCurrentUser();
-                    DatabaseReference rj_user = database_service.child(current_user.getUid());
-                    boolean hasProfilePic;
-                    if(selected_profile_pic != null){
-                        hasProfilePic = true;
-                        upload_image(current_user.getUid());
-                    }else{
-                        hasProfilePic = false;
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                ban_list.add(dataSnapshot.getValue(Banlist.class));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                int size = ban_list.size();
+                Banlist banned_updated = dataSnapshot.getValue(Banlist.class);
+                for (int i = 0; i < size; i++){
+                    if(banned_updated.getUserID().equals(ban_list.get(i).getUserID())){
+                        ban_list.set(i,banned_updated);
+                        return;
                     }
-                    Users newUser = new Users(current_user.getUid(),user, password,email,RANK_USER,hasProfilePic);
-                    rj_user.setValue(newUser);
-                    Toast.makeText(SignupActivity.this,R.string.signup_success,
-                            Toast.LENGTH_SHORT).show();
-                    proceed_to_chat_interface();
                 }
             }
-        });
 
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                int size = ban_list.size();
+                Banlist banned_updated = dataSnapshot.getValue(Banlist.class);
+                for (int i = 0; i < size; i++){
+                    if(banned_updated.getUserID().equals(ban_list.get(i).getUserID())){
+                        ban_list.remove(i);
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void redirect_to_login()

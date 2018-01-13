@@ -23,6 +23,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical">
 
             <Button
@@ -44,7 +45,7 @@
                 android:text="@string/manage_button_mute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="setAction"/>
+                android:onClick="changeMute"/>
 
             <Button
                 android:id="@+id/ban_button"
@@ -63,6 +64,7 @@
         android:layout_height="0dp"
         android:padding="20dp"
         android:orientation="vertical"
+        android:animateLayoutChanges="true"
         android:gravity="center">
 
         <TextView
