@@ -203,24 +203,6 @@ public class ChatInterfaceActivity extends AppCompatActivity {
         });
     }
 
-    /*
-    public void setAll_users(ArrayList<Users> all_users) {
-        R.drawable.ic_add_circle_black_24dp;
-        R.drawable.ic_broken_image_black_24dp;
-        R.drawable.ic_chat_black_24dp;
-        R.drawable.ic_info_black_24dp;
-        R.drawable.ic_poll_black_48dp;
-        R.drawable.ic_send_black_24dp;
-        R.drawable.ic_settings_applications_black_24dp;
-        R.drawable.ic_image_black_24dp;
-        R.drawable.ic_password_24dp;
-        R.drawable.ic_nickname_24dp;
-        R.drawable.ic_email_black_24dp;
-        R.drawable.ic_channel_message;
-        R.drawable.ic_chat_alert;
-        R.drawable.ic_chat_members;
-    }
-*/
     private void iniNavigationView(){
         nav_view = findViewById(R.id.navigation_view);
         nav_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -233,8 +215,6 @@ public class ChatInterfaceActivity extends AppCompatActivity {
                     case R.id.profile:
                         fragments_visualizer.setCurrentItem(1,true);
                         break;
-                    case R.id.configuration:
-                        break;
                     default:
                         break;
                 }
@@ -244,14 +224,27 @@ public class ChatInterfaceActivity extends AppCompatActivity {
         });
     }
 
+    public Users obtainUser(String userID){
+        for(Users u: all_users){
+            if(u.getUser_id().equals(userID)){
+                return u;
+            }
+        }
+        return null;
+    }
+
     private void setupViewPager(ViewPager visor_fragments){
         fragments_adapter = new SectionPagerAdapter(getSupportFragmentManager());
         Bundle info = new Bundle();
         info.putBoolean("isAdmin",isUserAdminOrRoot);
         ChatChannelsFragment chats = new ChatChannelsFragment();
         chats.setArguments(info);
+        ProfileFragment profile = new ProfileFragment();
+        Bundle data = new Bundle();
+        data.putString("user",obtainUser(FirebaseAuth.getInstance().getCurrentUser().getUid()).toString());
+        profile.setArguments(data);
         fragments_adapter.addFragment(chats,"ChatChannel");
-        fragments_adapter.addFragment(new ProfileFragment(), "Profile");
+        fragments_adapter.addFragment(profile, "Profile");
         visor_fragments.setAdapter(fragments_adapter);
     }
 

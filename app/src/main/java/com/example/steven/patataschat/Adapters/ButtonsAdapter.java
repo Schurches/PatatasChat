@@ -84,6 +84,8 @@ public class ButtonsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
         }
 
+
+
         public void sendMessage(String username, String message, String date){
             DatabaseReference chatReference = FirebaseDatabase.getInstance().getReference(chatname);
             String messageID = chatReference.push().getKey();

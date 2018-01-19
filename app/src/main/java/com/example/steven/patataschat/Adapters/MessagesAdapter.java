@@ -2,6 +2,7 @@ package com.example.steven.patataschat.Adapters;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.steven.patataschat.Activities.ChatRoomActivity;
+import com.example.steven.patataschat.Activities.FullImageActivity;
 import com.example.steven.patataschat.Entities.Messages;
 import com.example.steven.patataschat.Entities.Users;
 import com.example.steven.patataschat.R;
@@ -225,10 +227,19 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     * -----NOTE----
                     * */
                     imageReferences = imageReferences.child(message.getMessage());
-                    Glide.with(this.itemView.getContext().getApplicationContext())
+                    Glide.with(itemView.getContext().getApplicationContext())
                             .using(new FirebaseImageLoader())
                             .load(imageReferences)
                             .into(this.SentImage);
+                    final StorageReference finalImageReferences = imageReferences;
+                    SentImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent openImage = new Intent(context, FullImageActivity.class);
+                            openImage.putExtra("reference", finalImageReferences.getPath());
+                            itemView.getContext().startActivity(openImage);
+                        }
+                    });
                 }catch(Exception e){
                     e.printStackTrace();
                     //Assuming that the image never loaded by any reason

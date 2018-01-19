@@ -17,10 +17,5 @@
         app:showAsAction="ifRoom">
     </item>
 
-    <item android:id="@+id/configuration"
-        android:icon="@drawable/ic_settings_applications_black_24dp"
-        android:title="@string/tab_3"
-        app:showAsAction="ifRoom">
-    </item>
 
 </menu>

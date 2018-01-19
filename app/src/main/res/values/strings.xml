@@ -124,8 +124,14 @@
     <string name="IEmotions_add">Add button</string>
     <string name="IEmotions_preview">Preview</string>
     <string name="IEmotions_hint">Button title</string>
-
-
-
+    <!--Polls-->
+    <string name="poll_active">ACTIVE</string>
+    <string name="poll_finish">FINISHED</string>
+    <string name="poll_empty">No option should be empty</string>
+    <string name="poll_minimum">2 options minimum</string>
+    <string name="poll_max">No more than 5 options</string>
+    <string name="poll_title">You haven\'t set a title</string>
+    <string name="poll_created">New poll created!</string>
+    <string name="poll_no_option">You must select an option!</string>
 
 </resources>

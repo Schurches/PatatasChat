@@ -1,32 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="top"
+    android:layout_gravity="center">
 
-    <android.support.v7.widget.CardView
+    <ImageView
+        android:id="@+id/profile_picture"
+        android:background="@color/color_rank_USER"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:background="@color/color_rank_USER"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center"
+            android:background="@color/color_rank_USER"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/profile_username"
+        android:text="Username: "
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="start"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/profile_nick"
+        android:text="Nick: "
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/profile_rank"
+        android:text="Rank: "
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:background="@color/color_rank_USER"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Configuration"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center"
+            android:background="@color/color_rank_USER"
+            />
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/messages_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Messages to load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:orientation="horizontal">
 
-            <TextView
+            <RadioButton
+                android:id="@+id/profile_rb_1"
+                android:text="20"
+                android:layout_marginEnd="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"/>
+                android:layout_height="wrap_content" />
 
-            <ImageView
+            <RadioButton
+                android:id="@+id/profile_rb_2"
+                android:text="50 (default)"
+                android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_account_circle_black_24dp"/>
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/profile_rb_3"
+                android:text="100"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </RadioGroup>
 
+    <RadioGroup
+        android:id="@+id/notification_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
 
+        <TextView
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="start"
+            android:text="Notification sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/profile_rb_4"
+                android:text="Celphone"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:text="App"
+                android:id="@+id/profile_rb_5"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </RadioGroup>
+
+    <Button
+        android:text="save"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="uploadData"/>
+
+</LinearLayout>

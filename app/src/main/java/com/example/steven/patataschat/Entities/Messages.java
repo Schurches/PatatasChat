@@ -1,5 +1,12 @@
 package com.example.steven.patataschat.Entities;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by steven on 20/12/2017.
  */
@@ -65,4 +72,17 @@ public class Messages {
     public String toString() {
         return getUsername()+"°°!!%%&&"+getMessage()+"°°!!%%&&"+getDate()+"°°!!%%&&"+getType();
     }
+
+    public static void sendMessage(String username, String message, String date, String chat_name, int message_type){
+        DatabaseReference chat = FirebaseDatabase.getInstance().getReference(chat_name);
+        String announceID = chat.push().getKey();
+        Messages announce = new Messages(username,message,date,message_type);
+        chat.child(announceID).setValue(announce);
+    }
+
+    public static String getDateFormatted(Date date){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return dateFormat.format(date);
+    }
+
 }

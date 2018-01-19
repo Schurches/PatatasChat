@@ -117,17 +117,19 @@ public class ChatRoomActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Users current = obtainUser(current_user.getUid());
+        Intent iniActivity = null;
         switch(id){
             case R.id.action_poll:
+                iniActivity = new Intent(getApplicationContext(),PollActivity.class);
                 break;
             case R.id.action_users:
-                Users current = obtainUser(current_user.getUid());
-                Intent iniUserManage = new Intent(getApplicationContext(),ManageUserActivity.class);
-                iniUserManage.putExtra("chat_name",CURRENT_CHAT_NAME);
-                iniUserManage.putExtra("user_name",current.getUsername());
-                startActivity(iniUserManage);
+                iniActivity = new Intent(getApplicationContext(),ManageUserActivity.class);
                 break;
         }
+        iniActivity.putExtra("chat_name",CURRENT_CHAT_NAME);
+        iniActivity.putExtra("user_name",current.getUsername());
+        startActivity(iniActivity);
         return super.onOptionsItemSelected(item);
     }
 
@@ -167,8 +169,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         Users u = obtainUser(current_user.getUid());
         String text = String.format(getResources().getString(R.string.chatRoom_subtitle_template),u.getUsername());
         toolbar.setSubtitle(text);
-        toolbar.setLogo(obtainChatIcon(current_chat_icon));
-        toolbar.getLogo().setTintList(getColorForElements(R.color.colorChatRoom_icons));
         switch(u.getRank()){
             case 2:
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_TRUSTED));

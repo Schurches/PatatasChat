@@ -26,7 +26,8 @@ public class Users {
 
     }
 
-    public Users(String userID, String username, String password,String email, int rank, boolean PP, boolean isMuted, boolean isBanned, String deviceID, boolean isActive){
+    public Users(String userID, String username, String password,String email, int rank, boolean PP,
+                 boolean isMuted, boolean isBanned, String deviceID, boolean isActive){
         this.user_id = userID;
         this.username = username;
         this.password = password;
@@ -126,5 +127,29 @@ public class Users {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getRankEquivalent(){
+        switch(getRank()){
+            case 1:
+                return "User";
+            case 2:
+                return "Trusted";
+            case 3:
+                return "Mod";
+            case 4:
+                return "Admin";
+            case 5:
+                return "Root";
+            default:
+                return "Unknown";
+        }
+    }
+
+    @Override
+    public String toString() {
+        return getUser_id()+"%%%%&&"+getUsername()+"%%%%&&"+getPassword()+"%%%%&&"+getEmail()+
+                "%%%%&&"+getRank()+"%%%%&&"+getPP()+"%%%%&&"+isMuted()+"%%%%&&"+
+                isBanned()+"%%%%&&"+getDeviceID()+"%%%%&&"+isActive();
     }
 }
