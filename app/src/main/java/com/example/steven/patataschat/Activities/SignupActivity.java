@@ -6,6 +6,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -97,6 +99,45 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isUsernameValid(String username){
+        if(username.isEmpty() || username.trim().isEmpty()){
+            user_field.setError(getString(R.string.field_empty_error));
+            return false;
+        }else if(username.length() < 5){
+            user_field.setError(getString(R.string.name_length_min_error));
+            return false;
+        }else if(username.length() > 12){
+            user_field.setError(getString(R.string.name_length_max_error));
+            return false;
+        }else{
+            user_field.setError(null);
+            return true;
+        }
+    }
+
+    public boolean isEmailValid(String email){
+        if(email.isEmpty() || email.trim().isEmpty()){
+            mail_field.setError(getString(R.string.field_empty_error));
+            return false;
+        }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            mail_field.setError(getString(R.string.email_error));
+            return false;
+        }else{
+            mail_field.setError(null);
+            return true;
+        }
+    }
+
+    public boolean isPasswordValid(String password){
+        if(password.isEmpty() || password.trim().isEmpty()){
+            password_field.setError(getString(R.string.field_empty_error));
+            return false;
+        }else{
+            password_field.setError(null);
+            return true;
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////Account functions///////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,32 +150,37 @@ public class SignupActivity extends AppCompatActivity {
             final String user = user_field.getText().toString();
             final String email = mail_field.getText().toString();
             final String password = password_field.getText().toString();
-            String username = user+"@gmail.com";
-            authentication_service.createUserWithEmailAndPassword(username,password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (!task.isSuccessful()) {
-                                Toast.makeText(SignupActivity.this, task.getException().getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                            }else{
-                                FirebaseUser current_user = authentication_service.getCurrentUser();
-                                DatabaseReference rj_user = database_service.child(current_user.getUid());
-                                boolean hasProfilePic;
-                                if(selected_profile_pic != null){
-                                    hasProfilePic = true;
-                                    upload_image(current_user.getUid());
+            boolean validUser = isUsernameValid(user);
+            boolean validEmail = isEmailValid(email);
+            boolean validPass = isPasswordValid(password);
+            if(validUser && validPass && validEmail){
+                String username = user+"@gmail.com";
+                authentication_service.createUserWithEmailAndPassword(username,password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(SignupActivity.this, task.getException().getMessage(),
+                                            Toast.LENGTH_SHORT).show();
                                 }else{
-                                    hasProfilePic = false;
+                                    FirebaseUser current_user = authentication_service.getCurrentUser();
+                                    DatabaseReference rj_user = database_service.child(current_user.getUid());
+                                    boolean hasProfilePic;
+                                    if(selected_profile_pic != null){
+                                        hasProfilePic = true;
+                                        upload_image(current_user.getUid());
+                                    }else{
+                                        hasProfilePic = false;
+                                    }
+                                    Users newUser = new Users(current_user.getUid(),user, password,email,RANK_USER,hasProfilePic,false,false,android_id,true,50,1);
+                                    rj_user.setValue(newUser);
+                                    Toast.makeText(SignupActivity.this,R.string.sign_up_success,
+                                            Toast.LENGTH_SHORT).show();
+                                    proceed_to_chat_interface();
                                 }
-                                Users newUser = new Users(current_user.getUid(),user, password,email,RANK_USER,hasProfilePic,false,false,android_id,true);
-                                rj_user.setValue(newUser);
-                                Toast.makeText(SignupActivity.this,R.string.signup_success,
-                                        Toast.LENGTH_SHORT).show();
-                                proceed_to_chat_interface();
                             }
-                        }
-                    });
+                        });
+            }
         }
     }
 

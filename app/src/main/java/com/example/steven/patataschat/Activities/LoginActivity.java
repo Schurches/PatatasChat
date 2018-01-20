@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = findViewById(R.id.email_field);
+        username = findViewById(R.id.user_field);
         password = findViewById(R.id.password_field);
         authentication_service = FirebaseAuth.getInstance();
         ban_reference = FirebaseDatabase.getInstance().getReference("banned_list");
@@ -137,11 +137,39 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public boolean isUsernameValid(String name){
+        if(name.isEmpty() || name.trim().isEmpty()){
+            username.setError(getString(R.string.field_empty_error));
+            return false;
+        }else if(name.length() < 5){
+            username.setError(getString(R.string.name_length_min_error));
+            return false;
+        }else if(name.length() > 12){
+            username.setError(getString(R.string.name_length_max_error));
+            return false;
+        }else{
+            username.setError(null);
+            return true;
+        }
+    }
+
+    public boolean isPasswordValid(String pass){
+        if(pass.isEmpty() || pass.trim().isEmpty()){
+            password.setError(getString(R.string.field_empty_error));
+            return false;
+        }else{
+            password.setError(null);
+            return true;
+        }
+    }
+
     public void log_in(View view){
         String user = username.getText().toString();
         String pass = password.getText().toString();
-        user = user+"@gmail.com";
-        if(!user.isEmpty() && !pass.isEmpty()){
+        boolean validUser = isUsernameValid(user);
+        boolean validPass = isPasswordValid(pass);
+        if(validUser && validPass){
+            user = user+"@gmail.com";
             authentication_service.signInWithEmailAndPassword(user,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <color name="login_background">#303f9f</color>
+    <color name="login_button">#283593</color>
+    
     <color name="colorPrimary">#162e62</color>
     <color name="colorPrimaryDark">#224796</color>
     <color name="colorAccent">#525659</color>
@@ -21,4 +25,5 @@
     <color name="color_text_rank_MOD">#2e992a</color>
     <color name="color_text_rank_ADMIN">#f41818</color>
     <color name="color_text_rank_ROOT">#092cba</color>
+    
 </resources>

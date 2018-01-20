@@ -1,19 +1,23 @@
 <resources>
     <string name="app_name">PatatasChat</string>
-    <string name="mail_Hint">yes@yes.yes</string>
+    <!--General-->
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
+    <string name="field_empty_error">Required field</string>
     <!--Login-->
-    <string name="email_Text">Email</string>
-    <string name="password_Text">Password</string>
-    <string name="signin_Text">Log In</string>
+    <string name="login_button">Log In</string>
     <string name="success_login">Successfully logged in!</string>
     <string name="fail_login">Username and/or password are/is incorrect!</string>
     <!--Register-->
-    <string name="username_Text">Username</string>
-    <string name="repeat_password_Text">Repeat password</string>
-    <string name="signup_Text">Sign Up</string>
-    <string name="signup_error">Error while sign up</string>
-    <string name="signup_success">Successfully created an account</string>
-    <string name="success_picture">Profile picture successfully uploaded!</string>
+    <string name="name_length_min_error">At least 5 characters</string>
+    <string name="name_length_max_error">No more than 12 characters</string>
+    <string name="email_error">Invalid email</string>
+    <string name="select_image">Choose your profile picture</string>
+    <string name="sign_up_text">CREATE ACCOUNT</string>
+    <string name="sign_up_error">An error ocurred</string>
+    <string name="success_picture">Profile picture saved!</string>
+    <string name="sign_up_success">Successfully created an account!</string>
     <string name="login_banned">You can\'t create accounts on banned devices</string>
     <!--Chat Channels-->
     <string name="tab_1">Chat Channels</string>
@@ -36,6 +40,23 @@
     <string name="icon_3">warning</string>
     <string name="icon_4">happy face</string>
     <string name="icon_5">people</string>
+    <!--Profile-->
+    <string name="profile_header">Profile</string>
+    <string name="config_header">Configuration</string>
+    <string name="group_messages">Messages to load</string>
+    <string name="option_1">20</string>
+    <string name="option_2">50 (default)</string>
+    <string name="option_3">100</string>
+    <string name="group_notification">Notification sound</string>
+    <string name="option_4">cellphone</string>
+    <string name="option_5">App</string>
+    <string name="profile_username_template">Username: %1$s</string>
+    <string name="profile_nick_template">Nick: %1$s</string>
+    <string name="profile_rank_template">Rank: %1$s</string>
+    <string name="profile_email_template">Email: %1$s</string>
+    <string name="button_save">Upload</string>
+    <string name="note">To see picture changes reflected you must clear cache</string>
+    <string name="profile_update_success">Information successfully updated!</string>
     <!--Chat room template-->
     <string name="chatRoom_username">Bielostotzky</string>
     <string name="chatRoom_nickname">retrograda troglodita llorica pendulo venezolano</string>

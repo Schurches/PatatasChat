@@ -25,15 +25,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Diuke"
             />
 
         <TextView
             android:id="@+id/nickname_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Morfeo"/>
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

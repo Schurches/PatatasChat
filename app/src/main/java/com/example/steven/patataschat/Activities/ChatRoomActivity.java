@@ -54,6 +54,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     private final int USER_MESSAGE_CODE = 0;
     private final int ANNOUNCE_MESSAGE_CODE = 1;
     private final int IMAGE_MESSAGE_CODE = 2;
+    private int load_amount;
     private int current_chat_icon;
     private DatabaseReference CHATROOM;
     private DatabaseReference usersReference;
@@ -92,6 +93,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         Bundle datos = getIntent().getExtras();
         current_chat_icon = datos.getInt("chat_icon");
         CURRENT_CHAT_NAME = datos.getString("chat_name");
+        load_amount = datos.getInt("unread_count");
         CHATROOM = FirebaseDatabase.getInstance().getReference(CURRENT_CHAT_NAME);
         usersReference = FirebaseDatabase.getInstance().getReference("users");
         iniUsersListener();
@@ -286,7 +288,14 @@ public class ChatRoomActivity extends AppCompatActivity {
                 //When initial load finished
                 iniToolbar();
                 invalidateOptionsMenu();
-                load_Messages(50);
+                int load = obtainUser(current_user.getUid()).getLoad_messages();
+                if(load_amount < load){
+                    load_Messages(load);
+                }else if(load_amount > load && load_amount <= 500){
+                    load_Messages(load_amount);
+                }else{
+                    load_Messages(load);
+                }
                 establishWritingAbilities(obtainUser(current_user.getUid()));
                 adapter = new MessagesAdapter(last50Messages,getApplicationContext());
                 messages_view.setAdapter(adapter);

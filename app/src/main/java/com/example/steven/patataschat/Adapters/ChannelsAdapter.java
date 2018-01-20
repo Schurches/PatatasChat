@@ -114,6 +114,8 @@ public class ChannelsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     Intent openChatRoom_Intent = new Intent(view.getContext(),ChatRoomActivity.class);
                     openChatRoom_Intent.putExtra("chat_name",channelTitle.getText().toString());
                     openChatRoom_Intent.putExtra("chat_icon",ICONID);
+                    int unread = Integer.parseInt(channelMessageCount.getText().toString());
+                    openChatRoom_Intent.putExtra("unread_count",unread);
                     view.getContext().startActivity(openChatRoom_Intent);
                 }
             });

@@ -20,14 +20,16 @@ public class Users {
     private boolean isMuted;
     private boolean isBanned;
     private boolean isActive;
-    //Map<String,Object> values;
+    private int load_messages;
+    private int ringtone_option;
 
     public Users(){
 
     }
 
     public Users(String userID, String username, String password,String email, int rank, boolean PP,
-                 boolean isMuted, boolean isBanned, String deviceID, boolean isActive){
+                 boolean isMuted, boolean isBanned, String deviceID, boolean isActive,
+                 int load_messages, int ringtone_option){
         this.user_id = userID;
         this.username = username;
         this.password = password;
@@ -39,6 +41,24 @@ public class Users {
         this.isBanned = isBanned;
         this.deviceID = deviceID;
         this.isActive = isActive;
+        this.load_messages = load_messages;
+        this.ringtone_option = ringtone_option;
+    }
+
+    public int getLoad_messages() {
+        return load_messages;
+    }
+
+    public void setLoad_messages(int load_messages) {
+        this.load_messages = load_messages;
+    }
+
+    public int getRingtone_option() {
+        return ringtone_option;
+    }
+
+    public void setRingtone_option(int ringtone_option) {
+        this.ringtone_option = ringtone_option;
     }
 
     public boolean isActive() {
@@ -129,7 +149,7 @@ public class Users {
         this.user_id = user_id;
     }
 
-    public String getRankEquivalent(){
+    public String obtainRankEquivalent(){
         switch(getRank()){
             case 1:
                 return "User";
@@ -150,6 +170,7 @@ public class Users {
     public String toString() {
         return getUser_id()+"%%%%&&"+getUsername()+"%%%%&&"+getPassword()+"%%%%&&"+getEmail()+
                 "%%%%&&"+getRank()+"%%%%&&"+getPP()+"%%%%&&"+isMuted()+"%%%%&&"+
-                isBanned()+"%%%%&&"+getDeviceID()+"%%%%&&"+isActive();
+                isBanned()+"%%%%&&"+getDeviceID()+"%%%%&&"+isActive()+"%%%%&&"+
+                getLoad_messages()+"%%%%&&"+getRingtone_option()+"%%%%&&"+getNickname();
     }
 }

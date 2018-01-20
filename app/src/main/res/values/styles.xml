@@ -8,12 +8,67 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="vertical_layout_style">
+    <!--         Login and register             -->
+
+    <style name="login_and_register_widget_margin">
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="login_and_register_textfield" parent="login_and_register_widget_margin">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textColor">@color/colorChatRoom_icons</item>
+        <item name="android:textColorHint">@color/colorChatRoom_icons</item>
+        <item name="android:backgroundTint">@color/colorChatRoom_icons</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="login_and_register_button" parent="login_and_register_widget_margin">
+        <item name="android:elevation">1dp</item>
+        <item name="android:backgroundTint">@color/login_button</item>
+        <item name="android:textColor">@color/colorChatRoom_icons</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="login_and_register_layout_config">
         <item name="android:orientation">vertical</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingLeft">@dimen/padding_lateral_TextField</item>
-        <item name="android:paddingRight">@dimen/padding_lateral_TextField</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:background">@color/login_background</item>
     </style>
+
+    <style name="login_and_register_text">
+        <item name="android:textColor">@color/colorChatRoom_icons</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="image_holder_config">
+        <item name="android:layout_width">@dimen/group_logo</item>
+        <item name="android:layout_height">@dimen/group_logo</item>
+        <item name="android:elevation">1dp</item>
+    </style>
+
+    <style name="logo_style" parent="image_holder_config">
+        <item name="android:layout_marginTop">@dimen/padding_vertical_Logo</item>
+        <item name="android:layout_marginBottom">@dimen/padding_vertical_Logo</item>
+        <item name="android:background">@color/login_button</item>
+    </style>
+
+    <style name="profile_pic_style" parent="image_holder_config">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@color/login_button</item>
+    </style>
+
+    <!-- Chat Room-->
+
+
 
     <style name="margin_button">
         <item name="android:layout_margin">@dimen/padding_Boton</item>
@@ -21,27 +76,6 @@
 
     <style name="padding_button" parent="margin_button">
         <item name="android:padding">@dimen/padding_Boton</item>
-    </style>
-
-    <style name="elements_padding">
-        <item name="android:layout_marginRight">@dimen/padding_lateral_TextField</item>
-        <item name="android:layout_marginLeft">@dimen/padding_lateral_TextField</item>
-        <item name="android:layout_marginTop">@dimen/padding_vertical_TextField</item>
-        <item name="android:layout_marginBottom">@dimen/padding_vertical_TextField</item>
-    </style>
-
-    <style name="logo_style">
-        <item name="android:layout_width">@dimen/group_logo</item>
-        <item name="android:layout_height">@dimen/group_logo</item>
-        <item name="android:layout_marginTop">@dimen/padding_vertical_Logo</item>
-        <item name="android:layout_marginBottom">@dimen/padding_vertical_Logo</item>
-    </style>
-
-    <style name="PP_style">
-        <item name="android:layout_width">@dimen/profile_picture</item>
-        <item name="android:layout_height">@dimen/profile_picture</item>
-        <item name="android:layout_marginRight">@dimen/padding_lateral_TextField</item>
-        <item name="android:layout_marginLeft">@dimen/padding_lateral_TextField</item>
     </style>
 
     <style name="button_style" parent="padding_button">
@@ -53,27 +87,6 @@
         <item name="android:layout_marginLeft">@dimen/padding_lateral_TextField</item>
     </style>
 
-    <style name="layout_gravity_for_labels_1">
-        <item name="android:layout_gravity">start</item>
-    </style>
-
-
-    <style name="label_style_2">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/padding_Boton</item>
-    </style>
-
-    <style name="label_style" parent="layout_gravity_for_labels_1">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/padding_Boton</item>
-    </style>
-
-    <style name="label_style3">
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/chatList_title_size</item>
-    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -81,7 +94,6 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 

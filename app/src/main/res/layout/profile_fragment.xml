@@ -7,13 +7,21 @@
     android:gravity="top"
     android:layout_gravity="center">
 
+    <TextView
+        android:text="@string/note"
+        android:textSize="12sp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <ImageView
-        android:id="@+id/profile_picture"
+        android:id="@+id/prof_picture"
         android:background="@color/color_rank_USER"
         android:layout_margin="10dp"
         android:layout_gravity="center"
         android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_height="100dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +41,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile"/>
+            android:text="@string/profile_header"/>
 
         <View
             android:layout_weight="1"
@@ -49,7 +57,7 @@
 
     <TextView
         android:id="@+id/profile_username"
-        android:text="Username: "
+        android:text="@string/profile_username_template"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
@@ -59,7 +67,7 @@
 
     <TextView
         android:id="@+id/profile_nick"
-        android:text="Nick: "
+        android:text="@string/profile_nick_template"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
@@ -69,13 +77,49 @@
 
     <TextView
         android:id="@+id/profile_rank"
-        android:text="Rank: "
+        android:text="@string/profile_rank_template"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_gravity="start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/profile_email"
+            android:text="@string/profile_email_template"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/change_email"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:hint="@string/email_hint"
+            android:inputType="textEmailAddress"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/change_email_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_edit_24dp"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,7 +139,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Configuration"/>
+            android:text="@string/config_header"/>
 
         <View
             android:layout_weight="1"
@@ -109,8 +153,7 @@
 
     </LinearLayout>
 
-    <RadioGroup
-        android:id="@+id/messages_group"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -121,7 +164,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Messages to load"
+            android:text="@string/group_messages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -132,31 +175,30 @@
 
             <RadioButton
                 android:id="@+id/profile_rb_1"
-                android:text="20"
+                android:text="@string/option_1"
                 android:layout_marginEnd="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/profile_rb_2"
-                android:text="50 (default)"
+                android:text="@string/option_2"
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/profile_rb_3"
-                android:text="100"
+                android:text="@string/option_3"
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
-    </RadioGroup>
+    </LinearLayout>
 
-    <RadioGroup
-        android:id="@+id/notification_group"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -167,7 +209,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_gravity="start"
-            android:text="Notification sound"
+            android:text="@string/group_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -178,13 +220,13 @@
 
             <RadioButton
                 android:id="@+id/profile_rb_4"
-                android:text="Celphone"
+                android:text="@string/option_4"
                 android:layout_marginEnd="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RadioButton
-                android:text="App"
+                android:text="@string/option_5"
                 android:id="@+id/profile_rb_5"
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
@@ -192,13 +234,13 @@
 
         </LinearLayout>
 
-    </RadioGroup>
+    </LinearLayout>
 
     <Button
-        android:text="save"
+        android:id="@+id/upload_button"
+        android:text="@string/button_save"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="uploadData"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

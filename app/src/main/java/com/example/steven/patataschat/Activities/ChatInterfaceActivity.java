@@ -108,6 +108,7 @@ public class ChatInterfaceActivity extends AppCompatActivity {
                         }else if(!isUserAdminOrRoot && userAdded.getRank() > 3){
                             changeCurrentUserRank(true);
                         }
+                        ((ProfileFragment)fragments_adapter.getItem(1)).createUser(userAdded.toString());
                     }
                 }
                 all_users.add(userAdded);
@@ -131,6 +132,7 @@ public class ChatInterfaceActivity extends AppCompatActivity {
                                 }else{
                                     changeCurrentUserRank(false);
                                 }
+                                ((ProfileFragment)fragments_adapter.getItem(1)).createUser(changedUser.toString());
                                 return;
                             }
                         }

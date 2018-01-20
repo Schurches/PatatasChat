@@ -416,25 +416,27 @@ public class PollActivity extends AppCompatActivity {
         this.polls_recycler.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                View selected_poll = rv.findChildViewUnder(e.getX(),e.getY());
-                if(current_poll_position != -1){
-                    previous_selected = current_poll_position;
-                }
-                int poll_position = rv.getChildAdapterPosition(selected_poll);
-                if(poll_position != -1){
-                    Poll poll = polls.get(poll_position);
-                    if(!poll.hasUserVoted(auth_service.getCurrentUser().getUid()) && poll.isActive()){
-                        show_options(poll);
-                    }else{
-                        show_details(poll);
+                if(e.getAction() == MotionEvent.ACTION_UP){
+                    View selected_poll = rv.findChildViewUnder(e.getX(),e.getY());
+                    if(current_poll_position != -1){
+                        previous_selected = current_poll_position;
                     }
-                    if(previous_selected != -1){
-                        ((PollsAdapter.PollHolder)rv.getChildViewHolder(rv.getChildAt(previous_selected))).
-                                checkSelected(false);
+                    int poll_position = rv.getChildAdapterPosition(selected_poll);
+                    if(poll_position != -1){
+                        Poll poll = polls.get(poll_position);
+                        if(!poll.hasUserVoted(auth_service.getCurrentUser().getUid()) && poll.isActive()){
+                            show_options(poll);
+                        }else{
+                            show_details(poll);
+                        }
+                        if(previous_selected != -1){
+                            ((PollsAdapter.PollHolder)rv.getChildViewHolder(rv.getChildAt(previous_selected))).
+                                    checkSelected(false);
+                        }
+                        ((PollsAdapter.PollHolder)rv.getChildViewHolder(selected_poll)).checkSelected(true);
+                        current_poll_position = poll_position;
+                        options_layout.setVisibility(View.VISIBLE);
                     }
-                    ((PollsAdapter.PollHolder)rv.getChildViewHolder(selected_poll)).checkSelected(true);
-                    current_poll_position = poll_position;
-                    options_layout.setVisibility(View.VISIBLE);
                 }
                 return false;
             }
