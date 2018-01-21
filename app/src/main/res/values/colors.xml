@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-    <color name="login_background">#303f9f</color>
-    <color name="login_button">#283593</color>
-    
+    <!--Theme-->
     <color name="colorPrimary">#162e62</color>
     <color name="colorPrimaryDark">#224796</color>
     <color name="colorAccent">#525659</color>
+    <!--Background and button-->
+    <color name="login_background">#303f9f</color>
+    <color name="login_button">#283593</color>
+    <color name="button_disabled">#455a64</color>
+    <!--ChatRoom-->
     <color name="colorMessageSentOTHER">#a4aaa4</color>
     <color name="colorMessageSentME">#6facf2</color>
     <color name="colorChatRoom_icons">#FFFFFF</color>
-    <color name="color_IEmotions_black">#000000</color>
-    <color name="color_IEmotions_teal">#00796B</color>
-    <color name="color_IEmotions_brown">#795548</color>
+    <color name="colorTextBorder">#616161</color>
+    <color name="colorAnnounce">#90a4ae</color>
+    <!--IEmotion-->
+        <!--buttons-->
+        <color name="color_IEmotions_black">#000000</color>
+        <color name="color_IEmotions_teal">#00796B</color>
+        <color name="color_IEmotions_brown">#795548</color>
+        <!--Recycler View-->
+        <color name="color_Recycler">#f5f5f5</color>
+        <!--CardView-->
+        <color name="color_IEmotion_cardView">#eeeeee</color>
     <!--Rank colors-->
     <color name="color_rank_USER">#757575</color>
     <color name="color_rank_TRUSTED">#455A64</color>

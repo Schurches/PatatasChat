@@ -1,5 +1,7 @@
 package com.example.steven.patataschat.Activities;
 
+import android.content.res.ColorStateList;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,20 +40,22 @@ import java.util.regex.Pattern;
 
 public class ManageUserActivity extends AppCompatActivity {
 
+    /*Constants*/
     private final ArrayList<Users> users_list = new ArrayList<>();
     private final int ACTION_NICKNAME = 1;
     private final int ACTION_RANK = 2;
     private final int ACTION_MUTE = 3;
     private final int ACTION_BAN = 4;
-    private final int ANNOUNCE_CODE = 1;
-    private final int MAX_NICKNAME_SIZE = 40;
-    private final String REGEX_PATTERN = "^[a-zA-Z0-9:.()_,]*$";
+    private final String REGEX_PATTERN = "[^a-zA-Z0-9:.()_,]*$";
+    /*Database and auth*/
     private DatabaseReference userReference;
     private DatabaseReference chatReference;
     private ValueEventListener usersValueListener;
     private ChildEventListener usersChildListener;
     private FirebaseAuth current_user;
-
+    /*Widgets*/
+    private RecyclerView recyclerView;
+    private UsersAdapter usersAdapter;
     private Button nickButton;
     private Button rankButton;
     private Button muteButton;
@@ -60,9 +64,7 @@ public class ManageUserActivity extends AppCompatActivity {
     private EditText actionEdittext;
     private TextView actionTextview;
     private Spinner rankSpinner;
-
-    private UsersAdapter usersAdapter;
-    private RecyclerView recyclerView;
+    /*Variables*/
     private int current_selected;
     private int current_action;
     private String chat_name;
@@ -159,22 +161,30 @@ public class ManageUserActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isTextValid(String text){
+        if (current_action == ACTION_NICKNAME){
+            if(text.isEmpty() || text.trim().isEmpty()){
+                actionEdittext.setError(getString(R.string.field_empty_error));
+                return false;
+            }else if(Pattern.matches(REGEX_PATTERN,text)){
+                actionEdittext.setError(getString(R.string.manage_nickname_alert_invalid_char));
+                return false;
+            }else if(text.length() >  40){
+                actionEdittext.setError(String.format(getResources().getString(R.string.manage_nickname_alert_size),
+                        40,text.length()));
+                return false;
+            }else{
+                actionEdittext.setError(null);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void changeNickname(){
         String new_nick = this.actionEdittext.getText().toString();
-        if(new_nick.isEmpty() || new_nick.trim().trim().isEmpty()){
-            Toast.makeText(getApplicationContext(),R.string.manage_nickname_alert_empty,Toast.LENGTH_SHORT).show();
-        }else{
-            if(Pattern.matches(REGEX_PATTERN,new_nick)){
-                int length = new_nick.length();
-                if(length <= MAX_NICKNAME_SIZE){
-                    setNickname(new_nick);
-                }else{
-                    String alert = String.format(getResources().getString(R.string.manage_nickname_alert_size),MAX_NICKNAME_SIZE,length);
-                    Toast.makeText(getApplicationContext(),alert,Toast.LENGTH_SHORT).show();
-                }
-            }else{
-                Toast.makeText(getApplicationContext(),R.string.manage_nickname_alert_invalid_char,Toast.LENGTH_SHORT).show();
-            }
+        if(isTextValid(new_nick)){
+            setNickname(new_nick);
         }
     }
 
@@ -279,6 +289,15 @@ public class ManageUserActivity extends AppCompatActivity {
         this.muteButton.setEnabled(showMute);
         this.rankButton.setEnabled(showRank);
         this.banButton.setEnabled(showBan);
+        if(!showMute){
+            this.muteButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_disabled)));
+        }
+        if(!showRank){
+            this.rankButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_disabled)));
+        }
+        if(!showBan){
+            this.banButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_disabled)));
+        }
     }
 
     public void setBan(Users bannedUser){
@@ -460,7 +479,7 @@ public class ManageUserActivity extends AppCompatActivity {
 
     public void sendAnnounce(String username, String message, String date){
         String announceID = chatReference.push().getKey();
-        Messages announce = new Messages(username,message,date,ANNOUNCE_CODE);
+        Messages announce = new Messages(username,message,date,1);
         chatReference.child(announceID).setValue(announce);
     }
 

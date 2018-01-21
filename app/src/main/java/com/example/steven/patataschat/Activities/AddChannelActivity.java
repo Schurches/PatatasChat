@@ -49,9 +49,19 @@ public class AddChannelActivity extends AppCompatActivity {
         finish();
     }
 
+    public boolean isTitleValid(String title){
+        if(title.isEmpty() || title.trim().isEmpty()){
+            channelName.setError(getString(R.string.field_empty_error));
+            return false;
+        }else{
+            channelName.setError(null);
+            return true;
+        }
+    }
+
     public void sendNewChannelDetails(View v){
         String title = channelName.getText().toString();
-        if(!title.isEmpty() && !title.trim().isEmpty()){
+        if(isTitleValid(title)){
             int option = iconSelector.getSelectedItemPosition()+1;
             Chats newChat = new Chats(title,option,1);
             DatabaseReference newChannel = FirebaseDatabase.getInstance().getReference().child("chats");
@@ -62,8 +72,6 @@ public class AddChannelActivity extends AppCompatActivity {
             editor.apply();
             Toast.makeText(this,R.string.chatChannel_new_added,Toast.LENGTH_SHORT).show();
             finish();
-        }else{
-            Toast.makeText(this, R.string.chatChannel_failed_empty, Toast.LENGTH_SHORT).show();
         }
     }
 

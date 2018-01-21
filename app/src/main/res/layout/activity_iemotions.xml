@@ -4,30 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     android:orientation="vertical"
+    android:background="@color/color_Recycler"
+    android:animateLayoutChanges="true"
     tools:context="com.example.steven.patataschat.Activities.IEmotionsActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/buttons_container"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/rectangle_shape"
+        android:padding="5dp"
         android:layout_weight="1"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        >
 
     </android.support.v7.widget.RecyclerView>
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="vertical">
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/color_IEmotion_cardView"
+        app:cardElevation="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -38,46 +39,95 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/icon_spinner"
-                    android:layout_width="150dp"
-                    android:background="@drawable/rectangle_shape"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center">
 
-                <Spinner
-                    android:id="@+id/color_spinner"
-                    android:layout_width="150dp"
-                    android:background="@drawable/rectangle_shape"
+                    <ImageButton
+                        android:id="@+id/previous_1"
+                        android:contentDescription="@string/ImageButtonCD1"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_back_black_24dp"
+                        android:onClick="nextColor"/>
+
+                    <Button
+                        android:id="@+id/color_button"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/color_rank_ADMIN"/>
+
+                    <ImageButton
+                        android:id="@+id/forward_1"
+                        android:contentDescription="@string/ImageButtonCD2"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_forward_black_24dp"
+                        android:onClick="nextColor"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/previous_2"
+                        android:contentDescription="@string/ImageButtonCD3"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arrow_back_black_24dp"
+                        android:onClick="nextIcon"/>
+
+                    <ImageButton
+                        android:id="@+id/icon_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/ImageButtonCD4"
+                        android:src="@drawable/ic_iemotions_run"/>
+
+                    <ImageButton
+                        android:id="@+id/forward_2"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/ImageButtonCD5"
+                        android:src="@drawable/ic_arrow_forward_black_24dp"
+                        android:onClick="nextIcon"/>
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/button_title"
-                    android:layout_width="150dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/textbox_shape"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="14"
+                    android:maxLines="1"
                     android:hint="@string/IEmotions_hint"
-                    android:layout_height="wrap_content"/>
+                    />
 
                 <Button
-                    android:layout_margin="5dp"
-                    android:text="@string/IEmotions_add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/login_and_register_button"
+                    android:text="@string/button_text_create"
                     android:onClick="addIEmotionButton"/>
 
             </LinearLayout>
 
             <Button
                 android:id="@+id/preview_button"
-                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
                 android:text="@string/IEmotions_preview"/>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 
 </LinearLayout>

@@ -8,29 +8,34 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!--         Login and register             -->
+    <!--              General                   -->
 
-    <style name="login_and_register_widget_margin">
-        <item name="android:layout_margin">10dp</item>
-    </style>
-
-    <style name="login_and_register_textfield" parent="login_and_register_widget_margin">
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:textColor">@color/colorChatRoom_icons</item>
-        <item name="android:textColorHint">@color/colorChatRoom_icons</item>
-        <item name="android:backgroundTint">@color/colorChatRoom_icons</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:maxLines">1</item>
-    </style>
-
-    <style name="login_and_register_button" parent="login_and_register_widget_margin">
+    <style name="app_button" parent="Widget.AppCompat.Button">
         <item name="android:elevation">1dp</item>
         <item name="android:backgroundTint">@color/login_button</item>
         <item name="android:textColor">@color/colorChatRoom_icons</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="app_editText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!--         Login and register             -->
+
+    <style name="login_and_register_textfield" parent="app_editText">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textColor">@color/colorChatRoom_icons</item>
+        <item name="android:textColorHint">@color/colorChatRoom_icons</item>
+        <item name="android:backgroundTint">@color/colorChatRoom_icons</item>
+    </style>
+
+    <style name="login_and_register_button" parent="app_button">
+        <item name="android:layout_margin">10dp</item>
     </style>
 
     <style name="login_and_register_layout_config">
@@ -68,25 +73,151 @@
 
     <!-- Chat Room-->
 
-
-
-    <style name="margin_button">
-        <item name="android:layout_margin">@dimen/padding_Boton</item>
+    <style name="chatroom_icons_config">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:backgroundTint">@color/colorPrimaryDark</item>
+        <item name="android:visibility">gone</item>
     </style>
 
-    <style name="padding_button" parent="margin_button">
-        <item name="android:padding">@dimen/padding_Boton</item>
+    <!--Add Channel-->
+
+    <style name="addChannel_widgets">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="button_style" parent="padding_button">
-        <item name="android:colorBackground">@color/colorAccent</item>
+    <style name="addChannel_editText" parent="addChannel_widgets">
+        <item name="android:inputType">textCapWords</item>
+        <item name="android:maxLength">20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:drawableStart">@drawable/ic_nickname_24dp</item>
+        <item name="android:hint">@string/chatChannel_name</item>
     </style>
 
-    <style name="textfield_style">
-        <item name="android:layout_marginRight">@dimen/padding_lateral_TextField</item>
-        <item name="android:layout_marginLeft">@dimen/padding_lateral_TextField</item>
+    <!--User management-->
+
+    <style name="management_editText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="management_button" parent="app_button">
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <!--Polls-->
+
+    <style name="poll_editText" parent="app_editText">
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="poll_option_editText">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:inputType">textCapSentences</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="poll_option_imageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="poll_option_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+    </style>
+
+    <style name="poll_result_progress" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+    </style>
+
+    <style name="poll_result_textView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <!--Profile-->
+
+    <style name="profile_widgets">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_gravity">start</item>
+    </style>
+
+    <style name="profile_textView" parent="profile_widgets">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="profile_editText" parent="profile_widgets">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:hint">@string/email_hint</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+
+
+    <!--ANNOUNCE ITEM-->
+
+    <style name="announce_imageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:src">@drawable/ic_iemotions_alert</item>
+    </style>
+
+    <style name="announce_text">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <!--POLL ITEM-->
+
+    <style name="poll_item_widgets">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <!--BUTTON ITEM-->
+    <style name="button_item_padding">
+        <item name="android:paddingStart">40dp</item>
+        <item name="android:paddingEnd">40dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

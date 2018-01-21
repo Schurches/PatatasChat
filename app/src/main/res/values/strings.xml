@@ -1,46 +1,42 @@
 <resources>
-    <string name="app_name">PatatasChat</string>
-    <!--General-->
+    <string name="app_name">Patatas Chat</string>
+    <!--                General             -->
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
     <string name="field_empty_error">Required field</string>
-    <!--Login-->
+    <string name="button_text_create">Create</string>
+    <!--                Login               -->
     <string name="login_button">Log In</string>
     <string name="success_login">Successfully logged in!</string>
     <string name="fail_login">Username and/or password are/is incorrect!</string>
-    <!--Register-->
+    <!--                Register                -->
     <string name="name_length_min_error">At least 5 characters</string>
     <string name="name_length_max_error">No more than 12 characters</string>
     <string name="email_error">Invalid email</string>
     <string name="select_image">Choose your profile picture</string>
     <string name="sign_up_text">CREATE ACCOUNT</string>
-    <string name="sign_up_error">An error ocurred</string>
+    <string name="sign_up_error">An error occurred</string>
     <string name="success_picture">Profile picture saved!</string>
     <string name="sign_up_success">Successfully created an account!</string>
     <string name="login_banned">You can\'t create accounts on banned devices</string>
-    <!--Chat Channels-->
+    <!--                Chat Channels               -->
     <string name="tab_1">Chat Channels</string>
     <string name="tab_2">Profile</string>
-    <string name="tab_3">Customize</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="first_channel">There\'s no chat channels, add one!</string>
-    <string name="add_chat">Add a new channel</string>
+    <string name="first_channel">There\'s no channels, add one!</string>
+    <string name="add_chat">New channel</string>
     <string name="no_chats">No channels available</string>
-    <!--Add a channel-->
-    <string name="chatChannel_label_name">Channel name</string>
-    <string name="chatChannel_name">Name goes here</string>
-    <string name="chatChannel_label_icon">Select an icon</string>
-    <string name="chatChannel_button_create">Create!</string>
-    <string name="chatChannel_new_added">Successfully created a new channel!</string>
-    <string name="chatChannel_failed_empty">You must set a name for the channel</string>
+    <!--                Add a channel               -->
+    <string name="chatChannel_name">Channel title</string>
+    <string name="chatChannel_label_icon">Pick an icon</string>
+    <string name="chatChannel_new_added">New channel created!</string>
     <string name="icon_1">message</string>
     <string name="icon_2">profile badge</string>
     <string name="icon_3">warning</string>
     <string name="icon_4">happy face</string>
     <string name="icon_5">people</string>
-    <!--Profile-->
+    <!--                Profile             -->
     <string name="profile_header">Profile</string>
     <string name="config_header">Configuration</string>
     <string name="group_messages">Messages to load</string>
@@ -57,9 +53,8 @@
     <string name="button_save">Upload</string>
     <string name="note">To see picture changes reflected you must clear cache</string>
     <string name="profile_update_success">Information successfully updated!</string>
-    <!--Chat room template-->
+    <!--                Chat room template                  -->
     <string name="chatRoom_username">Bielostotzky</string>
-    <string name="chatRoom_nickname">retrograda troglodita llorica pendulo venezolano</string>
     <string name="chatRoom_date">20:55</string>
     <string name="chatRoom_message">Yes!</string>
     <string name="contentDescription1">add picture</string>
@@ -69,7 +64,19 @@
     <string name="chatRoom_subtitle_template">Welcome back, <b>%1$s</b> </string>
     <string name="chatRoom_action_poll">poll</string>
     <string name="chatRoom_action_users">users</string>
-    <!--Manage users-->
+    <!--                Manage users                -->
+    <string name="manage_error">Something went wrong, try again</string>
+    <!--Buttons-->
+    <string name="manage_button_nick">Nick</string>
+    <string name="manage_button_rank">Rank</string>
+    <string name="manage_button_mute">Mute</string>
+    <string name="manage_button_un_mute">Unmute</string>
+    <string name="manage_button_ban">Ban</string>
+    <string name="manage_button_un_ban">Unban</string>
+    <string name="manage_button_change">Change</string>
+    <string name="manage_button_confirm">YES</string>
+    <!--Ranks-->
+    <string name="manage_select_rank">Select a rank</string>
     <string name="manage_spinner_item_user">User</string>
     <string name="manage_spinner_item_trusted">Trusted</string>
     <string name="manage_spinner_item_mod">Mod</string>
@@ -79,80 +86,61 @@
     <string name="manage_notify_rank">%1$s was %2$s to %3$s by %4$s!</string>
     <string name="manage_promote">promoted</string>
     <string name="manage_demote">demoted</string>
-    <string name="manage_nickname_alert_empty">The nickname can NOT be empty</string>
+    <string name="manage_rank_success">Successfully changed rank!</string>
+    <string name="manage_rank_failure">Setting the same rank? really?</string>
+    <!--Nicks-->
+    <string name="manage_username_name_empty">Select a user</string>
+    <string name="manage_username_template">Username: %1$s</string>
     <string name="manage_nickname_alert_size">The nickname\'s length must not surpass %1$i. Your\'s is: %2$i</string>
     <string name="manage_nickname_alert_invalid_char">Characters different from ( ) : . _ , are not allowed</string>
-    <string name="manage_username_template">Username: %1$s</string>
-    <string name="manage_username_name_empty">Select a user</string>
-    <string name="manage_ban_reason_empty">Leave a reason</string>
-    <string name="manage_set_time">Time in minutes</string>
-    <string name="manage_time_hint">60</string>
-    <string name="manage_select_rank">Select a rank</string>
-    <string name="manage_button_nick">Nick</string>
-    <string name="manage_button_rank">Rank</string>
-    <string name="manage_button_mute">Mute</string>
-    <string name="manage_button_un_mute">Unmute</string>
-    <string name="manage_button_ban">Ban</string>
-    <string name="manage_button_un_ban">Unban</string>
-    <string name="manage_button_change">Change</string>
-    <string name="manage_button_confirm">YES</string>
-    <string name="manage_notify_mute">%1$s muted %2$s</string>
-    <string name="manage_notify_un_mute">%1$s was unmuted</string>
-    <string name="manage_mute_success">User successfully muted!</string>
-    <string name="manage_un_mute_success">User successfully unmuted!</string>
-    <string name="manage_confirm_ban">Are you sure you want to ban <b>%1$s</b>?</string>
-    <string name="manage_confirm_unban">Un-ban <b>%1$s</b>?</string>
     <string name="manage_nickname_changed_announce">%1$s set %2$s\'s nickname to %3$s</string>
+    <string name="manage_nickname_success">Successfully changed nickname!</string>
+    <!--Mute-->
+    <string name="manage_notify_mute">%1$s muted %2$s</string>
+    <string name="manage_notify_un_mute">%1$s was un-muted</string>
+    <string name="manage_mute_success">User successfully muted!</string>
+    <string name="manage_un_mute_success">User successfully un-muted!</string>
+    <string name="manage_unmute_failed">You can not un-mute yourself</string>
+    <!--Ban-->
+    <string name="manage_confirm_ban">Are you sure you want to ban <b>%1$s</b>?</string>
+    <string name="manage_ban_reason_empty">Leave a reason</string>
+    <string name="manage_confirm_unban">Un-ban <b>%1$s</b>?</string>
     <string name="manage_ban_invalid">You can NOT ban somebody above your rank</string>
     <string name="manage_ban_success">Successfully banned %1$s</string>
     <string name="manage_notify_ban">%1$s banned %2$s</string>
     <string name="manage_notify_unban">%1$s was unbanned</string>
     <string name="manage_unban_success">User successfully unbanned!</string>
-    <string name="manage_unmute_failed">You can not un-mute yourself</string>
     <string name="user_banned_message">You have been banned</string>
-    <string name="manage_nickname_success">Successfully changed nickname!</string>
-    <string name="manage_rank_success">Successfully changed rank!</string>
-    <string name="manage_rank_failure">Setting the same rank? really?</string>
-    <string name="manage_error">Something went wrong, try again</string>
-    <!--IEmotions Activity-->
-    <string name="IEmotions_color">Pick color</string>
-    <string name="IEmotions_color_user">USER</string>
-    <string name="IEmotions_color_trusted">TRUSTED</string>
-    <string name="IEmotions_color_mod">MOD</string>
-    <string name="IEmotions_color_admin">ADMIN</string>
-    <string name="IEmotions_color_root">ROOT</string>
-    <string name="IEmotions_color_sentME">MESSAGE 1</string>
-    <string name="IEmotions_color_sentOTHER">MESSAGE 2</string>
-    <string name="IEmotions_color_teal">TEAL</string>
-    <string name="IEmotions_color_brown">BROWN</string>
-    <string name="IEmotions_color_white">WHITE</string>
-    <string name="IEmotions_color_black">BLACK</string>
-    <string name="IEmotions_pick">Pick icon</string>
-    <string name="IEmotions_icon_happy">HAPPY</string>
-    <string name="IEmotions_icon_awesome">AWESOME</string>
-    <string name="IEmotions_icon_death">DEATH</string>
-    <string name="IEmotions_icon_disappointment">DISAPPOINTMENT</string>
-    <string name="IEmotions_icon_run">RUN</string>
-    <string name="IEmotions_icon_sad">SAD</string>
-    <string name="IEmotions_icon_child">BABY</string>
-    <string name="IEmotions_icon_email">MAIL</string>
-    <string name="IEmotions_icon_warn">ALERT</string>
-    <string name="IEmotions_icon_message">MESSAGE</string>
+    <!--                IEmotions Activity              -->
     <string name="IEmotions_muted">You have been muted. Therefore you can\t use emotions</string>
-    <string name="IEmotions_empty">Title for the button is missing</string>
     <string name="IEmotions_success">New IEmotion button added!</string>
     <string name="IEmotions_created">New button created: %1$s</string>
-    <string name="IEmotions_add">Add button</string>
+    <string name="IEmotions_hint">Title</string>
     <string name="IEmotions_preview">Preview</string>
-    <string name="IEmotions_hint">Button title</string>
-    <!--Polls-->
+    <string name="title_length_min_error">At least 2 characters</string>
+    <string name="ImageButtonCD1">Previous 1</string>
+    <string name="ImageButtonCD2">Forward 1</string>
+    <string name="ImageButtonCD3">Previous 2</string>
+    <string name="ImageButtonCD4">Icon</string>
+    <string name="ImageButtonCD5">Forward 2</string>
+    <!--                Polls               -->
     <string name="poll_active">ACTIVE</string>
     <string name="poll_finish">FINISHED</string>
     <string name="poll_empty">No option should be empty</string>
     <string name="poll_minimum">2 options minimum</string>
     <string name="poll_max">No more than 5 options</string>
-    <string name="poll_title">You haven\'t set a title</string>
+    <string name="poll_title_empty">You haven\'t set a title</string>
     <string name="poll_created">New poll created!</string>
     <string name="poll_no_option">You must select an option!</string>
+    <string name="poll_select">Select a poll</string>
+    <string name="poll_set_title">Ask something</string>
+    <string name="poll_option_1">Option 1</string>
+    <string name="poll_option_2">Option 2</string>
+    <string name="poll_option_3">Option 3</string>
+    <string name="poll_option_4">Option 4</string>
+    <string name="poll_option_5">Option 5</string>
+    <string name="poll_vote">Vote</string>
+    <string name="poll_created_announce">%1$s created the poll %2$s</string>
+
 
 </resources>

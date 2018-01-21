@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/color_Recycler"
     tools:context="com.example.steven.patataschat.Activities.ManageUserActivity">
 
     <LinearLayout
@@ -15,89 +16,105 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/users_view"
+            android:layout_height="250dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
             />
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:contentPadding="5dp"
+            app:cardElevation="1dp"
+            app:cardBackgroundColor="@color/color_IEmotion_cardView">
 
-            <Button
-                android:id="@+id/nick_button"
-                android:text="@string/manage_button_nick"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="setAction"/>
+                android:orientation="vertical"
+                android:gravity="center">
 
-            <Button
-                android:id="@+id/rank_button"
-                android:text="@string/manage_button_rank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setAction"/>
+                <Button
+                    android:id="@+id/nick_button"
+                    style="@style/app_button"
+                    android:text="@string/manage_button_nick"
+                    android:onClick="setAction"/>
 
-            <Button
-                android:id="@+id/mute_button"
-                android:text="@string/manage_button_mute"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="changeMute"/>
+                <Button
+                    android:id="@+id/mute_button"
+                    style="@style/app_button"
+                    android:text="@string/manage_button_mute"
+                    android:onClick="changeMute"/>
 
-            <Button
-                android:id="@+id/ban_button"
-                android:text="@string/manage_button_ban"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="setAction"/>
+                <Button
+                    android:id="@+id/rank_button"
+                    style="@style/app_button"
+                    android:text="@string/manage_button_rank"
+                    android:onClick="setAction"/>
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/ban_button"
+                    style="@style/app_button"
+                    android:backgroundTint="@color/color_rank_ADMIN"
+                    android:text="@string/manage_button_ban"
+                    android:onClick="setAction"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:padding="20dp"
         android:orientation="vertical"
         android:animateLayoutChanges="true"
         android:gravity="center">
 
-        <TextView
-            android:id="@+id/text_info"
-            android:layout_gravity="start"
-            android:layout_margin="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/manage_username_name_empty"/>
-
-        <EditText
-            android:id="@+id/edit_text"
-            android:layout_margin="5dp"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="@string/manage_username_name_empty"
-            />
+            app:cardElevation="1dp"
+            app:cardBackgroundColor="@color/color_IEmotion_cardView">
 
-        <Spinner
-            android:id="@+id/rank_spinner"
-            android:layout_margin="@dimen/chatList_layout_margins"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
 
-        <Button
-            android:id="@+id/button_action"
-            android:layout_margin="5dp"
-            android:text="@string/manage_button_change"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="doAction"/>
+                <TextView
+                    android:id="@+id/text_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="viewStart"
+                    android:textSize="15sp"
+                    android:text="@string/manage_username_name_empty"/>
+
+                <EditText
+                    android:id="@+id/edit_text"
+                    style="@style/management_editText"
+                    android:hint="@string/manage_username_name_empty" />
+
+                <Spinner
+                    android:id="@+id/rank_spinner"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                     />
+
+                <Button
+                    android:id="@+id/button_action"
+                    android:text="@string/manage_button_change"
+                    style="@style/management_button"
+                    android:onClick="doAction"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 

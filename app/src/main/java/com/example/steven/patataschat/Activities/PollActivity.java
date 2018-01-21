@@ -37,32 +37,35 @@ public class PollActivity extends AppCompatActivity {
 
     private final ArrayList<Poll> polls = new ArrayList<>();
     private final ArrayList<Users> users = new ArrayList<>();
-    private ArrayList<RadioButton> options_rb;
-    private ArrayList<RadioButton> options_create;
-    private ArrayList<ImageButton> buttons_create;
-    private ArrayList<TextView> results_tv;
-    private ArrayList<EditText> titles_create;
-    private ArrayList<LinearLayout> layouts_create;
-    private ArrayList<String> options_list;
-    private ArrayList<ProgressBar> progress_list;
-    private RecyclerView polls_recycler;
-    private LinearLayout options_layout;
-    private PollsAdapter poll_adapter;
-    private FirebaseAuth auth_service;
+    /*Widget Arrays*/
+    private ArrayList<RadioButton> optionsRb;
+    private ArrayList<RadioButton> optionsCreate;
+    private ArrayList<ImageButton> buttonsCreate;
+    private ArrayList<TextView> resultsTv;
+    private ArrayList<EditText> titlesCreate;
+    private ArrayList<LinearLayout> layoutsCreate;
+    private ArrayList<String> optionsList;
+    private ArrayList<ProgressBar> progressList;
+    /*Widgets*/
+    private RecyclerView pollsRecycler;
+    private LinearLayout optionsLayout;
+    private PollsAdapter pollsAdapter;
+    /*Database and auth*/
+    private FirebaseAuth authService;
     private DatabaseReference userRef;
     private DatabaseReference pollRef;
     private ChildEventListener pollChild;
     private ChildEventListener userChild;
     private ValueEventListener userValue;
-    private RadioGroup options_group;
-    private int current_poll_position;
-    private int previous_selected = -1;
+    private RadioGroup optionsGroup;
     private Button submit;
-    private EditText title_create;
+    private EditText titleCreate;
+    private ProgressDialog dialog;
+    /*Variables*/
+    private int currentPollPosition;
+    private int previousSelected = -1;
     private String chat_name;
     private String name;
-    private ProgressDialog dialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,148 +73,148 @@ public class PollActivity extends AppCompatActivity {
         setContentView(R.layout.activity_poll);
         dialog = ProgressDialog.show(PollActivity.this,"","Loading polls...",true);
         instantiate();
-        this.auth_service = FirebaseAuth.getInstance();
-        this.polls_recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        this.authService = FirebaseAuth.getInstance();
+        this.pollsRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
         this.pollRef = FirebaseDatabase.getInstance().getReference("polls");
         this.userRef = FirebaseDatabase.getInstance().getReference("users");
         this.chat_name = getIntent().getExtras().getString("chat_name");
         this.name = getIntent().getExtras().getString("user_name");
         iniReferences();
-        current_poll_position = -1;
-        this.options_layout.setVisibility(View.GONE);
+        currentPollPosition = -1;
+        this.optionsLayout.setVisibility(View.GONE);
     }
 
     public void iniArrays(){
-        this.options_rb.add((RadioButton) findViewById(R.id.opt_1));
-        this.options_rb.add((RadioButton) findViewById(R.id.opt_2));
-        this.options_rb.add((RadioButton) findViewById(R.id.opt_3));
-        this.options_rb.add((RadioButton) findViewById(R.id.opt_4));
-        this.options_rb.add((RadioButton) findViewById(R.id.opt_5));
-        this.results_tv.add((TextView) findViewById(R.id.result_1));
-        this.results_tv.add((TextView) findViewById(R.id.result_2));
-        this.results_tv.add((TextView) findViewById(R.id.result_3));
-        this.results_tv.add((TextView) findViewById(R.id.result_4));
-        this.results_tv.add((TextView) findViewById(R.id.result_5));
-        this.options_create.add((RadioButton) findViewById(R.id.option_1));
-        this.options_create.add((RadioButton) findViewById(R.id.option_2));
-        this.options_create.add((RadioButton) findViewById(R.id.option_3));
-        this.options_create.add((RadioButton) findViewById(R.id.option_4));
-        this.options_create.add((RadioButton) findViewById(R.id.option_5));
-        this.titles_create.add((EditText) findViewById(R.id.text_1));
-        this.titles_create.add((EditText) findViewById(R.id.text_2));
-        this.titles_create.add((EditText) findViewById(R.id.text_3));
-        this.titles_create.add((EditText) findViewById(R.id.text_4));
-        this.titles_create.add((EditText) findViewById(R.id.text_5));
-        this.buttons_create.add((ImageButton) findViewById(R.id.button_1));
-        this.buttons_create.add((ImageButton) findViewById(R.id.button_2));
-        this.buttons_create.add((ImageButton) findViewById(R.id.button_3));
-        this.buttons_create.add((ImageButton) findViewById(R.id.button_4));
-        this.buttons_create.add((ImageButton) findViewById(R.id.button_5));
-        this.layouts_create.add((LinearLayout) findViewById(R.id.layout_1));
-        this.layouts_create.add((LinearLayout) findViewById(R.id.layout_2));
-        this.layouts_create.add((LinearLayout) findViewById(R.id.layout_3));
-        this.layouts_create.add((LinearLayout) findViewById(R.id.layout_4));
-        this.layouts_create.add((LinearLayout) findViewById(R.id.layout_5));
-        this.progress_list.add((ProgressBar) findViewById(R.id.progress_1));
-        this.progress_list.add((ProgressBar) findViewById(R.id.progress_2));
-        this.progress_list.add((ProgressBar) findViewById(R.id.progress_3));
-        this.progress_list.add((ProgressBar) findViewById(R.id.progress_4));
-        this.progress_list.add((ProgressBar) findViewById(R.id.progress_5));
+        this.optionsRb.add((RadioButton) findViewById(R.id.opt_1));
+        this.optionsRb.add((RadioButton) findViewById(R.id.opt_2));
+        this.optionsRb.add((RadioButton) findViewById(R.id.opt_3));
+        this.optionsRb.add((RadioButton) findViewById(R.id.opt_4));
+        this.optionsRb.add((RadioButton) findViewById(R.id.opt_5));
+        this.resultsTv.add((TextView) findViewById(R.id.result_1));
+        this.resultsTv.add((TextView) findViewById(R.id.result_2));
+        this.resultsTv.add((TextView) findViewById(R.id.result_3));
+        this.resultsTv.add((TextView) findViewById(R.id.result_4));
+        this.resultsTv.add((TextView) findViewById(R.id.result_5));
+        this.optionsCreate.add((RadioButton) findViewById(R.id.option_1));
+        this.optionsCreate.add((RadioButton) findViewById(R.id.option_2));
+        this.optionsCreate.add((RadioButton) findViewById(R.id.option_3));
+        this.optionsCreate.add((RadioButton) findViewById(R.id.option_4));
+        this.optionsCreate.add((RadioButton) findViewById(R.id.option_5));
+        this.titlesCreate.add((EditText) findViewById(R.id.text_1));
+        this.titlesCreate.add((EditText) findViewById(R.id.text_2));
+        this.titlesCreate.add((EditText) findViewById(R.id.text_3));
+        this.titlesCreate.add((EditText) findViewById(R.id.text_4));
+        this.titlesCreate.add((EditText) findViewById(R.id.text_5));
+        this.buttonsCreate.add((ImageButton) findViewById(R.id.button_1));
+        this.buttonsCreate.add((ImageButton) findViewById(R.id.button_2));
+        this.buttonsCreate.add((ImageButton) findViewById(R.id.button_3));
+        this.buttonsCreate.add((ImageButton) findViewById(R.id.button_4));
+        this.buttonsCreate.add((ImageButton) findViewById(R.id.button_5));
+        this.layoutsCreate.add((LinearLayout) findViewById(R.id.layout_1));
+        this.layoutsCreate.add((LinearLayout) findViewById(R.id.layout_2));
+        this.layoutsCreate.add((LinearLayout) findViewById(R.id.layout_3));
+        this.layoutsCreate.add((LinearLayout) findViewById(R.id.layout_4));
+        this.layoutsCreate.add((LinearLayout) findViewById(R.id.layout_5));
+        this.progressList.add((ProgressBar) findViewById(R.id.progress_1));
+        this.progressList.add((ProgressBar) findViewById(R.id.progress_2));
+        this.progressList.add((ProgressBar) findViewById(R.id.progress_3));
+        this.progressList.add((ProgressBar) findViewById(R.id.progress_4));
+        this.progressList.add((ProgressBar) findViewById(R.id.progress_5));
     }
 
     public void instantiate(){
-        this.options_layout = findViewById(R.id.options_layout);
-        this.polls_recycler = findViewById(R.id.poll_recycler);
-        this.options_group = findViewById(R.id.radio_group_1);
+        this.optionsLayout = findViewById(R.id.options_layout);
+        this.pollsRecycler = findViewById(R.id.poll_recycler);
+        this.optionsGroup = findViewById(R.id.radio_group_1);
         this.submit = findViewById(R.id.submit_vote);
-        this.title_create = findViewById(R.id.title);
-        this.options_rb = new ArrayList<>();
-        this.options_list = new ArrayList<>();
-        this.results_tv = new ArrayList<>();
-        this.options_create = new ArrayList<>();
-        this.titles_create = new ArrayList<>();
-        this.buttons_create = new ArrayList<>();
-        this.layouts_create = new ArrayList<>();
-        this.progress_list = new ArrayList<>();
+        this.titleCreate = findViewById(R.id.title);
+        this.optionsRb = new ArrayList<>();
+        this.optionsList = new ArrayList<>();
+        this.resultsTv = new ArrayList<>();
+        this.optionsCreate = new ArrayList<>();
+        this.titlesCreate = new ArrayList<>();
+        this.buttonsCreate = new ArrayList<>();
+        this.layoutsCreate = new ArrayList<>();
+        this.progressList = new ArrayList<>();
         iniArrays();
     }
 
-    public void show_options(Poll poll){
+    public void showOptions(Poll poll){
         int size = poll.getOptions().size();
         RadioButton option;
         for(int i = 0; i<size; i++){
-            option = options_rb.get(i);
+            option = optionsRb.get(i);
             option.setText(poll.getOptionTitle(i));
             if(option.getVisibility() == View.GONE){
                 option.setVisibility(View.VISIBLE);
             }
         }
         for(int i = size; i < 5; i++){
-            option = options_rb.get(i);
+            option = optionsRb.get(i);
             option.setText("");
             if(option.getVisibility() == View.VISIBLE){
                 option.setVisibility(View.GONE);
             }
         }
         for(int i = 0; i < 5; i++){
-            results_tv.get(i).setVisibility(View.GONE);
-            progress_list.get(i).setVisibility(View.GONE);
+            resultsTv.get(i).setVisibility(View.GONE);
+            progressList.get(i).setVisibility(View.GONE);
         }
-        options_group.clearCheck();
+        optionsGroup.clearCheck();
         if(submit.getVisibility() == View.GONE){
             submit.setVisibility(View.VISIBLE);
         }
     }
 
-    public void show_details(Poll poll){
+    public void showDetails(Poll poll){
         int total = poll.getVoted_users_list().size();
         int size = poll.getOptions().size();
         for(int i = 0; i < size; i++){
             float percentage = ((float)poll.getOptionVotedCount(i)/total)*100;
-            options_rb.get(i).setVisibility(View.GONE);
-            results_tv.get(i).setVisibility(View.VISIBLE);
-            progress_list.get(i).setVisibility(View.VISIBLE);
+            optionsRb.get(i).setVisibility(View.GONE);
+            resultsTv.get(i).setVisibility(View.VISIBLE);
+            progressList.get(i).setVisibility(View.VISIBLE);
             String option_detail = poll.getOptionTitle(i);
-            results_tv.get(i).setText(option_detail);
-            progress_list.get(i).setProgress((int) percentage);
+            resultsTv.get(i).setText(option_detail);
+            progressList.get(i).setProgress((int) percentage);
         }
         for(int i = size; i < 5; i++){
-            options_rb.get(i).setVisibility(View.GONE);
-            results_tv.get(i).setVisibility(View.GONE);
-            progress_list.get(i).setVisibility(View.GONE);
+            optionsRb.get(i).setVisibility(View.GONE);
+            resultsTv.get(i).setVisibility(View.GONE);
+            progressList.get(i).setVisibility(View.GONE);
         }
         if(submit.getVisibility() == View.VISIBLE){
             submit.setVisibility(View.GONE);
         }
     }
 
-    public void show_choice(int position, int visibility){
-        titles_create.get(position).setText("");
-        options_create.get(position).setChecked(false);
-        titles_create.get(position).setVisibility(visibility);
-        options_create.get(position).setVisibility(visibility);
+    public void showChoice(int position, int visibility){
+        titlesCreate.get(position).setText("");
+        optionsCreate.get(position).setChecked(false);
+        titlesCreate.get(position).setVisibility(visibility);
+        optionsCreate.get(position).setVisibility(visibility);
     }
 
-    public void output_option(int array_position, int visibility){
+    public void outputOption(int array_position, int visibility){
         switch(visibility){
             case View.VISIBLE:
-                show_choice(array_position,View.VISIBLE);
-                buttons_create.get(array_position).setImageDrawable(getDrawable(R.drawable.ic_cancel_black_24dp));
+                showChoice(array_position,View.VISIBLE);
+                buttonsCreate.get(array_position).setImageDrawable(getDrawable(R.drawable.ic_cancel_black_24dp));
                 if(array_position < 4){
-                    layouts_create.get(array_position+1).setVisibility(View.VISIBLE);
+                    layoutsCreate.get(array_position+1).setVisibility(View.VISIBLE);
                 }
                 break;
             case View.GONE:
                 if(array_position == 4){
-                    show_choice(array_position,View.GONE);
+                    showChoice(array_position,View.GONE);
                 }else{
                     int first_invisible = getFirstInvisibleItem();
                     int last_visible = first_invisible-1;
                     if(first_invisible == 3){
-                        //Toast cant have less than 2 options
+                        Toast.makeText(this, R.string.poll_minimum, Toast.LENGTH_SHORT).show();
                     }else{
                         for(int i = array_position; i < last_visible; i++){
-                            titles_create.get(i).setText(titles_create.get(i+1).getText());
+                            titlesCreate.get(i).setText(titlesCreate.get(i+1).getText());
                         }
                         changeLastOption(last_visible);
                     }
@@ -221,51 +224,51 @@ public class PollActivity extends AppCompatActivity {
     }
 
     public void changeLastOption(int last_visible){
-        if(titles_create.get(last_visible).getVisibility() == View.GONE){
-            layouts_create.get(last_visible).setVisibility(View.GONE);
-            show_choice(last_visible-1,View.GONE);
-            buttons_create.get(last_visible-1).setImageDrawable(getDrawable(R.drawable.ic_add_circle_black_24dp));
+        if(titlesCreate.get(last_visible).getVisibility() == View.GONE){
+            layoutsCreate.get(last_visible).setVisibility(View.GONE);
+            showChoice(last_visible-1,View.GONE);
+            buttonsCreate.get(last_visible-1).setImageDrawable(getDrawable(R.drawable.ic_add_circle_black_24dp));
         }else{
-            show_choice(last_visible,View.GONE);
-            buttons_create.get(last_visible).setImageDrawable(getDrawable(R.drawable.ic_add_circle_black_24dp));
+            showChoice(last_visible,View.GONE);
+            buttonsCreate.get(last_visible).setImageDrawable(getDrawable(R.drawable.ic_add_circle_black_24dp));
         }
     }
 
     public int getFirstInvisibleItem(){
         for(int i = 0; i <= 4; i++){
-            if(layouts_create.get(i).getVisibility() == View.GONE){
+            if(layoutsCreate.get(i).getVisibility() == View.GONE){
                 return i;
             }
         }
         return 5;
     }
 
-    public void change_check(View view){
+    public void changeCheck(View view){
         switch(view.getId()){
             case R.id.option_1:
-                uncheck_others(0);
+                unCheckOthers(0);
                 break;
             case R.id.option_2:
-                uncheck_others(1);
+                unCheckOthers(1);
                 break;
             case R.id.option_3:
-                uncheck_others(2);
+                unCheckOthers(2);
                 break;
             case R.id.option_4:
-                uncheck_others(3);
+                unCheckOthers(3);
                 break;
             case R.id.option_5:
-                uncheck_others(4);
+                unCheckOthers(4);
                 break;
         }
     }
 
-    public void uncheck_others(int position_to_not_change){
+    public void unCheckOthers(int position_to_not_change){
         for(int i = 0; i < 5; i++){
             if(i != position_to_not_change){
-                options_create.get(i).setChecked(false);
+                optionsCreate.get(i).setChecked(false);
             }else{
-                options_create.get(i).setChecked(true);
+                optionsCreate.get(i).setChecked(true);
             }
         }
     }
@@ -273,30 +276,30 @@ public class PollActivity extends AppCompatActivity {
     public void anotherOption(View view){
         switch(view.getId()){
             case R.id.button_1:
-                output_option(0,View.GONE);
+                outputOption(0,View.GONE);
                 break;
             case R.id.button_2:
-                output_option(1,View.GONE);
+                outputOption(1,View.GONE);
                 break;
             case R.id.button_3:
-                if(titles_create.get(2).getVisibility() == View.VISIBLE){
-                    output_option(2,View.GONE);
+                if(titlesCreate.get(2).getVisibility() == View.VISIBLE){
+                    outputOption(2,View.GONE);
                 }else{
-                    output_option(2,View.VISIBLE);
+                    outputOption(2,View.VISIBLE);
                 }
                 break;
             case R.id.button_4:
-                if(titles_create.get(3).getVisibility() == View.VISIBLE){
-                    output_option(3,View.GONE);
+                if(titlesCreate.get(3).getVisibility() == View.VISIBLE){
+                    outputOption(3,View.GONE);
                 }else{
-                    output_option(3,View.VISIBLE);
+                    outputOption(3,View.VISIBLE);
                 }
                 break;
             case R.id.button_5:
-                if(titles_create.get(4).getVisibility() == View.VISIBLE){
-                    output_option(4,View.GONE);
+                if(titlesCreate.get(4).getVisibility() == View.VISIBLE){
+                    outputOption(4,View.GONE);
                 }else{
-                    output_option(4,View.VISIBLE);
+                    outputOption(4,View.VISIBLE);
                 }
                 break;
         }
@@ -304,8 +307,8 @@ public class PollActivity extends AppCompatActivity {
 
     public boolean isAnyOptionEmpty(){
         for(int i = 0; i < 5; i++){
-            String text = titles_create.get(i).getText().toString();
-            if(titles_create.get(i).getVisibility() == View.VISIBLE && (text.isEmpty() || text.trim().isEmpty())){
+            String text = titlesCreate.get(i).getText().toString();
+            if(titlesCreate.get(i).getVisibility() == View.VISIBLE && (text.isEmpty() || text.trim().isEmpty())){
                 return true;
             }
         }
@@ -314,19 +317,29 @@ public class PollActivity extends AppCompatActivity {
 
     public void setOptions(){
         for(int i = 0; i < 5; i++){
-            if(titles_create.get(i).getVisibility() == View.VISIBLE){
-                options_list.add(titles_create.get(i).getText().toString());
+            if(titlesCreate.get(i).getVisibility() == View.VISIBLE){
+                optionsList.add(titlesCreate.get(i).getText().toString());
             }
         }
     }
 
     public boolean isAnOptionChecked(){
         for(int i = 0; i < 5; i++){
-            if(options_create.get(i).getVisibility() == View.VISIBLE && options_create.get(i).isChecked()){
+            if(optionsCreate.get(i).getVisibility() == View.VISIBLE && optionsCreate.get(i).isChecked()){
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean isTitleSet(String title){
+        if(title.isEmpty() || title.trim().isEmpty()){
+            titleCreate.setError(getString(R.string.poll_title_empty));
+            return false;
+        }else{
+            titleCreate.setError(null);
+            return true;
+        }
     }
 
     public void createPoll(View view){
@@ -335,34 +348,35 @@ public class PollActivity extends AppCompatActivity {
         }else if(!isAnOptionChecked()){
             Toast.makeText(this, R.string.poll_no_option, Toast.LENGTH_SHORT).show();
         }else{
-            String poll_title = title_create.getText().toString();
+            String poll_title = titleCreate.getText().toString();
             setOptions();
-            int size = options_list.size();
+            int size = optionsList.size();
             if(size < 2){
                 Toast.makeText(this,R.string.poll_minimum,Toast.LENGTH_SHORT).show();
             } else if (size > 5) {
                 Toast.makeText(this,R.string.poll_max,Toast.LENGTH_SHORT).show();
-            }else if(poll_title.isEmpty() || poll_title.trim().isEmpty()){
-                Toast.makeText(this,R.string.poll_title,Toast.LENGTH_SHORT).show();
+            }else if(!isTitleSet(poll_title)){
+                //Uh.. nothing, everything is handled IN it. But needs to be called anyway!
             }else{
                 String pollID = pollRef.push().getKey();
                 ArrayList<Integer> votes = Poll.create_options_count(size,getSelectedOption());
                 ArrayList<String> users = new ArrayList<>();
-                users.add(auth_service.getCurrentUser().getUid());
-                Poll poll = new Poll(pollID,poll_title,true,options_list,votes,users);
+                users.add(authService.getCurrentUser().getUid());
+                Poll poll = new Poll(pollID,poll_title,true, optionsList,votes,users);
                 pollRef.child(pollID).setValue(poll);
-                String message = name+" created the poll: "+poll_title;
+                String message = String.format(getString(R.string.poll_created_announce),name,poll_title);
                 Messages.sendMessage(name,message,Messages.getDateFormatted(new Date()),chat_name,1);
-                title_create.setText("");
+                titleCreate.setText("");
                 clearEverything();
                 Toast.makeText(this,R.string.poll_created,Toast.LENGTH_SHORT).show();
             }
+            optionsList.clear();
         }
     }
 
     public int getSelectedOption(){
         for(int i = 0; i < 5; i++){
-            if(options_create.get(i).isChecked()){
+            if(optionsCreate.get(i).isChecked()){
                 return i;
             }
         }
@@ -370,16 +384,18 @@ public class PollActivity extends AppCompatActivity {
     }
 
     public void clearEverything(){
-        output_option(4,View.GONE);
-        output_option(3,View.GONE);
-        output_option(2,View.GONE);
+        titlesCreate.get(0).setText("");
+        titlesCreate.get(1).setText("");
+        outputOption(4,View.GONE);
+        outputOption(3,View.GONE);
+        outputOption(2,View.GONE);
     }
 
-    public void submit_vote(View view){
-        int option = options_group.getCheckedRadioButtonId();
-        if(current_poll_position != -1){
+    public void submitVote(View view){
+        int option = optionsGroup.getCheckedRadioButtonId();
+        if(currentPollPosition != -1){
             if(option != -1){
-                Poll selected = polls.get(current_poll_position);
+                Poll selected = polls.get(currentPollPosition);
                 switch(option){
                     case R.id.opt_1:
                         selected.increment_vote(0);
@@ -397,45 +413,47 @@ public class PollActivity extends AppCompatActivity {
                         selected.increment_vote(4);
                         break;
                 }
-                selected.addUserID(auth_service.getCurrentUser().getUid());
+                selected.addUserID(authService.getCurrentUser().getUid());
                 if(selected.getVoted_users_list().size() == users.size()){
                     selected.setActive(false);
                 }
                 pollRef.child(selected.getPollID()).setValue(selected);
             }else{
-                //toast sleect option
+                Toast.makeText(this, R.string.poll_no_option, Toast.LENGTH_SHORT).show();
             }
         }else{
-            //toast select a poll
+            Toast.makeText(this, R.string.poll_select, Toast.LENGTH_SHORT).show();
         }
     }
 
     public void iniRecycler(int user_count){
-        this.poll_adapter= new PollsAdapter(polls,user_count);
-        this.polls_recycler.setAdapter(poll_adapter);
-        this.polls_recycler.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+        this.pollsAdapter = new PollsAdapter(polls,user_count);
+        this.pollsRecycler.setAdapter(pollsAdapter);
+        this.pollsRecycler.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                if(e.getAction() == MotionEvent.ACTION_UP){
-                    View selected_poll = rv.findChildViewUnder(e.getX(),e.getY());
-                    if(current_poll_position != -1){
-                        previous_selected = current_poll_position;
+                View selected_poll = rv.findChildViewUnder(e.getX(),e.getY());
+                if(selected_poll != null && e.getAction() == MotionEvent.ACTION_DOWN){
+                    if(currentPollPosition != -1){
+                        previousSelected = currentPollPosition;
                     }
                     int poll_position = rv.getChildAdapterPosition(selected_poll);
                     if(poll_position != -1){
                         Poll poll = polls.get(poll_position);
-                        if(!poll.hasUserVoted(auth_service.getCurrentUser().getUid()) && poll.isActive()){
-                            show_options(poll);
+                        if(!poll.hasUserVoted(authService.getCurrentUser().getUid()) && poll.isActive()){
+                            showOptions(poll);
                         }else{
-                            show_details(poll);
+                            showDetails(poll);
                         }
-                        if(previous_selected != -1){
-                            ((PollsAdapter.PollHolder)rv.getChildViewHolder(rv.getChildAt(previous_selected))).
-                                    checkSelected(false);
+                        if(previousSelected != -1){
+                            PollsAdapter.PollHolder holder = ((PollsAdapter.PollHolder)rv.findViewHolderForAdapterPosition(previousSelected));
+                            if(holder != null){
+                                holder.checkSelected(false);
+                            }
                         }
-                        ((PollsAdapter.PollHolder)rv.getChildViewHolder(selected_poll)).checkSelected(true);
-                        current_poll_position = poll_position;
-                        options_layout.setVisibility(View.VISIBLE);
+                        ((PollsAdapter.PollHolder)rv.findViewHolderForAdapterPosition(poll_position)).checkSelected(true);
+                        currentPollPosition = poll_position;
+                        optionsLayout.setVisibility(View.VISIBLE);
                     }
                 }
                 return false;
@@ -459,7 +477,7 @@ public class PollActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 polls.add(dataSnapshot.getValue(Poll.class));
-                poll_adapter.notifyDataSetChanged();
+                pollsAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -469,9 +487,9 @@ public class PollActivity extends AppCompatActivity {
                 for(int i = 0; i<size; i++){
                     if(poll.getTitle().equals(polls.get(i).getTitle())){
                         polls.set(i,poll);
-                        poll_adapter.notifyDataSetChanged();
-                        if((!poll.isActive() || poll.hasUserVoted(auth_service.getCurrentUser().getUid())) && current_poll_position == i){
-                            show_details(poll);
+                        pollsAdapter.notifyDataSetChanged();
+                        if((!poll.isActive() || poll.hasUserVoted(authService.getCurrentUser().getUid())) && currentPollPosition == i){
+                            showDetails(poll);
                         }
                         return;
                     }
@@ -503,11 +521,11 @@ public class PollActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                if(auth_service != null){
+                if(authService != null){
                     Users user = dataSnapshot.getValue(Users.class);
-                    if(user.getUser_id().equals(auth_service.getCurrentUser().getUid())){
+                    if(user.getUser_id().equals(authService.getCurrentUser().getUid())){
                         if(user.isBanned()){
-                            auth_service.signOut();
+                            authService.signOut();
                             Toast.makeText(getApplicationContext(), getResources().getString(R.string.user_banned_message), Toast.LENGTH_SHORT).show();
                             finishAffinity();
                         }

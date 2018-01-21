@@ -47,9 +47,6 @@ public class PollsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return poll_list.size();
     }
 
-    public ArrayList<Poll> getPoll_list() {
-        return poll_list;
-    }
 
     public class PollHolder extends RecyclerView.ViewHolder{
 

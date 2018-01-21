@@ -31,7 +31,7 @@
             android:theme="@style/Theme.Design.NoActionBar" />
         <activity
             android:name=".Activities.AddChannelActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog.Alert" />
+            android:theme="@style/Theme.Design.Light.BottomSheetDialog" />
         <activity
             android:name=".Activities.ChatRoomActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar" />

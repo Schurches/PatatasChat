@@ -57,66 +57,46 @@
 
     <TextView
         android:id="@+id/profile_username"
-        android:text="@string/profile_username_template"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/profile_textView"
+        android:text="@string/profile_username_template" />
 
     <TextView
         android:id="@+id/profile_nick"
-        android:text="@string/profile_nick_template"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        style="@style/profile_textView"
+        android:text="@string/profile_nick_template" />
 
     <TextView
         android:id="@+id/profile_rank"
+        style="@style/profile_textView"
         android:text="@string/profile_rank_template"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+         />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="start"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/profile_email"
-            android:text="@string/profile_email_template"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="start"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_gravity="center"
+            style="@style/profile_textView"
+            android:text="@string/profile_email_template" />
 
         <EditText
             android:id="@+id/change_email"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:hint="@string/email_hint"
-            android:inputType="textEmailAddress"
-            android:textSize="12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/profile_editText"
             android:visibility="gone"/>
 
         <ImageButton
             android:id="@+id/change_email_button"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:background="@null"
             android:src="@drawable/ic_edit_24dp"/>
 
     </LinearLayout>
@@ -160,13 +140,8 @@
         android:gravity="center">
 
         <TextView
-            android:layout_gravity="start"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="@string/group_messages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            style="@style/profile_textView"
+            android:text="@string/group_messages" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -205,13 +180,8 @@
         android:gravity="center">
 
         <TextView
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="start"
-            android:text="@string/group_notification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            style="@style/profile_textView"
+            android:text="@string/group_notification" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -238,9 +208,8 @@
 
     <Button
         android:id="@+id/upload_button"
+        style="@style/login_and_register_button"
         android:text="@string/button_save"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_gravity="center"/>
 
 </LinearLayout>

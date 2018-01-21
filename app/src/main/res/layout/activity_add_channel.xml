@@ -4,49 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="@dimen/addChannel_layout_padding"
+    android:background="@color/color_Recycler"
     tools:context="com.example.steven.patataschat.Activities.AddChannelActivity">
-
-    <TextView
-        android:text="@string/chatChannel_label_name"
-        android:textSize="@dimen/addChannel_label_size"
-        android:layout_margin="@dimen/addChannel_margin_labels"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
 
     <EditText
         android:id="@+id/channel_title"
-        android:layout_width="match_parent"
-        android:layout_margin="@dimen/addChannel_margin_others"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:hint = "@string/chatChannel_name"
-        style = "@style/textfield_style"/>
+        style="@style/addChannel_editText" />
 
     <TextView
+        style="@style/addChannel_widgets"
         android:text="@string/chatChannel_label_icon"
-        android:textSize="@dimen/addChannel_label_size"
-        android:layout_margin="@dimen/addChannel_margin_labels"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="15sp" />
 
     <Spinner
         android:id="@+id/icon_selector_list"
-        android:layout_margin="@dimen/addChannel_margin_others"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
+        style="@style/addChannel_widgets" />
 
     <Button
         android:id="@+id/create_channel_button"
-        android:layout_marginVertical="@dimen/addChannel_margin_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/chatChannel_button_create"
-        style = "@style/button_style"
+        style = "@style/login_and_register_button"
+        android:text="@string/button_text_create"
         android:onClick="sendNewChannelDetails"/>
 
 </LinearLayout>

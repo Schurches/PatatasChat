@@ -14,17 +14,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.steven.patataschat.Adapters.MessagesAdapter;
-import com.example.steven.patataschat.Entities.IEmotionButton;
 import com.example.steven.patataschat.Entities.Messages;
 import com.example.steven.patataschat.Entities.Users;
 import com.example.steven.patataschat.R;
@@ -49,31 +46,32 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     public static final ArrayList<Users> ALL_USERS = new ArrayList<>();
     public static String CURRENT_CHAT_NAME;
+    /*Constants*/
+    private final ArrayList<Messages> last50Messages = new ArrayList<>();
     private final int GALLERY_PICK_CODE = 2;
     private final String IMAGES_STORAGE_BASE_ROUTE = "ImagesSent/";
-    private final int USER_MESSAGE_CODE = 0;
-    private final int ANNOUNCE_MESSAGE_CODE = 1;
     private final int IMAGE_MESSAGE_CODE = 2;
-    private int load_amount;
-    private int current_chat_icon;
+    /*Database and auth*/
+    private FirebaseUser currentUser;
+    private FirebaseAuth authentication_service;
     private DatabaseReference CHATROOM;
     private DatabaseReference usersReference;
-    private RecyclerView messages_view;
-    final ArrayList<Messages> last50Messages = new ArrayList<Messages>();
-    private MessagesAdapter adapter;
-    private ImageButton imageButton;
-    private ImageButton sendButton;
-    private ImageButton iEmotionsButton;
-    private EditText textfield;
-    private FirebaseUser current_user;
-    private FirebaseAuth authentication_service;
-    private MediaPlayer bubble_sound;
     private ChildEventListener childListener;
     private ChildEventListener usersChildListener;
     private ValueEventListener initialMessageLoadListener;
     private ValueEventListener usersValueListener;
-    private boolean wereAllMessagesLoaded;
+    /*Widgets*/
+    private RecyclerView messages_view;
     private Toolbar toolbar;
+    private MessagesAdapter adapter;
+    private ImageButton imageButton;
+    private ImageButton sendButton;
+    private ImageButton iEmotionsButton;
+    private EditText textField;
+    /*Variables*/
+    private int loadAmount;
+    private boolean wereAllMessagesLoaded;
+    private MediaPlayer bubble_sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,14 +84,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         imageButton = findViewById(R.id.more_opt_button);
         sendButton = findViewById(R.id.send_button);
         iEmotionsButton = findViewById(R.id.reactions_button);
-        textfield = findViewById(R.id.message_textfield);
-        textfieldTextChange();
+        textField = findViewById(R.id.message_textfield);
+        textFieldTextChange();
         authentication_service = FirebaseAuth.getInstance();
-        current_user = authentication_service.getCurrentUser();
+        currentUser = authentication_service.getCurrentUser();
         Bundle datos = getIntent().getExtras();
-        current_chat_icon = datos.getInt("chat_icon");
         CURRENT_CHAT_NAME = datos.getString("chat_name");
-        load_amount = datos.getInt("unread_count");
+        loadAmount = datos.getInt("unread_count");
         CHATROOM = FirebaseDatabase.getInstance().getReference(CURRENT_CHAT_NAME);
         usersReference = FirebaseDatabase.getInstance().getReference("users");
         iniUsersListener();
@@ -107,7 +104,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        Users u = obtainUser(current_user.getUid());
+        Users u = obtainUser(currentUser.getUid());
         if(u!=null){
             if(u.getRank() == 1){
                 menu.findItem(R.id.action_users).setVisible(false);
@@ -119,7 +116,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Users current = obtainUser(current_user.getUid());
+        Users current = obtainUser(currentUser.getUid());
         Intent iniActivity = null;
         switch(id){
             case R.id.action_poll:
@@ -135,8 +132,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void textfieldTextChange(){
-        this.textfield.addTextChangedListener(new TextWatcher() {
+    public void textFieldTextChange(){
+        this.textField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence string, int start, int count, int length) {
 
@@ -159,7 +156,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     }
 
     public void iniIEmotions(View view){
-        Users current = obtainUser(current_user.getUid());
+        Users current = obtainUser(currentUser.getUid());
         Intent iniIEmotionsActivity = new Intent(getApplicationContext(),IEmotionsActivity.class);
         iniIEmotionsActivity.putExtra("chat_name",CURRENT_CHAT_NAME);
         iniIEmotionsActivity.putExtra("user_name",current.getUsername());
@@ -168,7 +165,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     public void iniToolbar(){
         toolbar.setTitle(CURRENT_CHAT_NAME);
-        Users u = obtainUser(current_user.getUid());
+        Users u = obtainUser(currentUser.getUid());
         String text = String.format(getResources().getString(R.string.chatRoom_subtitle_template),u.getUsername());
         toolbar.setSubtitle(text);
         switch(u.getRank()){
@@ -176,49 +173,38 @@ public class ChatRoomActivity extends AppCompatActivity {
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_TRUSTED));
                 imageButton.setBackgroundTintList(getColorForElements(R.color.color_rank_TRUSTED));
                 sendButton.setBackgroundTintList(getColorForElements(R.color.color_rank_TRUSTED));
+                iEmotionsButton.setBackgroundTintList(getColorForElements(R.color.color_rank_TRUSTED));
                 break;
             case 3:
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_MOD));
                 imageButton.setBackgroundTintList(getColorForElements(R.color.color_rank_MOD));
                 sendButton.setBackgroundTintList(getColorForElements(R.color.color_rank_MOD));
+                iEmotionsButton.setBackgroundTintList(getColorForElements(R.color.color_rank_MOD));
                 break;
             case 4:
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_ADMIN));
                 imageButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ADMIN));
                 sendButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ADMIN));
+                iEmotionsButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ADMIN));
                 break;
             case 5:
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_ROOT));
                 imageButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ROOT));
                 sendButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ROOT));
+                iEmotionsButton.setBackgroundTintList(getColorForElements(R.color.color_rank_ROOT));
                 break;
             default:
                 toolbar.setBackgroundTintList(getColorForElements(R.color.color_rank_USER));
                 imageButton.setBackgroundTintList(getColorForElements(R.color.color_rank_USER));
                 sendButton.setBackgroundTintList(getColorForElements(R.color.color_rank_USER));
+                iEmotionsButton.setBackgroundTintList(getColorForElements(R.color.color_rank_USER));
+
                 break;
         }
     }
 
     public ColorStateList getColorForElements(int id){
         return ColorStateList.valueOf(ContextCompat.getColor(this,id));
-    }
-
-    public int obtainChatIcon(int iconID){
-        switch(iconID){
-            case 1:
-                return R.drawable.ic_chat_black_24dp;
-            case 2:
-                return R.drawable.ic_account_circle_black_24dp;
-            case 3:
-                return R.drawable.ic_iemotions_alert;
-            case 4:
-                return R.drawable.ic_iemotions_24dp;
-            case 5:
-                return R.drawable.ic_member_black_2_24dp;
-            default:
-                return R.drawable.ic_settings_applications_black_24dp;
-        }
     }
 
     private void iniValueListener(){
@@ -246,7 +232,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 if(message!=null){
                     int last_visible_position = ((LinearLayoutManager)messages_view.getLayoutManager()).findLastVisibleItemPosition();
                     int last_message_position = adapter.getItemCount()-1;
-                    Users u = obtainUser(current_user.getUid());
+                    Users u = obtainUser(currentUser.getUid());
                     boolean isCurrentUserTheSender = message.getUsername().equals(u.getUsername());
                     last50Messages.add(message);
                     adapter.notifyDataSetChanged();
@@ -288,15 +274,15 @@ public class ChatRoomActivity extends AppCompatActivity {
                 //When initial load finished
                 iniToolbar();
                 invalidateOptionsMenu();
-                int load = obtainUser(current_user.getUid()).getLoad_messages();
-                if(load_amount < load){
-                    load_Messages(load);
-                }else if(load_amount > load && load_amount <= 500){
-                    load_Messages(load_amount);
+                int load = obtainUser(currentUser.getUid()).getLoad_messages();
+                if(loadAmount < load){
+                    loadMessages(load);
+                }else if(loadAmount > load && loadAmount <= 500){
+                    loadMessages(loadAmount);
                 }else{
-                    load_Messages(load);
+                    loadMessages(load);
                 }
-                establishWritingAbilities(obtainUser(current_user.getUid()));
+                establishWritingAbilities(obtainUser(currentUser.getUid()));
                 adapter = new MessagesAdapter(last50Messages,getApplicationContext());
                 messages_view.setAdapter(adapter);
                 bubble_sound = MediaPlayer.create(getApplicationContext(),R.raw.message_bubble_sound);
@@ -312,14 +298,14 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     public void establishWritingAbilities(Users muted_user){
         boolean enable = muted_user.isMuted();
-        this.textfield.setEnabled(!enable);
+        this.textField.setEnabled(!enable);
         if(enable){
-            this.textfield.setHint(R.string.editText_hint_mute);
+            this.textField.setHint(R.string.editText_hint_mute);
             this.iEmotionsButton.setVisibility(View.GONE);
             this.sendButton.setVisibility(View.GONE);
             this.imageButton.setVisibility(View.GONE);
         }else{
-            this.textfield.setHint(R.string.editText_hint_normal);
+            this.textField.setHint(R.string.editText_hint_normal);
             this.iEmotionsButton.setVisibility(View.VISIBLE);
             this.sendButton.setVisibility(View.VISIBLE);
             this.imageButton.setVisibility(View.VISIBLE);
@@ -336,12 +322,12 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                if(current_user != null){ //if current user hasn't been banned
+                if(currentUser != null){ //if current user hasn't been banned
                     int size = ALL_USERS.size();
                     for(int i=0; i<size ; i++){
                         if(ALL_USERS.get(i).getUser_id().equals(dataSnapshot.getKey())){
                             Users changedUser = dataSnapshot.getValue(Users.class);
-                            if(changedUser.getUser_id().equals(current_user.getUid())){
+                            if(changedUser.getUser_id().equals(currentUser.getUid())){
                                 if(changedUser.isBanned()){
                                     authentication_service.signOut();
                                     Toast.makeText(getApplicationContext(),R.string.user_banned_message,Toast.LENGTH_SHORT).show();
@@ -383,7 +369,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         usersReference.addListenerForSingleValueEvent(this.usersValueListener);
     }
 
-    public ArrayList<Messages> load_Messages(int count){
+    public ArrayList<Messages> loadMessages(int count){
         iniChildListener();
         iniValueListener();
         CHATROOM.limitToLast(count).addChildEventListener(this.childListener);
@@ -411,30 +397,18 @@ public class ChatRoomActivity extends AppCompatActivity {
         return null;
     }
 
-    public void send_message(View view){
-        String text = textfield.getText().toString();
-        Users userInformation = obtainUser(current_user.getUid());
-        Date date = new Date();
-        addMessageInformation(text,userInformation,date,USER_MESSAGE_CODE);
-        textfield.setText("");
-    }
-
-    public void addMessageInformation(String text, Users user, Date date, int CODE){
+    public void sendMessage(View view){
+        String text = textField.getText().toString();
         if(!text.isEmpty() && !text.trim().isEmpty()){
-            String message_sent_date = getDateFormatted(date);
-            Messages newMessage = new Messages(user.getUsername(),text,message_sent_date,CODE);
-            String messageID = CHATROOM.push().getKey();
-            CHATROOM.child(messageID).setValue(newMessage);
+            Messages.sendMessage(text,
+                    obtainUser(currentUser.getUid()).getUsername(),
+                    Messages.getDateFormatted(new Date()),CURRENT_CHAT_NAME,0);
         }
+        textField.setText("");
     }
 
     public void uploadImage(View view){
-        select_image();
-    }
-
-    public String getDateFormatted(Date date){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        return dateFormat.format(date);
+        selectImage();
     }
 
     public String getDateForSentImage(Date date){
@@ -442,7 +416,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
-    public void select_image(){
+    public void selectImage(){
         Intent pickImageIntent = new Intent(Intent.ACTION_PICK);
         pickImageIntent.setType("image/+");
         startActivityForResult(pickImageIntent,GALLERY_PICK_CODE);
@@ -455,15 +429,15 @@ public class ChatRoomActivity extends AppCompatActivity {
         if(requestCode==GALLERY_PICK_CODE && resultCode==RESULT_OK){
             image_to_upload = data.getData();
             final Date date = new Date();
-            final Users current = obtainUser(current_user.getUid());
+            final String current = obtainUser(currentUser.getUid()).getUsername();
             final String route = IMAGES_STORAGE_BASE_ROUTE+
                     CURRENT_CHAT_NAME+"/"+
-                    current.getUsername()+"-"+getDateForSentImage(date);
+                    current+"-"+getDateForSentImage(date);
             StorageReference image = FirebaseStorage.getInstance().getReference().child(route);
             image.putFile(image_to_upload).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    addMessageInformation(route,current,date,IMAGE_MESSAGE_CODE);
+                    Messages.sendMessage(route,current,Messages.getDateFormatted(date),CURRENT_CHAT_NAME,IMAGE_MESSAGE_CODE);
                 }
             });
         }

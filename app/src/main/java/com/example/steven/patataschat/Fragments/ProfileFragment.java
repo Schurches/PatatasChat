@@ -298,6 +298,12 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        checkPosition(messages_group,-1);
+        checkPosition(notifications_group,-1);
+    }
 }
 
 
