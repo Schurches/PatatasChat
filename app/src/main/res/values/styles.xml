@@ -28,20 +28,20 @@
     <!--         Login and register             -->
 
     <style name="login_and_register_textfield" parent="app_editText">
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_margin">@dimen/login_and_register_textview_margin</item>
         <item name="android:textColor">@color/colorChatRoom_icons</item>
         <item name="android:textColorHint">@color/colorChatRoom_icons</item>
         <item name="android:backgroundTint">@color/colorChatRoom_icons</item>
     </style>
 
     <style name="login_and_register_button" parent="app_button">
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_margin">@dimen/login_and_register_button_margin</item>
     </style>
 
     <style name="login_and_register_layout_config">
         <item name="android:orientation">vertical</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">20dp</item>
+        <item name="android:padding">@dimen/login_and_register_layout_padding</item>
         <item name="android:background">@color/login_background</item>
     </style>
 
@@ -50,7 +50,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/login_and_register_textSize</item>
     </style>
 
     <style name="image_holder_config">
@@ -66,28 +66,35 @@
     </style>
 
     <style name="profile_pic_style" parent="image_holder_config">
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">@dimen/profile_pic_margins</item>
+        <item name="android:layout_marginBottom">@dimen/profile_pic_margins</item>
         <item name="android:background">@color/login_button</item>
     </style>
 
     <!-- Chat Room-->
 
     <style name="chatroom_icons_config">
-        <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">@dimen/chatRoom_icon_size</item>
+        <item name="android:layout_height">@dimen/chatRoom_icon_size</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginEnd">@dimen/chatRoom_icon_margin</item>
         <item name="android:backgroundTint">@color/colorPrimaryDark</item>
         <item name="android:visibility">gone</item>
     </style>
 
     <!--Add Channel-->
 
+    <style name="sheet_layout_style">
+        <item name="android:background">@color/color_Recycler</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/ban_addchannel_layout_padding</item>
+    </style>
+
     <style name="addChannel_widgets">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_margin">@dimen/addChannel_widget_margin</item>
         <item name="android:textAlignment">center</item>
     </style>
 
@@ -104,19 +111,19 @@
     <style name="management_editText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:layout_margin">@dimen/userManage_button_margin</item>
+        <item name="android:textSize">@dimen/login_and_register_textSize</item>
     </style>
 
     <style name="management_button" parent="app_button">
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_margin">@dimen/userManage_button_margin</item>
     </style>
 
     <!--Polls-->
 
     <style name="poll_editText" parent="app_editText">
-        <item name="android:textSize">15sp</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:textSize">@dimen/login_and_register_textSize</item>
+        <item name="android:layout_margin">@dimen/polls_textField_margin</item>
     </style>
 
     <style name="poll_option_editText">
@@ -124,9 +131,9 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:maxLines">1</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/login_and_register_textSize</item>
         <item name="android:inputType">textCapSentences</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_margin">@dimen/polls_textField_margin</item>
     </style>
 
     <style name="poll_option_imageButton">
@@ -140,50 +147,65 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
-        <item name="android:paddingStart">20dp</item>
-        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingTop">@dimen/poll_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/poll_padding_vertical</item>
+        <item name="android:paddingStart">@dimen/poll_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/poll_padding_horizontal</item>
     </style>
 
     <style name="poll_result_progress" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingStart">15dp</item>
-        <item name="android:paddingEnd">15dp</item>
+        <item name="android:paddingStart">@dimen/poll_result_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/poll_result_padding_horizontal</item>
     </style>
 
     <style name="poll_result_textView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">viewStart</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:textSize">@dimen/login_and_register_textSize</item>
+        <item name="android:layout_margin">@dimen/polls_textField_margin</item>
     </style>
 
     <!--Profile-->
 
     <style name="profile_widgets">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">10dp</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginStart">@dimen/profile_widget_margin_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/profile_widget_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/profile_widget_margin_vertical</item>
         <item name="android:layout_gravity">start</item>
     </style>
 
     <style name="profile_textView" parent="profile_widgets">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/login_and_register_textSize</item>
     </style>
 
     <style name="profile_editText" parent="profile_widgets">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:inputType">textEmailAddress</item>
         <item name="android:hint">@string/email_hint</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/login_and_register_textSize</item>
     </style>
 
+    <!--Ban-->
+    <style name="banned_textView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 
+    <style name="banned_title" parent="banned_textView">
+        <item name="android:textColor">@color/color_rank_ADMIN</item>
+        <item name="android:textSize">@dimen/banned_title_size</item>
+    </style>
+
+    <style name="banned_content" parent="banned_textView">
+        <item name="android:textSize">@dimen/login_and_register_textSize</item>
+        <item name="android:layout_margin">@dimen/profile_widget_margin_horizontal</item>
+    </style>
 
     <!--ANNOUNCE ITEM-->
 
@@ -208,15 +230,15 @@
     <style name="poll_item_widgets">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginBottom">@dimen/poll_item_margin</item>
     </style>
 
     <!--BUTTON ITEM-->
     <style name="button_item_padding">
-        <item name="android:paddingStart">40dp</item>
-        <item name="android:paddingEnd">40dp</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingStart">@dimen/iemotion_button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/iemotion_button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/iemotion_button_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/iemotion_button_padding_vertical</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

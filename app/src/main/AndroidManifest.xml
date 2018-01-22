@@ -3,7 +3,6 @@
     package="com.example.steven.patataschat">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -18,38 +17,48 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.LoginActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar">
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Activities.SignupActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.ChatInterfaceActivity"
-            android:theme="@style/Theme.Design.NoActionBar" />
+            android:theme="@style/Theme.Design.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.AddChannelActivity"
-            android:theme="@style/Theme.Design.Light.BottomSheetDialog" />
+            android:theme="@style/Theme.Design.Light.BottomSheetDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.ChatRoomActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar" />
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.ManageUserActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.BannedActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar" />
+            android:theme="@style/Theme.Design.Light.BottomSheetDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.IEmotionsActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.PollActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Activities.FullImageActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"/>
     </application>

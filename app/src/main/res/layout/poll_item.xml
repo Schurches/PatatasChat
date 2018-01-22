@@ -5,7 +5,7 @@
     android:id="@+id/card_background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/cardview_margin"
     app:contentPadding="10dp"
     app:cardElevation="2dp"
     app:cardBackgroundColor="@color/colorMessageSentOTHER">
@@ -25,7 +25,7 @@
             <TextView
                 android:id="@+id/poll_question"
                 style="@style/poll_item_widgets"
-                android:textSize="15sp"
+                android:textSize="@dimen/login_and_register_textSize"
                 />
 
             <TextView
@@ -40,7 +40,7 @@
             android:id="@+id/poll_voted_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="@dimen/cardview_margin"/>
 
     </LinearLayout>
 

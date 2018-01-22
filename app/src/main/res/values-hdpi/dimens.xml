@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">8dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -11,6 +13,11 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
 
+    <dimen name="login_and_register_textview_margin">10dp</dimen>
+    <dimen name="login_and_register_button_margin">10dp</dimen>
+    <dimen name="login_and_register_layout_padding">20dp</dimen>
+    <dimen name="login_and_register_textSize">15sp</dimen>
+    <dimen name="profile_pic_margins">10dp</dimen>
 
     <dimen name="chatList_SCROLL_vertical_margin">10dp</dimen>
     <dimen name="chatList_layout_margins">5dp</dimen>
@@ -29,15 +36,44 @@
     <dimen name="addChannel_margin_labels">5dp</dimen>
     <dimen name="addChannel_margin_others">10dp</dimen>
     <dimen name="addChannel_margin_button">20dp</dimen>
+    <dimen name="addChannel_widget_margin">10dp</dimen>
 
     <dimen name="chatRoom_message_left_Margin">5dp</dimen>
     <dimen name="chatRoom_username_size">68dp</dimen>
     <dimen name="chatRoom_profile_pic_size">48dp</dimen>
     <dimen name="chatRoom_parent_layout_padding">10dp</dimen>
     <dimen name="chatRoom_image_size">150dp</dimen>
+    <dimen name="chatRoom_icon_size">30dp</dimen>
+    <dimen name="chatRoom_icon_margin">5dp</dimen>
+    <dimen name="chatRoom_message_max_height">250dp</dimen>
 
+    <dimen name="userManage_button_margin">10dp</dimen>
+
+    <dimen name="ban_addchannel_layout_padding">20dp</dimen>
+
+    <dimen name="polls_textField_margin">5dp</dimen>
+    <dimen name="poll_padding_vertical">10dp</dimen>
+    <dimen name="poll_padding_horizontal">20dp</dimen>
+    <dimen name="poll_result_padding_horizontal">15dp</dimen>
+    <dimen name="poll_item_margin">5dp</dimen>
+    <dimen name="poll_layout_padding">20dp</dimen>
+
+    <dimen name="profile_widget_margin_vertical">5dp</dimen>
+    <dimen name="profile_widget_margin_horizontal">10dp</dimen>
+
+    <dimen name="banned_title_size">25sp</dimen>
+
+    <dimen name="iemotion_button_padding_vertical">5dp</dimen>
+    <dimen name="iemotion_button_padding_horizontal">40dp</dimen>
+    <dimen name="iemotion_prev_forw_width">30dp</dimen>
+    <dimen name="iemotion_preview_button_margin">20dp</dimen>
+
+
+    <dimen name="announce_margin">10dp</dimen>
     <dimen name="chat_bubble_radius">10dp</dimen>
+    <dimen name="cardview_margin">10dp</dimen>
 
 
     <integer name="ADD_NEW_CHANNEL_ID">1001</integer>
+
 </resources>

@@ -400,8 +400,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     public void sendMessage(View view){
         String text = textField.getText().toString();
         if(!text.isEmpty() && !text.trim().isEmpty()){
-            Messages.sendMessage(text,
-                    obtainUser(currentUser.getUid()).getUsername(),
+            Messages.sendMessage(obtainUser(currentUser.getUid()).getUsername(),
+                    text,
                     Messages.getDateFormatted(new Date()),CURRENT_CHAT_NAME,0);
         }
         textField.setText("");
@@ -458,6 +458,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         saveLastMessageOnDevice();
+        CURRENT_CHAT_NAME = "";
     }
 
     @Override

@@ -6,10 +6,13 @@
     <string name="email_hint">Email</string>
     <string name="field_empty_error">Required field</string>
     <string name="button_text_create">Create</string>
+    <string name="messages_count">You got %1$s new messages!</string>
+    <string name="message_copied">Message copied!</string>
     <!--                Login               -->
     <string name="login_button">Log In</string>
     <string name="success_login">Successfully logged in!</string>
     <string name="fail_login">Username and/or password are/is incorrect!</string>
+    <string name="login_already">You are already logged in</string>
     <!--                Register                -->
     <string name="name_length_min_error">At least 5 characters</string>
     <string name="name_length_max_error">No more than 12 characters</string>
@@ -141,6 +144,9 @@
     <string name="poll_option_5">Option 5</string>
     <string name="poll_vote">Vote</string>
     <string name="poll_created_announce">%1$s created the poll %2$s</string>
-
+    <!--                Bans               -->
+    <string name="ban_message">You have been banned!</string>
+    <string name="ban_giver_template">%1$s banned you</string>
+    <string name="ban_reason_template">Reason: %1$s</string>
 
 </resources>

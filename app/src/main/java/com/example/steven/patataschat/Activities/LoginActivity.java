@@ -1,5 +1,6 @@
 package com.example.steven.patataschat.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,9 +43,29 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         username = findViewById(R.id.user_field);
         password = findViewById(R.id.password_field);
-        authentication_service = FirebaseAuth.getInstance();
         ban_reference = FirebaseDatabase.getInstance().getReference("banned_list");
         iniUsersReference();
+        username.setEnabled(false);
+        password.setEnabled(false);
+    }
+
+    /**
+     *
+     * @param userID the banned user ID
+     * @return it must return null if the user is not banned. Otherwise, returns and instance of the
+     * banned template
+     */
+    public Banlist obtain_user(String userID){
+        for (Banlist b:ban_list) {
+            if(b.getUserID().equals(userID)){
+                return b;
+            }
+        }
+        return null;
+    }
+
+    public void iniAuthListener(){
+        authentication_service = FirebaseAuth.getInstance();
         as_listener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -65,21 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-    }
-
-    /**
-     *
-     * @param userID the banned user ID
-     * @return it must return null if the user is not banned. Otherwise, returns and instance of the
-     * banned template
-     */
-    public Banlist obtain_user(String userID){
-        for (Banlist b:ban_list) {
-            if(b.getUserID().equals(userID)){
-                return b;
-            }
-        }
-        return null;
+        authentication_service.addAuthStateListener(as_listener);
     }
 
     public void iniUsersReference(){
@@ -127,7 +134,9 @@ public class LoginActivity extends AppCompatActivity {
         ban_reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                int i = 3;
+                username.setEnabled(true);
+                password.setEnabled(true);
+                iniAuthListener();
             }
 
             @Override
@@ -164,29 +173,41 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void log_in(View view){
+        username.setEnabled(false);
+        password.setEnabled(false);
         String user = username.getText().toString();
         String pass = password.getText().toString();
         boolean validUser = isUsernameValid(user);
         boolean validPass = isPasswordValid(pass);
         if(validUser && validPass){
             user = user+"@gmail.com";
-            authentication_service.signInWithEmailAndPassword(user,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(!task.isSuccessful()){
-                        Toast.makeText(getApplicationContext(),R.string.fail_login,Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(),R.string.success_login,Toast.LENGTH_SHORT).show();
+            if(authentication_service.getCurrentUser() == null){
+                authentication_service.signInWithEmailAndPassword(user,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(!task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(),R.string.fail_login,Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(),R.string.success_login,Toast.LENGTH_SHORT).show();
+                            username.setText("");
+                            password.setText("");
+                        }
+                        username.setEnabled(true);
+                        password.setEnabled(true);
                     }
-                }
-            });
+                });
+            }else{
+                Toast.makeText(this, R.string.login_already, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        authentication_service.addAuthStateListener(as_listener);
+        if(as_listener != null){
+            authentication_service.addAuthStateListener(as_listener);
+        }
     }
 
     @Override

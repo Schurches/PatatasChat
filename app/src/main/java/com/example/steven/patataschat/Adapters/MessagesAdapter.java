@@ -1,18 +1,20 @@
 package com.example.steven.patataschat.Adapters;
 
 import android.app.ActionBar;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.steven.patataschat.Activities.ChatRoomActivity;
@@ -174,6 +176,15 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 this.LayoutMessage.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             }
             this.TYPE = Message_TYPE;
+            LayoutMessage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("link", SentMessage.getText());
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(context, R.string.message_copied, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         public void loadMessage(Messages message){

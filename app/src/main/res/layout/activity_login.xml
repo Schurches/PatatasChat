@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/group_logo"
-        android:src="@drawable/ic_account_circle_black_24dp"
+        android:src="@mipmap/ic_launcher"
         style="@style/logo_style" />
 
     <EditText

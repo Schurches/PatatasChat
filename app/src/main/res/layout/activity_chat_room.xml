@@ -33,7 +33,7 @@
             android:id="@+id/more_opt_button"
             style="@style/chatroom_icons_config"
             android:contentDescription="@string/contentDescription1"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="@dimen/chatRoom_icon_margin"
             android:background="@drawable/ic_image_black_24dp"
             android:onClick="uploadImage"/>
 
@@ -50,17 +50,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:maxHeight="250dp"
+            android:maxHeight="@dimen/chatRoom_message_max_height"
             android:enabled="false"
             android:hint="@string/editText_hint_normal"
-            android:inputType="textCapSentences"
+            android:inputType="textMultiLine|textCapSentences"
             android:background="@drawable/textbox_shape"/>
 
         <ImageButton
             android:id="@+id/send_button"
             android:contentDescription="@string/contentDescription2"
             style="@style/chatroom_icons_config"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="@dimen/chatRoom_icon_margin"
             android:background="@drawable/ic_send_black_24dp"
             android:onClick="sendMessage"/>
 

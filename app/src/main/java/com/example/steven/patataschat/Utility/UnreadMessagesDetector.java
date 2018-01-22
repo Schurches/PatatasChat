@@ -126,14 +126,14 @@ public class UnreadMessagesDetector {
     public void createBuilder(){
         String channel_ID = "notification_1";
         builder = new NotificationCompat.Builder(context,channel_ID);
-        builder.setSmallIcon(R.drawable.ic_chat_black_24dp);
+        builder.setSmallIcon(R.drawable.notification_icon);
         Intent iniActivity = new Intent(context, LoginActivity.class);
         TaskStackBuilder stack = TaskStackBuilder.create(context);
         stack.addParentStack(LoginActivity.class);
         stack.addNextIntent(iniActivity);
         PendingIntent pending = stack.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pending);
-        CharSequence name = "Patatas chat";
+        CharSequence name = context.getString(R.string.app_name);
         builder.setContentTitle(name);
         builder.setAutoCancel(true);
     }
@@ -146,7 +146,7 @@ public class UnreadMessagesDetector {
         for (int count:unreadCount) {
             total+=count;
         }
-        String description = "You got "+total+" new messages!";
+        String description = String.format(context.getString(R.string.messages_count),total);
         builder.setContentText(description);
         manager.notify(NOTIFICATION_ID,builder.build());
     }

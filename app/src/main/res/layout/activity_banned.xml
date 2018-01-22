@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style = "@style/sheet_layout_style"
     tools:context="com.example.steven.patataschat.Activities.BannedActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        style="@style/banned_title"
+        android:text="@string/ban_message"
+        />
+
+    <TextView
+        android:id="@+id/text_giver"
+        style = "@style/banned_content"
+        android:text="@string/ban_giver_template"
+        />
+
+    <TextView
+        android:id="@+id/text_reason"
+        style = "@style/banned_content"
+        android:text="@string/ban_reason_template"
+        />
+
+
+</LinearLayout>

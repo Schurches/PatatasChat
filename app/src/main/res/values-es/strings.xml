@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Patatas Chat</string>
+    <!--                General             -->
+    <string name="username_hint">Usuario</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="email_hint">Correo</string>
+    <string name="field_empty_error">Requerido</string>
+    <string name="button_text_create">Crear</string>
+    <string name="messages_count">Tienes %1$i nuevos paquetes!</string>
+    <string name="message_copied">Mensaje copiado!</string>
+    <!--                Login               -->
+    <string name="login_button">Entrar</string>
+    <string name="success_login">Te has logueado!</string>
+    <string name="fail_login">Usuario y/o contraseña esta(n) mal!</string>
+    <string name="login_already">Ya estas logueado</string>
+    <!--                Register                -->
+    <string name="name_length_min_error">Mínimo 5 caracteres</string>
+    <string name="name_length_max_error">Máximo 12 caracters</string>
+    <string name="email_error">Correo no valido</string>
+    <string name="select_image">Elegir foto de perfil</string>
+    <string name="sign_up_text">CREAR CUENTA</string>
+    <string name="sign_up_error">Ocurrio un error</string>
+    <string name="success_picture">Foto de perfil actualizada!</string>
+    <string name="sign_up_success">Cuenta creada satisfactoriamente!</string>
+    <string name="login_banned">Celular baneado. No puedes crear cuentas.</string>
+    <!--                Chat Channels               -->
+    <string name="tab_1">Canales</string>
+    <string name="tab_2">Perfil</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="first_channel">No hay canales, agrega uno.</string>
+    <string name="add_chat">Nuevo canal</string>
+    <string name="no_chats">No hay canales disponibles</string>
+    <!--                Add a channel               -->
+    <string name="chatChannel_name">Titulo del canal</string>
+    <string name="chatChannel_label_icon">Elije un icono</string>
+    <string name="chatChannel_new_added">Se ha creado un canal!</string>
+    <string name="icon_1">Mensaje</string>
+    <string name="icon_2">Perfil</string>
+    <string name="icon_3">Alerta</string>
+    <string name="icon_4">YES</string>
+    <string name="icon_5">Gente</string>
+    <!--                Profile             -->
+    <string name="profile_header">Perfil</string>
+    <string name="config_header">Configuracion</string>
+    <string name="group_messages">Mensajes a cargar</string>
+    <string name="option_1">20</string>
+    <string name="option_2">50 (default)</string>
+    <string name="option_3">100</string>
+    <string name="group_notification">Sonido de notificacion</string>
+    <string name="option_4">Celular</string>
+    <string name="option_5">App</string>
+    <string name="profile_username_template">Usuario: %1$s</string>
+    <string name="profile_nick_template">Apodo: %1$s</string>
+    <string name="profile_rank_template">Rango: %1$s</string>
+    <string name="profile_email_template">Correo: %1$s</string>
+    <string name="button_save">Actualizar</string>
+    <string name="note">Para ver los cambios en la foto debes limpiar la cache ( sorry )</string>
+    <string name="profile_update_success">Informacion actualizada!</string>
+    <!--                Chat room template                  -->
+    <string name="chatRoom_username">Bielostotzky</string>
+    <string name="chatRoom_date">20:55</string>
+    <string name="chatRoom_message">Yes!</string>
+    <string name="contentDescription1">add picture</string>
+    <string name="contentDescription2">send message</string>
+    <string name="editText_hint_normal">Escribe algo</string>
+    <string name="editText_hint_mute">Estas muteado globalmente</string>
+    <string name="chatRoom_subtitle_template">Bienvenido, <b>%1$s</b> </string>
+    <string name="chatRoom_action_poll">encuesta</string>
+    <string name="chatRoom_action_users">usuarios</string>
+    <!--                Manage users                -->
+    <string name="manage_error">Algo salio mal, reintentalo</string>
+    <!--Buttons-->
+    <string name="manage_button_nick">Apodo</string>
+    <string name="manage_button_rank">Rango</string>
+    <string name="manage_button_mute">Silenciar</string>
+    <string name="manage_button_un_mute">!Silenciar</string>
+    <string name="manage_button_ban">Ban</string>
+    <string name="manage_button_un_ban">Desban</string>
+    <string name="manage_button_change">Cambiar</string>
+    <string name="manage_button_confirm">YES</string>
+    <!--Ranks-->
+    <string name="manage_select_rank">Selecciona un rango</string>
+    <string name="manage_spinner_item_user">Usuario</string>
+    <string name="manage_spinner_item_trusted">El vale</string>
+    <string name="manage_spinner_item_mod">Moderador</string>
+    <string name="manage_spinner_item_admin">Admin</string>
+    <string name="manage_spinner_item_root">Root</string>
+    <string name="manage_change_rank_invalid">Solo puedes dar rangos por debajo del tuyo</string>
+    <string name="manage_notify_rank">%1$s lo %2$s a %3$s por %4$s!</string>
+    <string name="manage_promote">subieron</string>
+    <string name="manage_demote">bajaron</string>
+    <string name="manage_rank_success">Rango cambiado!</string>
+    <string name="manage_rank_failure">A lo bien?</string>
+    <!--Nicks-->
+    <string name="manage_username_name_empty">Selecciona un usuario</string>
+    <string name="manage_username_template">Usuario: %1$s</string>
+    <string name="manage_nickname_alert_size">No mas de %1$i caracteres. Tienes: %2$i</string>
+    <string name="manage_nickname_alert_invalid_char">Letras, numeros y ( ) : . _ , son los permitidos</string>
+    <string name="manage_nickname_changed_announce">%1$s apodó a %2$s como %3$s</string>
+    <string name="manage_nickname_success">Apodo cambiado!</string>
+    <!--Mute-->
+    <string name="manage_notify_mute">%1$s silenció %2$s</string>
+    <string name="manage_notify_un_mute">%1$s ya puede hablar</string>
+    <string name="manage_mute_success">Usuario silenciado!</string>
+    <string name="manage_un_mute_success">Usuario ya puede hablar!</string>
+    <string name="manage_unmute_failed">No te puedes desilenciar a ti mismo</string>
+    <!--Ban-->
+    <string name="manage_confirm_ban">Banear al cv de <b>%1$s</b>?</string>
+    <string name="manage_ban_reason_empty">Motivo</string>
+    <string name="manage_confirm_unban">Desbanear a <b>%1$s</b>?</string>
+    <string name="manage_ban_invalid">No puedes banear a alguien de rango mayor ;)</string>
+    <string name="manage_ban_success">Baneaste a %1$s</string>
+    <string name="manage_notify_ban">%1$s baneó a %2$s</string>
+    <string name="manage_notify_unban">%1$s fue desbaneado</string>
+    <string name="manage_unban_success">Usuario desbaneado!</string>
+    <string name="user_banned_message">¡Te banearon!</string>
+    <!--                IEmotions Activity              -->
+    <string name="IEmotions_muted">Si estas muteado no puedes usar los botones</string>
+    <string name="IEmotions_success">Nuevo boton agregado!</string>
+    <string name="IEmotions_created">Nuevo boton creado: %1$s</string>
+    <string name="IEmotions_hint">Titulo</string>
+    <string name="IEmotions_preview">Preview</string>
+    <string name="title_length_min_error">Mínimo 2 caracteres</string>
+    <string name="ImageButtonCD1">Previous 1</string>
+    <string name="ImageButtonCD2">Forward 1</string>
+    <string name="ImageButtonCD3">Previous 2</string>
+    <string name="ImageButtonCD4">Icon</string>
+    <string name="ImageButtonCD5">Forward 2</string>
+    <!--                Polls               -->
+    <string name="poll_active">ACTIVO</string>
+    <string name="poll_finish">TERMINADO</string>
+    <string name="poll_empty">Ninguna opcion debe estar vacia</string>
+    <string name="poll_minimum">Mínimo 2 opciones</string>
+    <string name="poll_max">No mas de 5 opciones</string>
+    <string name="poll_title_empty">No has puesto titulo</string>
+    <string name="poll_created">Nueva encuesta creada!</string>
+    <string name="poll_no_option">Elije una opcion!</string>
+    <string name="poll_select">Elije una encuesta</string>
+    <string name="poll_set_title">Pregunta algo</string>
+    <string name="poll_option_1">Opcion 1</string>
+    <string name="poll_option_2">Opcion 2</string>
+    <string name="poll_option_3">Opcion 3</string>
+    <string name="poll_option_4">Opcion 4</string>
+    <string name="poll_option_5">Opcion 5</string>
+    <string name="poll_vote">Votar</string>
+    <string name="poll_created_announce">%1$s creo la encuesta: %2$s</string>
+    <!--                Bans               -->
+    <string name="ban_message">¡Te han baneado!</string>
+    <string name="ban_giver_template">%1$s te baneó</string>
+    <string name="ban_reason_template">Razon: %1$s</string>
+
+</resources>

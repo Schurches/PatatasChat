@@ -545,7 +545,7 @@ public class ManageUserActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                if(current_user != null){
+                if(current_user.getCurrentUser() != null){
                     Users user = dataSnapshot.getValue(Users.class);
                     if(user.getUser_id().equals(current_user.getCurrentUser().getUid())){
                         if(user.isBanned()){

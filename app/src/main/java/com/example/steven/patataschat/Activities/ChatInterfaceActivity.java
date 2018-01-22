@@ -1,5 +1,6 @@
 package com.example.steven.patataschat.Activities;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
